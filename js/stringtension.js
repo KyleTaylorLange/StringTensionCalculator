@@ -69,7 +69,7 @@ class StringTension {
             string.shiftPitch(semitones);
         }
 
-        this.redrawStringTable("str_table");
+        this.redrawStringTable("str-table");
     }
 
     /**
@@ -101,6 +101,7 @@ class StringTension {
         let tr = document.createElement('tr');
         let th = [document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th')];
         
+        tr.classList.add('row-top')
         strTable.setAttribute("id", tableId);
 
         th[0].innerText = "String";
@@ -136,8 +137,10 @@ class StringTension {
      * @returns 
      */
     makeStringRow(number, string) {
+        // The calling object
         let caller = this;
 
+        // Creating our elements
         let tr = document.createElement('tr');
         let stringNum = document.createElement('td');
         let noteName = document.createElement('td');
@@ -146,29 +149,43 @@ class StringTension {
         let gauge = document.createElement('td');
         let tension = document.createElement('td');
 
+        let buttonContainer = document.createElement('div')
         let buttonPitchDown = document.createElement('button');
         let buttonPitchUp = document.createElement('button');
+
+        // Adding our classes to each table element
+        tr.classList.add('row')
+        stringNum.classList.add('string-num')
+        noteName.classList.add('note-name')
+        scaleLength.classList.add('scale-length')
+        stringType.classList.add('string-type')
+        gauge.classList.add('gauge')
+        tension.classList.add('tension')
+        buttonContainer.classList.add('note-buttons')
+        buttonPitchDown.classList.add('button-pitch-down')
+        buttonPitchUp.classList.add('button-pitch-up')
 
         stringNum.appendChild(document.createTextNode(number));
 
         // Write the note's name, but also create two buttons to change the individual string's pitch.
-        noteName.innerHTML = this.getNoteLetter(string.note) + "<sub>" + this.getNoteOctave(string.note) + "</sub>";
+        noteName.innerHTML = `<div class='note-inner'><span class='note-letter'>${this.getNoteLetter(string.note)}</span><sub class="note-octave">${this.getNoteOctave(string.note)}</sub></div>`;
 
         buttonPitchDown.innerHTML = '-';
         buttonPitchUp.innerHTML = '+';
 
         buttonPitchDown.onclick = function() {
             string.shiftPitch(-1);
-            caller.redrawStringTable('str_table');
+            caller.redrawStringTable('str-table');
         }
 
         buttonPitchUp.onclick = function() {
             string.shiftPitch(1);
-            caller.redrawStringTable('str_table');
+            caller.redrawStringTable('str-table');
         }
 
-        noteName.appendChild(buttonPitchDown);
-        noteName.appendChild(buttonPitchUp);
+        noteName.appendChild(buttonContainer)
+        buttonContainer.appendChild(buttonPitchDown);
+        buttonContainer.appendChild(buttonPitchUp);
 
         scaleLength.innerHTML = string.scale.toString() + "\"";
 

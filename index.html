@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"/>
     <script type="module" src="script.js"></script> 
     <title>String Tension Calculator</title>
 </head>
+
 <body>
-    <div>
+    <header class="header">
         <h1>String Tension Calculator</h1>
-        <div>
-            <label for="num_strings">Number of Strings:</label><br>
-            <input class="number-of-strings" type="number" id="num_strings" name="num_strings" min="6" max="8" value ="6"/></br>
-            <div id="str_table">
-                Table goes here.
-            </div>
-            <br>
+    </header>
+    <div class="main-container">
+        <div class="num-strings-container">
+            <label for="num-strings">Number of Strings:</label>
+            <input class="number-of-strings" type="number" id="num-strings" name="num-strings" min="6" max="8" value ="6"/>
+        </div>
+        <div class="str-table-container">
+            <table class="str-table" id="str-table">
+                <!-- Table contents to be rendered -->
+            </table>
+        </div>
+        <div class="button-pitches-container">
             <button class="button-pitches-down" type="button">Pitch -1</button>
             <button class="button-pitches-up" type="button">Pitch +1</button>
         </div>
     </div>
 </body>
+
 </html>

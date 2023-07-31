@@ -1,0 +1,103 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #008f7a;
+}
+@media only screen and (min-width: 1024px) {
+  body {
+    margin: 0 15%;
+  }
+}
+@media only screen and (max-width: 1023px) {
+  body {
+    margin: 0 2.5%;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  background-color: #255d55;
+  color: #effcf9;
+  border: 1px solid #f3eada;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.num-strings-container {
+  margin-bottom: 2.5rem;
+}
+.num-strings-container label {
+  color: #effcf9;
+  font-size: 1.6rem;
+}
+.num-strings-container input {
+  font-size: 1.6rem;
+}
+
+.str-table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.str-table-container #str-table {
+  width: 100%;
+  border-spacing: 0.7rem;
+  margin-bottom: 2.5rem;
+}
+.str-table-container #str-table .row-top th {
+  text-align: center;
+  text-justify: center;
+  color: #effcf9;
+  font-size: 1.6rem;
+}
+.str-table-container #str-table .row th {
+  text-align: center;
+  text-justify: center;
+  color: #effcf9;
+}
+.str-table-container #str-table .row td {
+  text-align: center;
+  text-justify: center;
+  background-color: #255d55;
+  color: #effcf9;
+  border: 1px solid #255d55;
+}
+.str-table-container #str-table .note-name {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.str-table-container #str-table .note-inner {
+  color: #effcf9;
+  font-weight: 600;
+}
+
+.button-pitches-container {
+  margin-bottom: 2.5rem;
+}
+.button-pitches-container .button-pitches-down,
+.button-pitches-container .button-pitches-up {
+  width: 100px;
+  height: 30px;
+}
+
+/*# sourceMappingURL=style.css.map */

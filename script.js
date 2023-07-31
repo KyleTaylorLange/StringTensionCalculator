@@ -13,7 +13,7 @@ window.onload = function() {
 
 	// Events
 	numberOfStringsInput.onchange = function() {
-		stringTension.makeStringTable('str_table','num_strings')
+		stringTension.makeStringTable('str-table','num-strings')
 	}
 
 	buttonPitchDown.onclick = function() {
@@ -24,5 +24,5 @@ window.onload = function() {
 		stringTension.shiftPitches(1)
 	}
 
-	stringTension.makeStringTable('str_table','num_strings')
+	stringTension.makeStringTable('str-table','num-strings')
 }
