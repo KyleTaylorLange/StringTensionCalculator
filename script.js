@@ -17,11 +17,11 @@ window.onload = function() {
 	}
 
 	buttonPitchDown.onclick = function() {
-		stringTension.shiftPitchDown()
+		stringTension.shiftPitchesDown()
 	}
 
 	buttonPitchUp.onclick = function() {
-		stringTension.shiftPitchUp()
+		stringTension.shiftPitchesUp()
 	}
 
 	stringTension.makeStringTable('str_table','num_strings')

@@ -42,7 +42,8 @@ class StringTension {
         return finalText;
     }
 
-    shiftPitch(semitones) {
+    // Shift every string's pitch.
+    shiftPitches(semitones) {
         for (let string of this.currentStrings) {
             string.note += semitones;
         }
@@ -50,12 +51,26 @@ class StringTension {
         this.redrawStringTable("str_table");
     }
 
-    shiftPitchUp() {
-        this.shiftPitch(1)
+    shiftPitchesUp() {
+        this.shiftPitches(1)
     }
 
-    shiftPitchDown() {
-        this.shiftPitch(-1)
+    shiftPitchesDown() {
+        this.shiftPitches(-1)
+    }
+
+    // Shift just one string's pitch.
+    shiftPitch(semitones, stringNum) {
+        this.currentStrings[stringNum].note += semitones;
+        redrawStringTable("str_table");
+    }
+
+    shiftPitchUp(stringNum) {
+        this.shiftPitch(1, stringNum);
+    }
+
+    shiftPitchDown(stringNum) {
+        this.shiftPitch(-1, stringNum);
     }
 
     makeStringTable(tableId, numberId) {
@@ -80,7 +95,6 @@ class StringTension {
         strTable.setAttribute("id", tableId);
         th[0].innerText = "String";
         th[1].innerText = "Note";
-        th[2].innerText = "Scale";
         th[2].innerText = "Scale (in)";
         th[3].innerText = "String Type";
         th[4].innerText = "Gauge";
@@ -116,6 +130,13 @@ class StringTension {
         stringNum.appendChild(document.createTextNode(number));
 
         noteName.innerHTML = this.getNoteLetter(string.note) + "<sub>" + this.getNoteOctave(string.note) + "</sub>";
+        let buttonPitchDown = document.createElement('button');
+        let buttonPitchUp = document.createElement('button');
+        buttonPitchDown.innerHTML = '-';
+        buttonPitchUp.innerHTML = '+';
+        // TODO: I want to call shiftPitchDown(number -1) and shiftPitchUp(number - 1) when those buttons are pressed.
+        noteName.appendChild(buttonPitchDown);
+        noteName.appendChild(buttonPitchUp);
 
         scaleLength.innerHTML = string.scale.toString() + "\"";
 
