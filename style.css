@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background-color: #008f7a;
+  background-color: #39867a;
 }
 @media only screen and (min-width: 1024px) {
   body {
@@ -24,7 +24,7 @@ body {
 button {
   cursor: pointer;
   background-color: #f0d19d;
-  border: 1px solid #008f7a;
+  border: 1px solid #39867a;
   color: #255d55;
   box-shadow: 0em 0em 0.5em #255d55;
 }

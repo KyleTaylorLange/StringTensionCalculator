@@ -1,5 +1,5 @@
 // Colour scheme
-$green-primary: #008f7a;
+$green-primary: #39867a;
 $green-secondary: #255d55;
 $grey-primary: #effcf9;
 $tan-primary: #f3eada;
@@ -46,7 +46,6 @@ html {
 
 body {
 	background-color: $green-primary;
-
 
 	@media only screen and (min-width: 1024px) {
 		margin: 0 15%;
