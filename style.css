@@ -21,6 +21,14 @@ body {
   }
 }
 
+button {
+  cursor: pointer;
+  background-color: #f0d19d;
+  border: 1px solid #008f7a;
+  color: #255d55;
+  box-shadow: 0em 0em 0.5em #255d55;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -30,7 +38,7 @@ body {
   margin-bottom: 2.5rem;
   background-color: #255d55;
   color: #effcf9;
-  border: 1px solid #f3eada;
+  border: 1px solid #f0d19d;
 }
 
 .main-container {
@@ -80,15 +88,21 @@ body {
   text-justify: center;
   background-color: #255d55;
   color: #effcf9;
-  border: 1px solid #255d55;
+  border: 1px solid #f0d19d;
 }
 .str-table-container #str-table .note-name {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.str-table-container #str-table .note-inner {
+.str-table-container #str-table .note-name .note-inner {
   color: #effcf9;
   font-weight: 600;
+}
+.str-table-container #str-table .note-name .note-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .button-pitches-container {

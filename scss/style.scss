@@ -3,6 +3,7 @@ $green-primary: #008f7a;
 $green-secondary: #255d55;
 $grey-primary: #effcf9;
 $tan-primary: #f3eada;
+$yellow-primary: #f0d19d;
 $white: #ffffff;
 $black: #000000;
 
@@ -56,6 +57,14 @@ body {
 	}
 }
 
+button {
+	cursor: pointer;
+	background-color: $yellow-primary;
+	border: 1px solid $green-primary;
+	color: $green-secondary;
+	box-shadow: 0em 0em 0.5em $green-secondary;
+}
+
 .header {
 	display: flex;
 	flex-direction: column;
@@ -66,7 +75,7 @@ body {
 
 	background-color: $green-secondary;
 	color: $grey-primary;
-	border: 1px solid $tan-primary;
+	border: 1px solid $yellow-primary;
 }
 
 .main-container {
@@ -123,17 +132,24 @@ body {
 				text-justify: center;	
 				background-color: $green-secondary;
 				color: $grey-primary;
-				border: 1px solid $green-secondary;
+				border: 1px solid $yellow-primary;
 			}
 		}
 
 		.note-name {
 			@include ptb-1();
-		}
-		
-		.note-inner {
-			color: $grey-primary;
-			font-weight: 600;
+
+			.note-inner {
+				color: $grey-primary;
+				font-weight: 600;
+			}
+
+			.note-buttons {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0.25rem;
+			}
 		}
 	}
 }
