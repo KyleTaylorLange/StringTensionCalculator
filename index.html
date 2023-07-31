@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/stringtension.js"></script>
+    <script type="module" src="script.js"></script> 
     <title>String Tension Calculator</title>
 </head>
 <body>
@@ -11,16 +11,14 @@
         <h1>String Tension Calculator</h1>
         <div>
             <label for="num_strings">Number of Strings:</label><br>
-            <input type="number" id="num_strings" name="num_strings" onchange="makeStringTable('str_table','num_strings')" min="6" max="8" value ="6"/></br>
+            <input class="number-of-strings" type="number" id="num_strings" name="num_strings" min="6" max="8" value ="6"/></br>
             <div id="str_table">
                 Table goes here.
             </div>
             <br>
-            <button type="button" onclick="shiftPitch(-1)">Pitch -1</button><button type="button" onclick="shiftPitch(1)">Pitch +1</button>
+            <button class="button-pitch-down" type="button">Pitch -1</button>
+            <button class="button-pitch-up" type="button">Pitch +1</button>
         </div>
     </div>
-    <script type="text/javascript">
-        makeStringTable('str_table','num_strings')
-    </script>
 </body>
 </html>
