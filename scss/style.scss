@@ -108,6 +108,7 @@ button {
 	#str-table {
 		width: 100%;
 		border-spacing: 0.7rem;
+		
 		@include mb-2-5();
 
 		.row-top {
