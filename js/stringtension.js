@@ -1,3 +1,5 @@
+import { StringState } from './stringstate.js'
+
 export { StringTension }
 
 /**
@@ -10,17 +12,17 @@ class StringTension {
         this.defaultStrings = [];
         this.currentStrings = [];
 
-        this.defaultStrings[0] = { note: 64, scale: 25.5, gauge: 10.0 };
-        this.defaultStrings[1] = { note: 59, scale: 25.5, gauge: 13.0 };
-        this.defaultStrings[2] = { note: 55, scale: 25.5, gauge: 17.0 };
-        this.defaultStrings[3] = { note: 50, scale: 25.5, gauge: 26.0 };
-        this.defaultStrings[4] = { note: 45, scale: 25.5, gauge: 36.0 };
-        this.defaultStrings[5] = { note: 40, scale: 25.5, gauge: 46.0 };
-        this.defaultStrings[6] = { note: 35, scale: 25.5, gauge: 59.0 };
-        this.defaultStrings[7] = { note: 30, scale: 25.5, gauge: 68.0 };
+        this.defaultStrings[0] = new StringState(64, 25.5); //{ note: 64, scale: 25.5, gauge: 10.0 };
+        this.defaultStrings[1] = new StringState(59, 25.5); //{ note: 59, scale: 25.5, gauge: 13.0 };
+        this.defaultStrings[2] = new StringState(55, 25.5); //{ note: 55, scale: 25.5, gauge: 17.0 };
+        this.defaultStrings[3] = new StringState(50, 25.5); //{ note: 50, scale: 25.5, gauge: 26.0 };
+        this.defaultStrings[4] = new StringState(45, 25.5); //{ note: 45, scale: 25.5, gauge: 36.0 };
+        this.defaultStrings[5] = new StringState(40, 25.5); //{ note: 40, scale: 25.5, gauge: 46.0 };
+        this.defaultStrings[6] = new StringState(35, 25.5); //{ note: 35, scale: 25.5, gauge: 59.0 };
+        this.defaultStrings[7] = new StringState(30, 25.5); //{ note: 30, scale: 25.5, gauge: 68.0 };
 
         for (let i = 0; i < 6; i++) {
-            this.currentStrings[i] = JSON.parse(JSON.stringify(this.defaultStrings[i]));
+            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale);
         }
     }
 
@@ -45,32 +47,10 @@ class StringTension {
     // Shift every string's pitch.
     shiftPitches(semitones) {
         for (let string of this.currentStrings) {
-            string.note += semitones;
+            string.shiftPitch(semitones);
         }
 
         this.redrawStringTable("str_table");
-    }
-
-    shiftPitchesUp() {
-        this.shiftPitches(1)
-    }
-
-    shiftPitchesDown() {
-        this.shiftPitches(-1)
-    }
-
-    // Shift just one string's pitch.
-    shiftPitch(semitones, stringNum) {
-        this.currentStrings[stringNum].note += semitones;
-        this.redrawStringTable("str_table");
-    }
-
-    shiftPitchUp(stringNum) {
-        this.shiftPitch(1, stringNum);
-    }
-
-    shiftPitchDown(stringNum) {
-        this.shiftPitch(-1, stringNum);
     }
 
     makeStringTable(tableId, numberId) {
@@ -81,7 +61,7 @@ class StringTension {
         this.currentStrings = [];
 
         for (let i = 0; i < numStrings; i++) {
-            this.currentStrings[i] = JSON.parse(JSON.stringify(this.defaultStrings[i]));
+            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale);
         }
 
         this.redrawStringTable(tableId);
@@ -137,10 +117,12 @@ class StringTension {
         buttonPitchDown.innerHTML = '-';
         buttonPitchUp.innerHTML = '+';
         buttonPitchDown.onclick = function() {
-            caller.shiftPitchDown(number - 1);
+            string.shiftPitch(-1);
+            caller.redrawStringTable('str_table');
         }
         buttonPitchUp.onclick = function() {
-            caller.shiftPitchUp(number - 1);
+            string.shiftPitch(1);
+            caller.redrawStringTable('str_table');
         }
         noteName.appendChild(buttonPitchDown);
         noteName.appendChild(buttonPitchUp);
