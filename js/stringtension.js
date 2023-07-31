@@ -81,6 +81,7 @@ class StringTension {
         th[0].innerText = "String";
         th[1].innerText = "Note";
         th[2].innerText = "Scale";
+        th[2].innerText = "Scale (in)";
         th[3].innerText = "String Type";
         th[4].innerText = "Gauge";
         th[5].innerText = "Tension";
