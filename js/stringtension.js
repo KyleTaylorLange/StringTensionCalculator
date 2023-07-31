@@ -27,24 +27,43 @@ class StringTension {
     }
 
 
-    /* MIDI notes: 0 is C-1, 127 is G9. */
+    /**
+     * Gets note octave. MIDI notes: 0 is C-1, 127 is G9.
+     * 
+     * @param {*} midiNote 
+     * @returns 
+     */
     getNoteOctave(midiNote) {
         return Math.floor((midiNote / 12) -1);
     }
 
+    /**
+     * Gets note letter.
+     * 
+     * @param {*} midiNote 
+     * @returns 
+     */
     getNoteLetter(midiNote) {
         let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
         return notes[(midiNote % 12)];
     }
 
+    /**
+     * Returns the note letter concatenated with the octave.
+     * 
+     * @param {*} midiNote 
+     * @returns 
+     */
     noteToText(midiNote) {
-        let finalText = this.getNoteLetter(midiNote) + this.getNoteOctave(midiNote);
-
-        return finalText;
+        return this.getNoteLetter(midiNote) + this.getNoteOctave(midiNote);
     }
 
-    // Shift every string's pitch.
+    /**
+     * Shift every string's pitch.
+     * 
+     * @param {*} semitones 
+     */
     shiftPitches(semitones) {
         for (let string of this.currentStrings) {
             string.shiftPitch(semitones);
@@ -53,11 +72,16 @@ class StringTension {
         this.redrawStringTable("str_table");
     }
 
+    /**
+     * Clears the old table and re-renders a new one.
+     * 
+     * @param {*} tableId 
+     * @param {*} numberId 
+     */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
 
-        // Currently just clear the old table and replace it with a new one.
-        // TODO: keep current strings.
+        // TODO: Keep current strings.
         this.currentStrings = [];
 
         for (let i = 0; i < numStrings; i++) {
@@ -67,12 +91,18 @@ class StringTension {
         this.redrawStringTable(tableId);
     }
 
+    /**
+     * Re-renders the guitar string table.
+     * 
+     * @param {*} tableId 
+     */
     redrawStringTable(tableId) {
         let strTable = document.createElement('table');
         let tr = document.createElement('tr');
         let th = [document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th')];
         
         strTable.setAttribute("id", tableId);
+
         th[0].innerText = "String";
         th[1].innerText = "Note";
         th[2].innerText = "Scale (in)";
@@ -98,7 +128,16 @@ class StringTension {
         //document.getElementById(tableId).appendChild(strTable);
     }
 
+    /**
+     * Makes a row for a guitar string.
+     * 
+     * @param {*} number 
+     * @param {*} string 
+     * @returns 
+     */
     makeStringRow(number, string) {
+        let caller = this;
+
         let tr = document.createElement('tr');
         let stringNum = document.createElement('td');
         let noteName = document.createElement('td');
@@ -107,23 +146,27 @@ class StringTension {
         let gauge = document.createElement('td');
         let tension = document.createElement('td');
 
+        let buttonPitchDown = document.createElement('button');
+        let buttonPitchUp = document.createElement('button');
+
         stringNum.appendChild(document.createTextNode(number));
 
         // Write the note's name, but also create two buttons to change the individual string's pitch.
         noteName.innerHTML = this.getNoteLetter(string.note) + "<sub>" + this.getNoteOctave(string.note) + "</sub>";
-        let buttonPitchDown = document.createElement('button');
-        let buttonPitchUp = document.createElement('button');
-        let caller = this;
+
         buttonPitchDown.innerHTML = '-';
         buttonPitchUp.innerHTML = '+';
+
         buttonPitchDown.onclick = function() {
             string.shiftPitch(-1);
             caller.redrawStringTable('str_table');
         }
+
         buttonPitchUp.onclick = function() {
             string.shiftPitch(1);
             caller.redrawStringTable('str_table');
         }
+
         noteName.appendChild(buttonPitchDown);
         noteName.appendChild(buttonPitchUp);
 
