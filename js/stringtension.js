@@ -62,7 +62,7 @@ class StringTension {
     // Shift just one string's pitch.
     shiftPitch(semitones, stringNum) {
         this.currentStrings[stringNum].note += semitones;
-        redrawStringTable("str_table");
+        this.redrawStringTable("str_table");
     }
 
     shiftPitchUp(stringNum) {
@@ -129,12 +129,19 @@ class StringTension {
 
         stringNum.appendChild(document.createTextNode(number));
 
+        // Write the note's name, but also create two buttons to change the individual string's pitch.
         noteName.innerHTML = this.getNoteLetter(string.note) + "<sub>" + this.getNoteOctave(string.note) + "</sub>";
         let buttonPitchDown = document.createElement('button');
         let buttonPitchUp = document.createElement('button');
+        let caller = this;
         buttonPitchDown.innerHTML = '-';
         buttonPitchUp.innerHTML = '+';
-        // TODO: I want to call shiftPitchDown(number -1) and shiftPitchUp(number - 1) when those buttons are pressed.
+        buttonPitchDown.onclick = function() {
+            caller.shiftPitchDown(number - 1);
+        }
+        buttonPitchUp.onclick = function() {
+            caller.shiftPitchUp(number - 1);
+        }
         noteName.appendChild(buttonPitchDown);
         noteName.appendChild(buttonPitchUp);
 
