@@ -1,4 +1,4 @@
-export {StringState};
+export { StringState };
 
 /**
  * Represents the state of a string on an instrument.
