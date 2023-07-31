@@ -8,8 +8,8 @@ window.onload = function() {
 
 	// Some of our elements to be used
 	let numberOfStringsInput = document.getElementsByClassName("number-of-strings")[0]
-	let buttonPitchDown = document.getElementsByClassName("button-pitch-down")[0]
-	let buttonPitchUp = document.getElementsByClassName("button-pitch-up")[0]
+	let buttonPitchDown = document.getElementsByClassName("button-pitches-down")[0]
+	let buttonPitchUp = document.getElementsByClassName("button-pitches-up")[0]
 
 	// Events
 	numberOfStringsInput.onchange = function() {
@@ -17,11 +17,11 @@ window.onload = function() {
 	}
 
 	buttonPitchDown.onclick = function() {
-		stringTension.shiftPitchesDown()
+		stringTension.shiftPitches(-1)
 	}
 
 	buttonPitchUp.onclick = function() {
-		stringTension.shiftPitchesUp()
+		stringTension.shiftPitches(1)
 	}
 
 	stringTension.makeStringTable('str_table','num_strings')
