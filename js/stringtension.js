@@ -27,7 +27,6 @@ class StringTension {
         }
     }
 
-
     /**
      * Gets note octave. MIDI notes: 0 is C-1, 127 is G9.
      * 
