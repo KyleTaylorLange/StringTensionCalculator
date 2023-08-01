@@ -4,6 +4,7 @@ $green-secondary: #255d55;
 $grey-primary: #effcf9;
 $tan-primary: #f3eada;
 $yellow-primary: #f0d19d;
+$yellow-hover: #c29861;
 $white: #ffffff;
 $black: #000000;
 
@@ -63,6 +64,11 @@ button {
 	font-family: 'Exo', sans-serif;
 	color: $green-secondary;
 	box-shadow: 0em 0em 0.5em $green-secondary;
+
+	&:hover {
+		background-color: $yellow-hover;
+		filter: brightness(1.1)
+	}
 }
 
 .header {
@@ -156,6 +162,10 @@ button {
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+
+				button {
+					width: 25px;
+				}
 			}
 		}
 	}

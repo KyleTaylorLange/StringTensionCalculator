@@ -29,6 +29,10 @@ button {
   color: #255d55;
   box-shadow: 0em 0em 0.5em #255d55;
 }
+button:hover {
+  background-color: #c29861;
+  filter: brightness(1.1);
+}
 
 .header {
   display: flex;
@@ -109,6 +113,9 @@ button {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
+}
+.str-table-container #str-table .note-name .note-buttons button {
+  width: 25px;
 }
 
 .button-pitches-container {

@@ -100,7 +100,7 @@ class StringTension {
         let strTable = document.createElement('table');
         let tr = document.createElement('tr');
 
-        let tableHeaderCellArray = [
+        let tableHeaderCells = [
             document.createElement('th'), 
             document.createElement('th'), 
             document.createElement('th'), 
@@ -112,15 +112,15 @@ class StringTension {
         tr.classList.add('row-top')
         strTable.setAttribute("id", tableId);
 
-        tableHeaderCellArray[0].innerText = "String";
-        tableHeaderCellArray[1].innerText = "Note";
-        tableHeaderCellArray[2].innerText = "Scale (in)";
-        tableHeaderCellArray[3].innerText = "String Type";
-        tableHeaderCellArray[4].innerText = "Gauge";
-        tableHeaderCellArray[5].innerText = "Tension";
+        tableHeaderCells[0].innerText = "String";
+        tableHeaderCells[1].innerText = "Note";
+        tableHeaderCells[2].innerText = "Scale (in)";
+        tableHeaderCells[3].innerText = "String Type";
+        tableHeaderCells[4].innerText = "Gauge";
+        tableHeaderCells[5].innerText = "Tension";
 
-        for (let heading of tableHeaderCellArray) {
-            tr.appendChild(heading)
+        for (let headerCell of tableHeaderCells) {
+            tr.appendChild(headerCell)
         }
 
         strTable.appendChild(tr);
@@ -158,7 +158,7 @@ class StringTension {
         let noteInner = Utilities.createElement('div', 'note-inner')
         let noteLetter = Utilities.createElement('span', 'note-letter', this.getNoteLetter(string.note))
         let noteOctave = Utilities.createElement('sub', 'note-octave', this.getNoteOctave(string.note))
-        let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString())
+        let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString() + '"')
         let stringType = Utilities.createElement('td', 'string-type', 'TODO')
         let gauge = Utilities.createElement('td', 'gauge', string.gauge) // NOTE: string.gauge is undefined
         let tension = Utilities.createElement('td', 'tension', 'TODO')
