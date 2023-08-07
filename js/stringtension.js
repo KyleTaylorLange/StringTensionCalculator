@@ -182,19 +182,21 @@ class StringTension {
             caller.redrawStringTable('str-table');
         }
 
-        // Adding our fields to the row
+        // Adding each field to the row, as well as the `note-inner` element to the 'Note' field
         for (let field of fields) {
             if (field.classList.contains('note-name')) {
                 field.appendChild(noteInner)
-                noteInner.appendChild(noteLetter)
-                noteInner.appendChild(noteOctave)
-                noteName.appendChild(buttonContainer)
-                buttonContainer.appendChild(buttonPitchDown);
-                buttonContainer.appendChild(buttonPitchUp);
             }
 
             tr.appendChild(field)
         }
+
+        // Adding the data and buttons to the 'Note' field
+        noteInner.appendChild(noteLetter)
+        noteInner.appendChild(noteOctave)
+        noteName.appendChild(buttonContainer)
+        buttonContainer.appendChild(buttonPitchDown);
+        buttonContainer.appendChild(buttonPitchUp);
 
         return tr;
     }
