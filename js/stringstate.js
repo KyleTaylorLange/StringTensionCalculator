@@ -1,4 +1,4 @@
-export {StringState};
+export { StringState };
 
 /**
  * Represents the state of a string on an instrument.
@@ -10,10 +10,23 @@ class StringState {
         this.scale = scale;
     }
 
+    /**
+     * Shifts the string's pitch by a defined number of semitones.
+     * 
+     * TODO: define/utilize stringNum.
+     * 
+     * @param {*} semitones 
+     * @param {*} stringNum 
+     */
     shiftPitch(semitones, stringNum) {
         this.note += semitones;
     }
 
+    /**
+     * Sets the string scale length.
+     * 
+     * @param {*} scale 
+     */
     setScaleLength(scale) {
         this.scale = scale;
     }

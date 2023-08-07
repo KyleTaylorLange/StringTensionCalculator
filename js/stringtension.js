@@ -1,3 +1,4 @@
+import { Utilities } from './utilities.js'
 import { StringState } from './stringstate.js'
 
 export { StringTension }
@@ -25,7 +26,6 @@ class StringTension {
             this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale);
         }
     }
-
 
     /**
      * Gets note octave. MIDI notes: 0 is C-1, 127 is G9.
@@ -69,7 +69,7 @@ class StringTension {
             string.shiftPitch(semitones);
         }
 
-        this.redrawStringTable("str_table");
+        this.redrawStringTable("str-table");
     }
 
     /**
@@ -99,19 +99,28 @@ class StringTension {
     redrawStringTable(tableId) {
         let strTable = document.createElement('table');
         let tr = document.createElement('tr');
-        let th = [document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th'), document.createElement('th')];
+
+        let tableHeaderCells = [
+            document.createElement('th'), 
+            document.createElement('th'), 
+            document.createElement('th'), 
+            document.createElement('th'), 
+            document.createElement('th'), 
+            document.createElement('th')
+        ];
         
+        tr.classList.add('row-top')
         strTable.setAttribute("id", tableId);
 
-        th[0].innerText = "String";
-        th[1].innerText = "Note";
-        th[2].innerText = "Scale (in)";
-        th[3].innerText = "String Type";
-        th[4].innerText = "Gauge";
-        th[5].innerText = "Tension";
+        tableHeaderCells[0].innerText = "String";
+        tableHeaderCells[1].innerText = "Note";
+        tableHeaderCells[2].innerText = "Scale (in)";
+        tableHeaderCells[3].innerText = "String Type";
+        tableHeaderCells[4].innerText = "Gauge";
+        tableHeaderCells[5].innerText = "Tension";
 
-        for (let heading of th) {
-            tr.appendChild(heading);
+        for (let headerCell of tableHeaderCells) {
+            tr.appendChild(headerCell)
         }
 
         strTable.appendChild(tr);
@@ -136,54 +145,58 @@ class StringTension {
      * @returns 
      */
     makeStringRow(number, string) {
+        // The calling object
         let caller = this;
 
-        let tr = document.createElement('tr');
-        let stringNum = document.createElement('td');
-        let noteName = document.createElement('td');
-        let scaleLength = document.createElement('td');
-        let stringType = document.createElement('td');
-        let gauge = document.createElement('td');
-        let tension = document.createElement('td');
+        // Array that will hold our fields/columns
+        let fields = []
 
-        let buttonPitchDown = document.createElement('button');
-        let buttonPitchUp = document.createElement('button');
+        // Creating our elements with their respective class names
+        let tr = Utilities.createElement('tr', 'row')
+        let stringNum = Utilities.createElement('td', 'string-num')
+        let noteName = Utilities.createElement('td', 'note-name')
+        let noteInner = Utilities.createElement('div', 'note-inner')
+        let noteLetter = Utilities.createElement('span', 'note-letter', this.getNoteLetter(string.note))
+        let noteOctave = Utilities.createElement('sub', 'note-octave', this.getNoteOctave(string.note))
+        let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString() + '"')
+        let stringType = Utilities.createElement('td', 'string-type', 'TODO')
+        let gauge = Utilities.createElement('td', 'gauge', string.gauge) // NOTE: string.gauge is undefined
+        let tension = Utilities.createElement('td', 'tension', 'TODO')
+
+        // Pushing the elements that constitute our fields (the columns)
+        fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
+
+        let buttonContainer = Utilities.createElement('div', 'note-buttons')
+        let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-')
+        let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
 
         stringNum.appendChild(document.createTextNode(number));
 
-        // Write the note's name, but also create two buttons to change the individual string's pitch.
-        noteName.innerHTML = this.getNoteLetter(string.note) + "<sub>" + this.getNoteOctave(string.note) + "</sub>";
-
-        buttonPitchDown.innerHTML = '-';
-        buttonPitchUp.innerHTML = '+';
-
         buttonPitchDown.onclick = function() {
             string.shiftPitch(-1);
-            caller.redrawStringTable('str_table');
+            caller.redrawStringTable('str-table');
         }
 
         buttonPitchUp.onclick = function() {
             string.shiftPitch(1);
-            caller.redrawStringTable('str_table');
+            caller.redrawStringTable('str-table');
         }
 
-        noteName.appendChild(buttonPitchDown);
-        noteName.appendChild(buttonPitchUp);
+        // Adding each field to the row, as well as the `note-inner` element to the 'Note' field
+        for (let field of fields) {
+            if (field.classList.contains('note-name')) {
+                field.appendChild(noteInner)
+            }
 
-        scaleLength.innerHTML = string.scale.toString() + "\"";
+            tr.appendChild(field)
+        }
 
-        stringType.innerHTML = "TODO";
-
-        gauge.innerHTML = string.gauge;
-
-        tension.innerHTML = "TODO";
-
-        tr.appendChild(stringNum);
-        tr.appendChild(noteName);
-        tr.appendChild(scaleLength);
-        tr.appendChild(stringType);
-        tr.appendChild(gauge);
-        tr.appendChild(tension);
+        // Adding the data and buttons to the 'Note' field
+        noteInner.appendChild(noteLetter)
+        noteInner.appendChild(noteOctave)
+        noteName.appendChild(buttonContainer)
+        buttonContainer.appendChild(buttonPitchDown);
+        buttonContainer.appendChild(buttonPitchUp);
 
         return tr;
     }

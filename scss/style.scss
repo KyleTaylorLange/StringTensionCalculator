@@ -1,0 +1,183 @@
+// Colour scheme
+$green-primary: #4f7771;
+$green-secondary: #255d55;
+$grey-primary: #effcf9;
+$tan-primary: #f3eada;
+$yellow-primary: #f0d19d;
+$yellow-hover: #c29861;
+$white: #ffffff;
+$black: #000000;
+
+// Mixins
+@mixin mt-1 {
+	margin-top: 1rem;
+}
+
+@mixin mt-2-5 {
+	margin-top: 2.5rem;
+}
+
+@mixin mb-1 {
+	margin-bottom: 1rem;
+}
+
+@mixin mb-2-5 {
+	margin-bottom: 2.5rem;
+}
+
+@mixin mtb-2-5 {
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
+}
+
+@mixin ptb-1 {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+// Main styles
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+	font-size: 10px; // 10px === 1rem, use rem primarily
+	font-family: 'Exo', sans-serif;
+}
+
+body {
+	background-color: $green-primary;
+
+	@media only screen and (min-width: 1024px) {
+		margin: 0 15%;
+	}
+
+	@media only screen and (max-width: 1023px) {
+		margin: 0 2.5%;
+	}
+}
+
+button {
+	cursor: pointer;
+	background-color: $yellow-primary;
+	border: 1px solid $green-primary;
+	font-family: 'Exo', sans-serif;
+	color: $green-secondary;
+	box-shadow: 0em 0em 0.5em $green-secondary;
+
+	&:hover {
+		background-color: $yellow-hover;
+		filter: brightness(1.1)
+	}
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	@include mtb-2-5();
+
+	font-family: 'Rubik Mono One', sans-serif;
+	background-color: $green-secondary;
+	color: $grey-primary;
+	border: 1px solid $yellow-primary;
+}
+
+.main-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.4rem;
+}
+
+.num-strings-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2.5rem;
+
+	@include mb-2-5();
+
+	label {
+		color: $grey-primary;
+		font-size: 1.6rem;
+	}
+
+	input {
+		font-size: 1.6rem;
+	}
+}
+
+.str-table-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	#str-table {
+		width: 100%;
+		border-spacing: 0.7rem;
+
+		@include mb-2-5();
+
+		.row-top {
+			th {
+				text-align: center;
+				text-justify: center;
+				color: $grey-primary;
+				font-size: 1.6rem;
+			}
+
+		}
+
+		.row {
+			th {
+				text-align: center;
+				text-justify: center;
+				color: $grey-primary;
+			}
+
+			td {
+				text-align: center;
+				text-justify: center;	
+				background-color: $green-secondary;
+				color: $grey-primary;
+				border: 1px solid $yellow-primary;
+			}
+		}
+
+		.note-name {
+			@include ptb-1();
+
+			.note-inner {
+				color: $grey-primary;
+				font-weight: 600;
+			}
+
+			.note-buttons {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0.25rem;
+
+				button {
+					width: 25px;
+				}
+			}
+		}
+	}
+}
+
+.button-pitches-container {
+	@include mb-2-5();
+
+	.button-pitches-down,
+	.button-pitches-up {
+		width: 100px;
+		height: 30px;
+	}
+}
