@@ -5,9 +5,10 @@ export { StringState };
  */
 class StringState {
 
-    constructor(note, scale) {
+    constructor(note, scale, stringInfo) {
         this.note = note;
         this.scale = scale;
+        this.stringInfo = stringInfo;
     }
 
     /**

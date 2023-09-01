@@ -1,5 +1,6 @@
 import { Utilities } from './utilities.js'
 import { StringState } from './stringstate.js'
+import { StringInfo } from './stringinfo.js'
 
 export { StringTension }
 
@@ -13,17 +14,17 @@ class StringTension {
         this.defaultStrings = [];
         this.currentStrings = [];
 
-        this.defaultStrings[0] = new StringState(64, 25.5); //{ note: 64, scale: 25.5, gauge: 10.0 };
-        this.defaultStrings[1] = new StringState(59, 25.5); //{ note: 59, scale: 25.5, gauge: 13.0 };
-        this.defaultStrings[2] = new StringState(55, 25.5); //{ note: 55, scale: 25.5, gauge: 17.0 };
-        this.defaultStrings[3] = new StringState(50, 25.5); //{ note: 50, scale: 25.5, gauge: 26.0 };
-        this.defaultStrings[4] = new StringState(45, 25.5); //{ note: 45, scale: 25.5, gauge: 36.0 };
-        this.defaultStrings[5] = new StringState(40, 25.5); //{ note: 40, scale: 25.5, gauge: 46.0 };
-        this.defaultStrings[6] = new StringState(35, 25.5); //{ note: 35, scale: 25.5, gauge: 59.0 };
-        this.defaultStrings[7] = new StringState(30, 25.5); //{ note: 30, scale: 25.5, gauge: 68.0 };
+        this.defaultStrings[0] = new StringState(64, 25.5, new StringInfo(Utilities.getStringWeightTablePL()['weights'][0.010])); //{ note: 64, scale: 25.5, gauge: 10.0 };
+        this.defaultStrings[1] = new StringState(59, 25.5, new StringInfo(Utilities.getStringWeightTablePL()['weights'][0.013])); //{ note: 59, scale: 25.5, gauge: 13.0 };
+        this.defaultStrings[2] = new StringState(55, 25.5, new StringInfo(Utilities.getStringWeightTablePL()['weights'][0.017])); //{ note: 55, scale: 25.5, gauge: 17.0 };
+        this.defaultStrings[3] = new StringState(50, 25.5, new StringInfo(Utilities.getStringWeightTableNW()['weights'][0.026])); //{ note: 50, scale: 25.5, gauge: 26.0 };
+        this.defaultStrings[4] = new StringState(45, 25.5, new StringInfo(Utilities.getStringWeightTableNW()['weights'][0.036])); //{ note: 45, scale: 25.5, gauge: 36.0 };
+        this.defaultStrings[5] = new StringState(40, 25.5, new StringInfo(Utilities.getStringWeightTableNW()['weights'][0.046])); //{ note: 40, scale: 25.5, gauge: 46.0 };
+        this.defaultStrings[6] = new StringState(35, 25.5, new StringInfo(Utilities.getStringWeightTableNW()['weights'][0.059])); //{ note: 35, scale: 25.5, gauge: 59.0 };
+        this.defaultStrings[7] = new StringState(30, 25.5, new StringInfo(Utilities.getStringWeightTableNW()['weights'][0.072])); //{ note: 30, scale: 25.5, gauge: 68.0 };
 
         for (let i = 0; i < 6; i++) {
-            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale);
+            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
         }
     }
 
@@ -85,7 +86,7 @@ class StringTension {
         this.currentStrings = [];
 
         for (let i = 0; i < numStrings; i++) {
-            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale);
+            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
         }
 
         this.redrawStringTable(tableId);
@@ -149,7 +150,7 @@ class StringTension {
         let caller = this;
 
         // Array that will hold our fields/columns
-        let fields = []
+        let fields = [];
 
         // Creating our elements with their respective class names
         let tr = Utilities.createElement('tr', 'row')
@@ -161,7 +162,7 @@ class StringTension {
         let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString() + '"')
         let stringType = Utilities.createElement('td', 'string-type', 'TODO')
         let gauge = Utilities.createElement('td', 'gauge', string.gauge) // NOTE: string.gauge is undefined
-        let tension = Utilities.createElement('td', 'tension', 'TODO')
+        let tension = Utilities.createElement('td', 'tension', this.calculateStringTension(string))
 
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
@@ -199,5 +200,20 @@ class StringTension {
         buttonContainer.appendChild(buttonPitchUp);
 
         return tr;
+    }
+
+    /**
+     * Calculates the tension of the string.
+     * @param {StringState} string
+     * @returns {*} the calculated tension of the string
+     */
+    calculateStringTension(string) {
+        // Test code to calculate note frequency.
+        let note = string.note;
+        let frequency = Math.pow(2, (note - 69) / 12) * 440.0;
+        let unitWeight = string.stringInfo.unitWeight;
+        let scaleLength = string.scale;
+        let tension = (unitWeight * Math.pow((2 * scaleLength * frequency), 2)) / 386.4;
+        return tension;
     }
 }
