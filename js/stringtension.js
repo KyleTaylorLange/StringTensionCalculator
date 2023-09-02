@@ -1,6 +1,6 @@
 import { Utilities } from './utilities.js'
 import { StringState } from './stringstate.js'
-import { StringInfo } from './stringinfo.js'
+import { StringInfo, StringCollection } from './stringinfo.js'
 
 export { StringTension }
 
@@ -14,14 +14,14 @@ class StringTension {
         this.defaultStrings = [];
         this.currentStrings = [];
 
-        this.defaultStrings[0] = new StringState(64, 25.5, Utilities.getStringWeightTablePL()['weights'][0.010]); //{ note: 64, scale: 25.5, gauge: 10.0 };
-        this.defaultStrings[1] = new StringState(59, 25.5, Utilities.getStringWeightTablePL()['weights'][0.013]); //{ note: 59, scale: 25.5, gauge: 13.0 };
-        this.defaultStrings[2] = new StringState(55, 25.5, Utilities.getStringWeightTablePL()['weights'][0.017]); //{ note: 55, scale: 25.5, gauge: 17.0 };
-        this.defaultStrings[3] = new StringState(50, 25.5, Utilities.getStringWeightTableNW()['weights'][0.026]); //{ note: 50, scale: 25.5, gauge: 26.0 };
-        this.defaultStrings[4] = new StringState(45, 25.5, Utilities.getStringWeightTableNW()['weights'][0.036]); //{ note: 45, scale: 25.5, gauge: 36.0 };
-        this.defaultStrings[5] = new StringState(40, 25.5, Utilities.getStringWeightTableNW()['weights'][0.046]); //{ note: 40, scale: 25.5, gauge: 46.0 };
-        this.defaultStrings[6] = new StringState(35, 25.5, Utilities.getStringWeightTableNW()['weights'][0.059]); //{ note: 35, scale: 25.5, gauge: 59.0 };
-        this.defaultStrings[7] = new StringState(30, 25.5, Utilities.getStringWeightTableNW()['weights'][0.072]); //{ note: 30, scale: 25.5, gauge: 68.0 };
+        this.defaultStrings[0] = new StringState(64, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.010));
+        this.defaultStrings[1] = new StringState(59, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.013));
+        this.defaultStrings[2] = new StringState(55, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.017));
+        this.defaultStrings[3] = new StringState(50, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.026));
+        this.defaultStrings[4] = new StringState(45, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.036));
+        this.defaultStrings[5] = new StringState(40, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.046));
+        this.defaultStrings[6] = new StringState(35, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.059));
+        this.defaultStrings[7] = new StringState(30, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.072));
 
         for (let i = 0; i < 6; i++) {
             this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
@@ -160,8 +160,8 @@ class StringTension {
         let noteLetter = Utilities.createElement('span', 'note-letter', this.getNoteLetter(string.note))
         let noteOctave = Utilities.createElement('sub', 'note-octave', this.getNoteOctave(string.note))
         let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString() + '"')
-        let stringType = Utilities.createElement('td', 'string-type', 'TODO')
-        let gauge = Utilities.createElement('td', 'gauge', string.stringInfo.gauge) // NOTE: string.gauge is undefined
+        let stringType = Utilities.createElement('td', 'string-type', string.stringInfo.collection.brand + " " + string.stringInfo.collection.type);
+        let gauge = Utilities.createElement('td', 'gauge', (string.stringInfo.gauge * 1000));
         let tension = Utilities.createElement('td', 'tension', this.calculateStringTension(string))
 
         // Pushing the elements that constitute our fields (the columns)
@@ -170,6 +170,10 @@ class StringTension {
         let buttonContainer = Utilities.createElement('div', 'note-buttons')
         let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-')
         let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
+
+        let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
+        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge-decrease', '-');
+        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge-increase', '+');
 
         stringNum.appendChild(document.createTextNode(number));
 
@@ -180,6 +184,22 @@ class StringTension {
 
         buttonPitchUp.onclick = function() {
             string.shiftPitch(1);
+            caller.redrawStringTable('str-table');
+        }
+
+        buttonGaugeDecrease.onclick = function() {
+            let lighterGauge = string.stringInfo.collection.getPreviousString(string.stringInfo);
+            if (lighterGauge != undefined) {
+                string.stringInfo = lighterGauge;
+            }
+            caller.redrawStringTable('str-table');
+        }
+
+        buttonGaugeIncrease.onclick = function() {
+            let heavierGauge = string.stringInfo.collection.getNextString(string.stringInfo);
+            if (heavierGauge != undefined) {
+                string.stringInfo = heavierGauge;
+            }
             caller.redrawStringTable('str-table');
         }
 
@@ -198,6 +218,10 @@ class StringTension {
         noteName.appendChild(buttonContainer)
         buttonContainer.appendChild(buttonPitchDown);
         buttonContainer.appendChild(buttonPitchUp);
+
+        gauge.appendChild(gaugeContainer);
+        gaugeContainer.appendChild(buttonGaugeDecrease);
+        gaugeContainer.appendChild(buttonGaugeIncrease);
 
         return tr;
     }
