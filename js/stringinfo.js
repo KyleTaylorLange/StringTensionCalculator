@@ -5,7 +5,8 @@ export { StringInfo };
  */
 class StringInfo {
 
-    constructor(unitWeight) {
+    constructor(gauge, unitWeight) {
+        this.gauge = gauge;
         this.unitWeight = unitWeight;
     }
 
