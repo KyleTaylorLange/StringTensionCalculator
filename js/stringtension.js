@@ -204,6 +204,7 @@ class StringTension {
 
     /**
      * Calculates the tension of the string.
+     * 
      * @param {StringState} string
      * @returns {*} the calculated tension of the string
      */
@@ -214,6 +215,7 @@ class StringTension {
         let unitWeight = string.stringInfo.unitWeight;
         let scaleLength = string.scale;
         let tension = (unitWeight * Math.pow((2 * scaleLength * frequency), 2)) / 386.4;
-        return tension;
+
+        return tension.toFixed(2);
     }
 }
