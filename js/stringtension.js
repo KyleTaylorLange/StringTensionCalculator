@@ -21,7 +21,7 @@ class StringTension {
         this.defaultStrings[4] = new StringState(45, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.036));
         this.defaultStrings[5] = new StringState(40, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.046));
         this.defaultStrings[6] = new StringState(35, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.059));
-        this.defaultStrings[7] = new StringState(30, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.072));
+        this.defaultStrings[7] = new StringState(30, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.074));
 
         for (let i = 0; i < 6; i++) {
             this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
@@ -115,7 +115,7 @@ class StringTension {
 
         tableHeaderCells[0].innerText = "String";
         tableHeaderCells[1].innerText = "Note";
-        tableHeaderCells[2].innerText = "Scale (in)";
+        tableHeaderCells[2].innerText = "Scale";
         tableHeaderCells[3].innerText = "String Type";
         tableHeaderCells[4].innerText = "Gauge";
         tableHeaderCells[5].innerText = "Tension";
@@ -159,7 +159,7 @@ class StringTension {
         let noteInner = Utilities.createElement('div', 'note-inner')
         let noteLetter = Utilities.createElement('span', 'note-letter', this.getNoteLetter(string.note))
         let noteOctave = Utilities.createElement('sub', 'note-octave', this.getNoteOctave(string.note))
-        let scaleLength = Utilities.createElement('td', 'scale-length', string.scale.toString() + '"')
+        let scaleLength = Utilities.createElement('td', 'scale-length');
         let stringType = Utilities.createElement('td', 'string-type', string.stringInfo.collection.brand + " " + string.stringInfo.collection.type);
         let gauge = Utilities.createElement('td', 'gauge', (string.stringInfo.gauge * 1000));
         let tension = Utilities.createElement('td', 'tension', this.calculateStringTension(string))
@@ -170,6 +170,49 @@ class StringTension {
         let buttonContainer = Utilities.createElement('div', 'note-buttons')
         let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-')
         let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
+
+        let scaleLengthBox = Utilities.createElement('input', 'scale-length');
+        scaleLengthBox.type = "text";
+        scaleLengthBox.value = string.scale.toString() + '"';
+        // TODO: Make more efficient and eventually split into smaller functions.
+        scaleLengthBox.onchange = function() {
+            let inputScale = scaleLengthBox.value.trim();
+            // Temp: convert from mm to inches.
+            let convertFromMillimeters = inputScale.substring(inputScale.length - 2) == "mm";
+            // Easter Egg: convert feet to inches if a single tick is input.
+            let convertFromFeet = inputScale.charAt(inputScale.length - 1) == '\'';
+            // Trim out units from string.
+            if (inputScale.charAt(inputScale.length - 1) == '"'  || convertFromFeet) {
+                inputScale = inputScale.substring(0, inputScale.length - 1);
+            }
+            else if (convertFromMillimeters) {
+                inputScale = inputScale.substring(0, inputScale.length - 2).trim();
+            }
+            // Attempt to convert to number.
+            inputScale = Number.parseFloat(inputScale);
+            // If it is a number, go ahead and set the scale and redraw the table.
+            if (typeof inputScale == 'number' && Number.isFinite(inputScale)) {
+                console.log("InputScale:", inputScale);
+                if (convertFromFeet) {
+                    inputScale *= 12;
+                    console.log("InputScale FT:", inputScale);
+                }
+                if (convertFromMillimeters) {
+                    // TODO: a smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
+                    inputScale /= 25.4;
+                    console.log("InputScale MM:", inputScale);
+                }
+                console.log("InputScale:", inputScale);
+                string.scale = inputScale;
+                caller.redrawStringTable('str-table');
+            }
+            // If it is not a number, just return the original value.
+            else {
+                scaleLengthBox.value = string.scale + "\"";
+            }
+        }
+        scaleLength.appendChild(scaleLengthBox);
+
 
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
         let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge-decrease', '-');
