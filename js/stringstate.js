@@ -31,4 +31,21 @@ class StringState {
     setScaleLength(scale) {
         this.scale = scale;
     }
+
+    /**
+     * Calculates the tension of the string.
+     * 
+     * @param {StringState} string
+     * @returns {*} the calculated tension of the string
+     */
+    calculateStringTension() {
+        // Test code to calculate note frequency.
+        let note = this.note;
+        let frequency = Math.pow(2, (note - 69) / 12) * 440.0;
+        let unitWeight = this.stringInfo.unitWeight;
+        let scaleLength = this.scale;
+        let tension = (unitWeight * Math.pow((2 * scaleLength * frequency), 2)) / 386.4;
+
+        return tension.toFixed(2);
+    }
 }

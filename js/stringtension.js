@@ -1,6 +1,6 @@
-import { Utilities, Note } from './utilities.js'
-import { StringState } from './stringstate.js'
-import { StringInfo, StringCollection } from './stringinfo.js'
+import { Utilities } from './utilities.js'
+import { Note } from './note.js'
+import { StringTable } from './stringtable.js'
 
 export { StringTension }
 
@@ -10,22 +10,7 @@ export { StringTension }
 class StringTension {
     
     constructor() {
-        // Start with standard tuning.
-        this.defaultStrings = [];
-        this.currentStrings = [];
-
-        this.defaultStrings[0] = new StringState(64, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.010));
-        this.defaultStrings[1] = new StringState(59, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.013));
-        this.defaultStrings[2] = new StringState(55, 25.5, Utilities.getStringWeightTablePL().getStringByGauge(0.017));
-        this.defaultStrings[3] = new StringState(50, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.026));
-        this.defaultStrings[4] = new StringState(45, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.036));
-        this.defaultStrings[5] = new StringState(40, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.046));
-        this.defaultStrings[6] = new StringState(35, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.059));
-        this.defaultStrings[7] = new StringState(30, 25.5, Utilities.getStringWeightTableNW().getStringByGauge(0.074));
-
-        for (let i = 0; i < 6; i++) {
-            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
-        }
+        this.stringTable = new StringTable();
     }
 
     /**
@@ -34,10 +19,7 @@ class StringTension {
      * @param {*} semitones 
      */
     shiftPitches(semitones) {
-        for (let string of this.currentStrings) {
-            string.shiftPitch(semitones);
-        }
-
+        this.stringTable.shiftPitches(semitones);
         this.redrawStringTable("str-table");
     }
 
@@ -49,14 +31,7 @@ class StringTension {
      */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-
-        // TODO: Keep current strings.
-        this.currentStrings = [];
-
-        for (let i = 0; i < numStrings; i++) {
-            this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
-        }
-
+        this.stringTable.setNumStrings(numStrings);
         this.redrawStringTable(tableId);
     }
 
@@ -95,8 +70,8 @@ class StringTension {
         strTable.appendChild(tr);
 
         // Add string rows.
-        for (let i = 0; i < this.currentStrings.length; i++) {
-            let strRow = this.makeStringRow(i + 1, this.currentStrings[i]);
+        for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
             strTable.appendChild(strRow);
         }
 
@@ -110,7 +85,7 @@ class StringTension {
      * Makes a row for a guitar string.
      * 
      * @param {*} number 
-     * @param {*} string 
+     * @param {StringState} string 
      * @returns 
      */
     makeStringRow(number, string) {
@@ -130,7 +105,7 @@ class StringTension {
         let scaleLength = Utilities.createElement('td', 'scale-length');
         let stringType = Utilities.createElement('td', 'string-type', string.stringInfo.collection.brand + " " + string.stringInfo.collection.type);
         let gauge = Utilities.createElement('td', 'gauge', (string.stringInfo.gauge * 1000));
-        let tension = Utilities.createElement('td', 'tension', this.calculateStringTension(string))
+        let tension = Utilities.createElement('td', 'tension', string.calculateStringTension());
 
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
@@ -235,22 +210,5 @@ class StringTension {
         gaugeContainer.appendChild(buttonGaugeIncrease);
 
         return tr;
-    }
-
-    /**
-     * Calculates the tension of the string.
-     * 
-     * @param {StringState} string
-     * @returns {*} the calculated tension of the string
-     */
-    calculateStringTension(string) {
-        // Test code to calculate note frequency.
-        let note = string.note;
-        let frequency = Math.pow(2, (note - 69) / 12) * 440.0;
-        let unitWeight = string.stringInfo.unitWeight;
-        let scaleLength = string.scale;
-        let tension = (unitWeight * Math.pow((2 * scaleLength * frequency), 2)) / 386.4;
-
-        return tension.toFixed(2);
     }
 }
