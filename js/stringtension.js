@@ -1,4 +1,4 @@
-import { Utilities } from './utilities.js'
+import { Utilities, Note } from './utilities.js'
 import { StringState } from './stringstate.js'
 import { StringInfo, StringCollection } from './stringinfo.js'
 
@@ -26,38 +26,6 @@ class StringTension {
         for (let i = 0; i < 6; i++) {
             this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
         }
-    }
-
-    /**
-     * Gets note octave. MIDI notes: 0 is C-1, 127 is G9.
-     * 
-     * @param {*} midiNote 
-     * @returns 
-     */
-    getNoteOctave(midiNote) {
-        return Math.floor((midiNote / 12) -1);
-    }
-
-    /**
-     * Gets note letter.
-     * 
-     * @param {*} midiNote 
-     * @returns 
-     */
-    getNoteLetter(midiNote) {
-        let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-
-        return notes[(midiNote % 12)];
-    }
-
-    /**
-     * Returns the note letter concatenated with the octave.
-     * 
-     * @param {*} midiNote 
-     * @returns 
-     */
-    noteToText(midiNote) {
-        return this.getNoteLetter(midiNote) + this.getNoteOctave(midiNote);
     }
 
     /**
@@ -157,8 +125,8 @@ class StringTension {
         let stringNum = Utilities.createElement('td', 'string-num')
         let noteName = Utilities.createElement('td', 'note-name')
         let noteInner = Utilities.createElement('div', 'note-inner')
-        let noteLetter = Utilities.createElement('span', 'note-letter', this.getNoteLetter(string.note))
-        let noteOctave = Utilities.createElement('sub', 'note-octave', this.getNoteOctave(string.note))
+        let noteLetter = Utilities.createElement('span', 'note-letter', Note.getNoteLetter(string.note))
+        let noteOctave = Utilities.createElement('sub', 'note-octave', Note.getNoteOctave(string.note))
         let scaleLength = Utilities.createElement('td', 'scale-length');
         let stringType = Utilities.createElement('td', 'string-type', string.stringInfo.collection.brand + " " + string.stringInfo.collection.type);
         let gauge = Utilities.createElement('td', 'gauge', (string.stringInfo.gauge * 1000));
