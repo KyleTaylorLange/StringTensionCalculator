@@ -61,10 +61,11 @@ class StringTable {
         }
 
         if (numStrings > this.currentStrings.length) {
-            // TODO: Keep current strings.
-            this.currentStrings = [];
-
-            for (let i = 0; i < numStrings; i++) {
+            // TODO: if the number of requested strings is longer than the defaultStrings, just keep duplicating the last one.
+            // Additional idea: instead of taking the pitch from the defaultStrings, predict the subsequent pitch.
+            //   For guitar/bass this would just be the current pitch - 5., for mandolin it'd be - 7.
+            //   Though it could be coded to handle weird intervals (e.g. the 4-semitones between string 2 and 3 on guitar).
+            for (let i = this.currentStrings.length; i < numStrings; i++) {
                 this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].stringInfo);
             }
         }
