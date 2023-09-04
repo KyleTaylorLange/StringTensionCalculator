@@ -16,7 +16,7 @@ class StringTension {
     /**
      * Shift every string's pitch.
      * 
-     * @param {*} semitones 
+     * @param {number} semitones 
      */
     shiftPitches(semitones) {
         this.stringTable.shiftPitches(semitones);
@@ -26,11 +26,12 @@ class StringTension {
     /**
      * Clears the old table and re-renders a new one.
      * 
-     * @param {*} tableId 
-     * @param {*} numberId 
+     * @param {string} tableId 
+     * @param {string} numberId 
      */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
+
         this.stringTable.setNumStrings(numStrings);
         this.redrawStringTable(tableId);
     }
@@ -38,7 +39,7 @@ class StringTension {
     /**
      * Re-renders the guitar string table.
      * 
-     * @param {*} tableId 
+     * @param {string} tableId 
      */
     redrawStringTable(tableId) {
         let strTable = document.createElement('table');
@@ -72,23 +73,23 @@ class StringTension {
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
             let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
+
             strTable.appendChild(strRow);
         }
 
         let tableElem = document.getElementById(tableId);
 
         tableElem.parentNode.replaceChild(strTable, tableElem);
-        //document.getElementById(tableId).appendChild(strTable);
     }
 
     /**
      * Makes a row for a guitar string.
      * 
-     * @param {*} number 
-     * @param {StringState} string 
-     * @returns 
+     * @param {number} num
+     * @param {StringState} str
+     * @returns {any} A string table row (tr).
      */
-    makeStringRow(number, string) {
+    makeStringRow(num, str) {
         // The calling object
         let caller = this;
 
@@ -100,12 +101,12 @@ class StringTension {
         let stringNum = Utilities.createElement('td', 'string-num')
         let noteName = Utilities.createElement('td', 'note-name')
         let noteInner = Utilities.createElement('div', 'note-inner')
-        let noteLetter = Utilities.createElement('span', 'note-letter', Note.getNoteLetter(string.note))
-        let noteOctave = Utilities.createElement('sub', 'note-octave', Note.getNoteOctave(string.note))
+        let noteLetter = Utilities.createElement('span', 'note-letter', Note.getNoteLetter(str.note))
+        let noteOctave = Utilities.createElement('sub', 'note-octave', Note.getNoteOctave(str.note))
         let scaleLength = Utilities.createElement('td', 'scale-length');
-        let stringType = Utilities.createElement('td', 'string-type', string.stringInfo.collection.brand + " " + string.stringInfo.collection.type);
-        let gauge = Utilities.createElement('td', 'gauge', (string.stringInfo.gauge * 1000));
-        let tension = Utilities.createElement('td', 'tension', string.calculateStringTension());
+        let stringType = Utilities.createElement('td', 'string-type', str.stringInfo.collection.brand + " " + str.stringInfo.collection.type);
+        let gauge = Utilities.createElement('td', 'gauge', (str.stringInfo.gauge * 1000));
+        let tension = Utilities.createElement('td', 'tension', str.calculateStringTension());
 
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
@@ -115,15 +116,20 @@ class StringTension {
         let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
 
         let scaleLengthBox = Utilities.createElement('input', 'scale-length');
+
         scaleLengthBox.type = "text";
-        scaleLengthBox.value = string.scale.toString() + '"';
+        scaleLengthBox.value = str.scale.toString() + '"';
+
         // TODO: Make more efficient and eventually split into smaller functions.
         scaleLengthBox.onchange = function() {
             let inputScale = scaleLengthBox.value.trim();
+
             // Temp: convert from mm to inches.
             let convertFromMillimeters = inputScale.substring(inputScale.length - 2) == "mm";
+
             // Easter Egg: convert feet to inches if a single tick is input.
             let convertFromFeet = inputScale.charAt(inputScale.length - 1) == '\'';
+
             // Trim out units from string.
             if (inputScale.charAt(inputScale.length - 1) == '"'  || convertFromFeet) {
                 inputScale = inputScale.substring(0, inputScale.length - 1);
@@ -131,61 +137,64 @@ class StringTension {
             else if (convertFromMillimeters) {
                 inputScale = inputScale.substring(0, inputScale.length - 2).trim();
             }
+            
             // Attempt to convert to number.
             inputScale = Number.parseFloat(inputScale);
+
             // If it is a number, go ahead and set the scale and redraw the table.
             if (typeof inputScale == 'number' && Number.isFinite(inputScale)) {
-                console.log("InputScale:", inputScale);
                 if (convertFromFeet) {
                     inputScale *= 12;
-                    console.log("InputScale FT:", inputScale);
                 }
                 if (convertFromMillimeters) {
-                    // TODO: a smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
+                    // TODO: A smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
                     inputScale /= 25.4;
-                    console.log("InputScale MM:", inputScale);
                 }
-                console.log("InputScale:", inputScale);
-                string.scale = inputScale;
+
+                str.scale = inputScale;
                 caller.redrawStringTable('str-table');
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = string.scale + "\"";
+                scaleLengthBox.value = str.scale + "\"";
             }
         }
-        scaleLength.appendChild(scaleLengthBox);
 
+        scaleLength.appendChild(scaleLengthBox);
 
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
         let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge-decrease', '-');
         let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge-increase', '+');
 
-        stringNum.appendChild(document.createTextNode(number));
+        stringNum.appendChild(document.createTextNode(num));
 
         buttonPitchDown.onclick = function() {
-            string.shiftPitch(-1);
+            str.shiftPitch(-1);
             caller.redrawStringTable('str-table');
         }
 
         buttonPitchUp.onclick = function() {
-            string.shiftPitch(1);
+            str.shiftPitch(1);
             caller.redrawStringTable('str-table');
         }
 
         buttonGaugeDecrease.onclick = function() {
-            let lighterGauge = string.stringInfo.collection.getPreviousString(string.stringInfo);
+            let lighterGauge = str.stringInfo.collection.getPreviousString(str.stringInfo);
+
             if (lighterGauge != undefined) {
-                string.stringInfo = lighterGauge;
+                str.stringInfo = lighterGauge;
             }
+
             caller.redrawStringTable('str-table');
         }
 
         buttonGaugeIncrease.onclick = function() {
-            let heavierGauge = string.stringInfo.collection.getNextString(string.stringInfo);
+            let heavierGauge = str.stringInfo.collection.getNextString(str.stringInfo);
+
             if (heavierGauge != undefined) {
-                string.stringInfo = heavierGauge;
+                str.stringInfo = heavierGauge;
             }
+            
             caller.redrawStringTable('str-table');
         }
 

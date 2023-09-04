@@ -1,18 +1,21 @@
 export { Utilities };
-import { StringInfo, StringCollection } from './stringinfo.js'
+import { StringInfo } from './stringinfo.js';
+import { StringCollection } from './stringcollection.js';
 
 class Utilities {
 
 	/**
 	 * Create and return an element of a given type, with a given class name. Optional text content may be added.
 	 * 
-	 * @param {*} elementType 
-	 * @param {*} className 
-	 * @param {*} textContent
-	 * @returns 
+	 * @param {any} elementType 
+	 * @param {any} className 
+	 * @param {any} textContent
+	 * 
+	 * @returns
 	 */
 	static createElement(elementType, className, textContent = null) {
 		let element = document.createElement(elementType)
+		
 		element.classList.add(className)
 
 		if (textContent !== null) {
@@ -29,6 +32,7 @@ class Utilities {
 	 */
 	static getStringWeightTablePL() {
 		let stringWeightTablePL = new StringCollection("D'Addario", "Plain Steel");
+
 		stringWeightTablePL.setStrings([
 			new StringInfo(0.0070, 0.00001085),
 			new StringInfo(0.0080, 0.00001418),
@@ -53,6 +57,7 @@ class Utilities {
 			new StringInfo(0.0240, 0.00012760),
 			new StringInfo(0.0260, 0.00014975)
 		]);
+
 		return stringWeightTablePL;
 	}
 
@@ -63,6 +68,7 @@ class Utilities {
 	 */
 	static getStringWeightTableNW() {
 		let stringWeightTableNW = new StringCollection("D'Addario", "XL Nickel Wound");
+
 		stringWeightTableNW.setStrings([
 			new StringInfo(0.017, 0.00005524),
 			new StringInfo(0.018, 0.00006215),
@@ -98,6 +104,7 @@ class Utilities {
 			new StringInfo(0.074, 0.00098869),
 			new StringInfo(0.080, 0.00115011)
 		]);
+
 		return stringWeightTableNW;
 	}
 }
