@@ -169,14 +169,28 @@ button {
 				}
 			}
 		}
+
+		.gauge {
+			.gauge-buttons {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0.25rem;
+
+				.button-gauge-decrease,
+				.button-gauge-increase {
+					width: 25px;
+				}
+			}
+		}
 	}
 }
 
 .button-pitches-container {
 	@include mb-2-5();
 
-	.button-pitches-down,
-	.button-pitches-up {
+	.button-pitches-decrease,
+	.button-pitches-increase {
 		width: 100px;
 		height: 30px;
 	}

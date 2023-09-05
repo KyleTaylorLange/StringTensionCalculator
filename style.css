@@ -117,12 +117,22 @@ button:hover {
 .str-table-container #str-table .note-name .note-buttons button {
   width: 25px;
 }
+.str-table-container #str-table .gauge .gauge-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge-decrease,
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge-increase {
+  width: 25px;
+}
 
 .button-pitches-container {
   margin-bottom: 2.5rem;
 }
-.button-pitches-container .button-pitches-down,
-.button-pitches-container .button-pitches-up {
+.button-pitches-container .button-pitches-decrease,
+.button-pitches-container .button-pitches-increase {
   width: 100px;
   height: 30px;
 }
