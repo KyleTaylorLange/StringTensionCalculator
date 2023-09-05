@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/KyleTaylorLange/StringTensionCalculator/issues"
   },
-  "homepage": "https://github.com/KyleTaylorLange/StringTensionCalculator#readme"
+  "homepage": "https://github.com/KyleTaylorLange/StringTensionCalculator#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
 }
