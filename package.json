@@ -1,0 +1,19 @@
+{
+  "name": "stringtensioncalculator",
+  "version": "1.0.0",
+  "description": "A program to calculate string tension for a variety of guitar strings.",
+  "main": "script.js",
+  "scripts": {
+    "build-styles": "sass scss/style.scss style.css",
+    "watch-styles": "sass scss/style.scss style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleTaylorLange/StringTensionCalculator.git"
+  },
+  "author": "Kyle Taylor Lange",
+  "bugs": {
+    "url": "https://github.com/KyleTaylorLange/StringTensionCalculator/issues"
+  },
+  "homepage": "https://github.com/KyleTaylorLange/StringTensionCalculator#readme"
+}

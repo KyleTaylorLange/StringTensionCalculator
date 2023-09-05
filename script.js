@@ -8,8 +8,8 @@ window.onload = function() {
 
 	// Some of our elements to be used
 	let numberOfStringsInput = document.getElementsByClassName("number-of-strings")[0]
-	let buttonPitchDown = document.getElementsByClassName("button-pitches-down")[0]
-	let buttonPitchUp = document.getElementsByClassName("button-pitches-up")[0]
+	let buttonPitchDown = document.getElementsByClassName("button-pitches-decrease")[0]
+	let buttonPitchUp = document.getElementsByClassName("button-pitches-increase")[0]
 
 	// Events
 	numberOfStringsInput.onchange = function() {

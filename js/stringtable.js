@@ -125,7 +125,7 @@ class StringTable {
      * Shift every string's pitch.
      *
      * @param {number} semitones
-     */
+     */ 
     shiftPitches(semitones) {
         for (let string of this.currentStrings) {
             string.shiftPitch(semitones);
