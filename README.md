@@ -2,7 +2,7 @@
 
 ## General
 
-Ensure you have the 'sass' and `typescript` packages installed in 'npm', which requires a node.js installation. Use node version `18.17.1` (which is the `LTS` version at the time of writing this).
+Ensure you have the `sass` and `typescript` packages installed in `npm`, which requires a node.js installation. Use node version `18.17.1` (which is the `LTS` version at the time of writing this).
 
 ## Sass
 
