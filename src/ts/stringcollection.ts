@@ -23,6 +23,9 @@ class StringCollection {
         strings.forEach((str) => str.setCollection(this))
     }
 
+    // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
+    //       on a dummy object in order for the function to not return a union tpye of StringInfo | undefined.
+
     /**
      * Returns the first string with the input gauge.
      *
