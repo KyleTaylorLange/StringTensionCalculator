@@ -16,7 +16,7 @@ To compile sass code while watching for changes, in the root directory of the pr
 npm run watch-styles
 ```
 
-To stop watching, use `ctrl-c`.
+To stop watching, use `Ctrl-C`.
 
 ## TypeScript
 

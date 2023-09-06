@@ -4,8 +4,8 @@
   "description": "A program to calculate string tension for a variety of guitar strings.",
   "main": "script.js",
   "scripts": {
-    "build-styles": "sass scss/style.scss style.css",
-    "watch-styles": "sass scss/style.scss style.css --watch"
+    "build-styles": "sass src/scss/style.scss style.css",
+    "watch-styles": "sass src/scss/style.scss style.css --watch"
   },
   "repository": {
     "type": "git",
