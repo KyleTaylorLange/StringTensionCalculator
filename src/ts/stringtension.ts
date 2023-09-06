@@ -18,7 +18,7 @@ class StringTension {
     /**
      * Shift every string's pitch.
      *
-     * @param {number} semitones
+     * @param {number} semitones A semitone count.
      */
     shiftPitches(semitones: number) {
         this.stringTable.shiftPitches(semitones)
@@ -28,11 +28,14 @@ class StringTension {
     /**
      * Clears the old table and re-renders a new one.
      *
-     * @param {string} tableId
-     * @param {string} numberId
+     * @param {string} tableId The id for the string table.
+     * @param {string} numberId The id for the `Number of Strings` input element.
      */
     makeStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value
+
+        console.log(tableId)
+        console.log(numberId)
 
         this.stringTable.setNumStrings(Number(numStrings))
         this.redrawStringTable(tableId)
@@ -41,7 +44,7 @@ class StringTension {
     /**
      * Re-renders the guitar string table.
      *
-     * @param {string} tableId
+     * @param {string} tableId The id for the string table.
      */
     redrawStringTable(tableId: string) {
         let strTable = document.createElement("table")
@@ -90,8 +93,8 @@ class StringTension {
     /**
      * Makes a row for a guitar string.
      *
-     * @param {number} num
-     * @param {StringState} str
+     * @param {number} num The string number.
+     * @param {StringState} str The string state.
      * @returns {any} A string table row (tr).
      */
     makeStringRow(num: number, str: StringState) {

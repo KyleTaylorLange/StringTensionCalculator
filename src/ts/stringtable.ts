@@ -127,7 +127,7 @@ class StringTable {
     /**
      * Shift every string's pitch.
      *
-     * @param {number} semitones
+     * @param {number} semitones A semitone count.
      */
     shiftPitches(semitones: number) {
         for (let string of this.currentStrings) {
@@ -142,8 +142,8 @@ class StringTable {
      *
      * If two scale lengths are entered, the intermediate string scales will be calculated.
      *
-     * @param {number} scale The first or only scale length.
-     * @param {number} otherScale  The optional second scale length.
+     * @param {number} scale The first (or only) scale length.
+     * @param {number} [otherScale] The optional second scale length.
      */
     setScaleLength(scale: number, otherScale: number = 0) {
         if (scale <= 0) {

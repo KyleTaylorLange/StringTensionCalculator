@@ -19,7 +19,7 @@ class StringState {
     /**
      * Shifts the string's pitch by a defined number of semitones.
      *
-     * @param {number} semitones
+     * @param {number} semitones A semitone count.
      */
     shiftPitch(semitones: number) {
         this.note += semitones

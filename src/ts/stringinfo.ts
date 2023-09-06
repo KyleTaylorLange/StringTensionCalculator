@@ -19,7 +19,7 @@ class StringInfo {
     /**
      * Sets the collection of strings this string belongs to.
      *
-     * @param {StringCollection} collection
+     * @param {StringCollection} collection A collection of guitar strings.
      */
     setCollection(collection: StringCollection) {
         this.collection = collection

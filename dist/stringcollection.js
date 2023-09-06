@@ -11,6 +11,11 @@ class StringCollection {
         this.type = type;
         this.strings = [];
     }
+    /**
+     * Sets the guitar strings.
+     *
+     * @param {StringInfo[]} strings An array of guitar strings.
+     */
     setStrings(strings) {
         this.strings = strings;
         strings.forEach((str) => str.setCollection(this));
@@ -35,7 +40,7 @@ class StringCollection {
     /**
      * Gets the string before the input string in the collection.
      *
-     * @param {StringInfo} StringInfo
+     * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The string before strInfo if both exist.
      */
     getPreviousString(strInfo) {
@@ -50,7 +55,7 @@ class StringCollection {
     /**
      * Gets the string after the input string in the collection.
      *
-     * @param {StringInfo} StringInfo
+     * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The string after strInfo.
      */
     getNextString(strInfo) {

@@ -5,11 +5,11 @@ class Utilities {
     /**
      * Create and return an element of a given type, with a given class name. Optional text content may be added.
      *
-     * @param {any} elementType
-     * @param {any} className
-     * @param {any} textContent
+     * @param {any} elementType The type of the element.
+     * @param {any} className The class name assigned to the element.
+     * @param {any} [textContent] Text content to be added to the element, if any.
      *
-     * @returns
+     * @returns The element.
      */
     static createElement(elementType, className, textContent = null) {
         let element = document.createElement(elementType);

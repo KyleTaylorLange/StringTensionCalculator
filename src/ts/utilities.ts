@@ -7,17 +7,13 @@ class Utilities {
     /**
      * Create and return an element of a given type, with a given class name. Optional text content may be added.
      *
-     * @param {any} elementType
-     * @param {any} className
-     * @param {any} textContent
+     * @param {any} elementType The type of the element.
+     * @param {any} className The class name assigned to the element.
+     * @param {any} [textContent] Text content to be added to the element, if any.
      *
-     * @returns
+     * @returns The element.
      */
-    static createElement(
-        elementType: any,
-        className: any,
-        textContent: any = null
-    ) {
+    static createElement(elementType: any, className: any, textContent: any = null) {
         let element = document.createElement(elementType)
 
         element.classList.add(className)
@@ -34,11 +30,8 @@ class Utilities {
      *
      * @returns D'Addario Plain Steel string unit weights.
      */
-    static getStringWeightTablePL() {
-        let stringWeightTablePL = new StringCollection(
-            "D'Addario",
-            "Plain Steel"
-        )
+    static getStringWeightTablePL(): StringCollection {
+        let stringWeightTablePL = new StringCollection("D'Addario", "Plain Steel")
 
         stringWeightTablePL.setStrings([
             new StringInfo(0.007, 0.00001085),
@@ -73,11 +66,8 @@ class Utilities {
      *
      * @returns D'Addario XL Nickel Wound string unit weights.
      */
-    static getStringWeightTableNW() {
-        let stringWeightTableNW = new StringCollection(
-            "D'Addario",
-            "XL Nickel Wound"
-        )
+    static getStringWeightTableNW(): StringCollection {
+        let stringWeightTableNW = new StringCollection("D'Addario", "XL Nickel Wound")
 
         stringWeightTableNW.setStrings([
             new StringInfo(0.017, 0.00005524),
