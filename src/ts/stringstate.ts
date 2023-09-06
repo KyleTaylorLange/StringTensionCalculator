@@ -39,9 +39,10 @@ class StringState {
     /**
      * Calculates the tension of the string.
      *
-     * @returns {number} The calculated tension of the string.
+     * @param {StringState} string
+     * @returns {string} The calculated tension of the string (as a string type).
      */
-    calculateStringTension() {
+    calculateStringTension(): string {
         // Test code to calculate note frequency.
         let note = this.note
         let frequency = Math.pow(2, (note - 69) / 12) * 440.0

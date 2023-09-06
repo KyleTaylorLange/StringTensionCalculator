@@ -30,7 +30,7 @@ class StringState {
      * Calculates the tension of the string.
      *
      * @param {StringState} string
-     * @returns {number} The calculated tension of the string.
+     * @returns {string} The calculated tension of the string (as a string type).
      */
     calculateStringTension() {
         // Test code to calculate note frequency.

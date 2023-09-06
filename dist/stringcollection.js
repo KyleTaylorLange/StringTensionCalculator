@@ -4,8 +4,8 @@ export { StringCollection };
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
 class StringCollection {
-    // TODO: Refactor this poor pracftice for default class properties (just a quick fix temporarily
-    //       to allow for a default initialization of 'collection' in StringInfo.
+    // TODO: Refactor this - poor practice for default class properties (just a quick fix temporarily
+    //       to allow for a default initialization of 'collection' in StringInfo).
     constructor(brand = "", type = "") {
         this.brand = brand;
         this.type = type;
@@ -15,6 +15,8 @@ class StringCollection {
         this.strings = strings;
         strings.forEach((str) => str.setCollection(this));
     }
+    // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
+    //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.
     /**
      * Returns the first string with the input gauge.
      *
