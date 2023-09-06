@@ -1,15 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringTension = void 0;
-const utilities_js_1 = require("./utilities.js");
-const note_js_1 = require("./note.js");
-const stringtable_js_1 = require("./stringtable.js");
+import { Utilities } from "./utilities.js";
+import { Note } from "./note.js";
+import { StringTable } from "./stringtable.js";
+export { StringTension };
 /**
  * Primary class for modulating the string tension.
  */
 class StringTension {
     constructor() {
-        this.stringTable = new stringtable_js_1.StringTable();
+        this.stringTable = new StringTable();
     }
     /**
      * Shift every string's pitch.
@@ -28,7 +26,7 @@ class StringTension {
      */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-        this.stringTable.setNumStrings(numStrings);
+        this.stringTable.setNumStrings(Number(numStrings));
         this.redrawStringTable(tableId);
     }
     /**
@@ -37,17 +35,17 @@ class StringTension {
      * @param {string} tableId
      */
     redrawStringTable(tableId) {
-        let strTable = document.createElement('table');
-        let tr = document.createElement('tr');
+        let strTable = document.createElement("table");
+        let tr = document.createElement("tr");
         let tableHeaderCells = [
-            document.createElement('th'),
-            document.createElement('th'),
-            document.createElement('th'),
-            document.createElement('th'),
-            document.createElement('th'),
-            document.createElement('th')
+            document.createElement("th"),
+            document.createElement("th"),
+            document.createElement("th"),
+            document.createElement("th"),
+            document.createElement("th"),
+            document.createElement("th"),
         ];
-        tr.classList.add('row-top');
+        tr.classList.add("row-top");
         strTable.setAttribute("id", tableId);
         tableHeaderCells[0].innerText = "String";
         tableHeaderCells[1].innerText = "Note";
@@ -64,6 +62,8 @@ class StringTension {
             let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
             strTable.appendChild(strRow);
         }
+        // NOTE: Note the use of the non-null assertion operators here.
+        //       In its current form, the code will not compile without these.
         let tableElem = document.getElementById(tableId);
         tableElem.parentNode.replaceChild(strTable, tableElem);
     }
@@ -80,22 +80,22 @@ class StringTension {
         // Array that will hold our fields/columns
         let fields = [];
         // Creating our elements with their respective class names
-        let tr = utilities_js_1.Utilities.createElement('tr', 'row');
-        let stringNum = utilities_js_1.Utilities.createElement('td', 'string-num');
-        let noteName = utilities_js_1.Utilities.createElement('td', 'note-name');
-        let noteInner = utilities_js_1.Utilities.createElement('div', 'note-inner');
-        let noteLetter = utilities_js_1.Utilities.createElement('span', 'note-letter', note_js_1.Note.getNoteLetter(str.note));
-        let noteOctave = utilities_js_1.Utilities.createElement('sub', 'note-octave', note_js_1.Note.getNoteOctave(str.note));
-        let scaleLength = utilities_js_1.Utilities.createElement('td', 'scale-length');
-        let stringType = utilities_js_1.Utilities.createElement('td', 'string-type', str.stringInfo.collection.brand + " " + str.stringInfo.collection.type);
-        let gauge = utilities_js_1.Utilities.createElement('td', 'gauge', (str.stringInfo.gauge * 1000));
-        let tension = utilities_js_1.Utilities.createElement('td', 'tension', str.calculateStringTension());
+        let tr = Utilities.createElement("tr", "row");
+        let stringNum = Utilities.createElement("td", "string-num");
+        let noteName = Utilities.createElement("td", "note-name");
+        let noteInner = Utilities.createElement("div", "note-inner");
+        let noteLetter = Utilities.createElement("span", "note-letter", Note.getNoteLetter(str.note));
+        let noteOctave = Utilities.createElement("sub", "note-octave", Note.getNoteOctave(str.note));
+        let scaleLength = Utilities.createElement("td", "scale-length");
+        let stringType = Utilities.createElement("td", "string-type", str.strInfo.collection.brand + " " + str.strInfo.collection.type);
+        let gauge = Utilities.createElement("td", "gauge", str.strInfo.gauge * 1000);
+        let tension = Utilities.createElement("td", "tension", str.calculateStringTension());
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension);
-        let buttonContainer = utilities_js_1.Utilities.createElement('div', 'note-buttons');
-        let buttonPitchDown = utilities_js_1.Utilities.createElement('button', 'button-pitch-down', '-');
-        let buttonPitchUp = utilities_js_1.Utilities.createElement('button', 'button-pitch-up', '+');
-        let scaleLengthBox = utilities_js_1.Utilities.createElement('input', 'scale-length');
+        let buttonContainer = Utilities.createElement("div", "note-buttons");
+        let buttonPitchDown = Utilities.createElement("button", "button-pitch-down", "-");
+        let buttonPitchUp = Utilities.createElement("button", "button-pitch-up", "+");
+        let scaleLengthBox = Utilities.createElement("input", "scale-length");
         scaleLengthBox.type = "text";
         scaleLengthBox.value = str.scale.toString() + '"';
         // TODO: Make more efficient and eventually split into smaller functions.
@@ -104,7 +104,7 @@ class StringTension {
             // Temp: convert from mm to inches.
             let convertFromMillimeters = inputScale.substring(inputScale.length - 2) == "mm";
             // Easter Egg: convert feet to inches if a single tick is input.
-            let convertFromFeet = inputScale.charAt(inputScale.length - 1) == '\'';
+            let convertFromFeet = inputScale.charAt(inputScale.length - 1) == "'";
             // Trim out units from string.
             if (inputScale.charAt(inputScale.length - 1) == '"' || convertFromFeet) {
                 inputScale = inputScale.substring(0, inputScale.length - 1);
@@ -115,7 +115,7 @@ class StringTension {
             // Attempt to convert to number.
             inputScale = Number.parseFloat(inputScale);
             // If it is a number, go ahead and set the scale and redraw the table.
-            if (typeof inputScale == 'number' && Number.isFinite(inputScale)) {
+            if (typeof inputScale == "number" && Number.isFinite(inputScale)) {
                 if (convertFromFeet) {
                     inputScale *= 12;
                 }
@@ -124,43 +124,43 @@ class StringTension {
                     inputScale /= 25.4;
                 }
                 str.scale = inputScale;
-                caller.redrawStringTable('str-table');
+                caller.redrawStringTable("str-table");
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = str.scale + "\"";
+                scaleLengthBox.value = str.scale + '"';
             }
         };
         scaleLength.appendChild(scaleLengthBox);
-        let gaugeContainer = utilities_js_1.Utilities.createElement('div', 'gauge-buttons');
-        let buttonGaugeDecrease = utilities_js_1.Utilities.createElement('button', 'button-gauge-decrease', '-');
-        let buttonGaugeIncrease = utilities_js_1.Utilities.createElement('button', 'button-gauge-increase', '+');
-        stringNum.appendChild(document.createTextNode(num));
+        let gaugeContainer = Utilities.createElement("div", "gauge-buttons");
+        let buttonGaugeDecrease = Utilities.createElement("button", "button-gauge-decrease", "-");
+        let buttonGaugeIncrease = Utilities.createElement("button", "button-gauge-increase", "+");
+        stringNum.appendChild(document.createTextNode(num.toString()));
         buttonPitchDown.onclick = function () {
             str.shiftPitch(-1);
-            caller.redrawStringTable('str-table');
+            caller.redrawStringTable("str-table");
         };
         buttonPitchUp.onclick = function () {
             str.shiftPitch(1);
-            caller.redrawStringTable('str-table');
+            caller.redrawStringTable("str-table");
         };
         buttonGaugeDecrease.onclick = function () {
-            let lighterGauge = str.stringInfo.collection.getPreviousString(str.stringInfo);
+            let lighterGauge = str.strInfo.collection.getPreviousString(str.strInfo);
             if (lighterGauge != undefined) {
-                str.stringInfo = lighterGauge;
+                str.strInfo = lighterGauge;
             }
-            caller.redrawStringTable('str-table');
+            caller.redrawStringTable("str-table");
         };
         buttonGaugeIncrease.onclick = function () {
-            let heavierGauge = str.stringInfo.collection.getNextString(str.stringInfo);
+            let heavierGauge = str.strInfo.collection.getNextString(str.strInfo);
             if (heavierGauge != undefined) {
-                str.stringInfo = heavierGauge;
+                str.strInfo = heavierGauge;
             }
-            caller.redrawStringTable('str-table');
+            caller.redrawStringTable("str-table");
         };
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field
         for (let field of fields) {
-            if (field.classList.contains('note-name')) {
+            if (field.classList.contains("note-name")) {
                 field.appendChild(noteInner);
             }
             tr.appendChild(field);
@@ -177,4 +177,3 @@ class StringTension {
         return tr;
     }
 }
-exports.StringTension = StringTension;

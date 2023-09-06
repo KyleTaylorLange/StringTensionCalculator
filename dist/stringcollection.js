@@ -1,11 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringCollection = void 0;
+import { StringInfo } from "./stringinfo.js";
+export { StringCollection };
 /**
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
 class StringCollection {
-    constructor(brand, type) {
+    // TODO: Refactor this poor pracftice for default class properties (just a quick fix temporarily
+    //       to allow for a default initialization of 'collection' in StringInfo.
+    constructor(brand = "", type = "") {
         this.brand = brand;
         this.type = type;
         this.strings = [];
@@ -18,41 +19,46 @@ class StringCollection {
      * Returns the first string with the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {string} A string matching that gauge if found, otherwise undefined.
+     * @returns {StringInfo} A string matching that gauge.
      */
     getStringByGauge(gauge) {
+        let strFound = new StringInfo(0, 0);
         for (let str of this.strings) {
             if (str.gauge == gauge) {
-                return str;
+                strFound = str;
             }
         }
+        return strFound;
     }
     /**
      * Gets the string before the input string in the collection.
      *
-     * @param {StringInfo} strInfo
-     * @returns The string before strInfo if both exist, otherwise undefined.
+     * @param {StringInfo} StringInfo
+     * @returns {StringInfo} The string before strInfo if both exist.
      */
     getPreviousString(strInfo) {
+        let strPrev = new StringInfo(0, 0);
         for (let i = 1; i < this.strings.length; i++) {
             if (this.strings[i].gauge == strInfo.gauge) {
-                return this.strings[i - 1];
+                strPrev = this.strings[i - 1];
             }
         }
+        return strPrev;
     }
     /**
      * Gets the string after the input string in the collection.
      *
-     * @param {StringInfo} strInfo
-     * @returns The string after strInfo if both exist, otherwise undefined.
+     * @param {StringInfo} StringInfo
+     * @returns {StringInfo} The string after strInfo.
      */
     getNextString(strInfo) {
         const endpoint = this.strings.length - 1;
+        let strNext = new StringInfo(0, 0);
         for (let i = 0; i < endpoint; i++) {
             if (this.strings[i].gauge == strInfo.gauge) {
-                return this.strings[i + 1];
+                strNext = this.strings[i + 1];
             }
         }
+        return strNext;
     }
 }
-exports.StringCollection = StringCollection;

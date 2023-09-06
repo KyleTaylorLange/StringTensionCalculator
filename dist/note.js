@@ -1,5 +1,4 @@
 export { Note };
-
 class Note {
     /**
      * Gets note octave. MIDI notes: 0 is C-1, 127 is G9.
@@ -10,7 +9,6 @@ class Note {
     static getNoteOctave(midiNote) {
         return Math.floor(midiNote / 12 - 1);
     }
-
     /**
      * Gets note letter.
      *
@@ -32,10 +30,8 @@ class Note {
             "A#",
             "B",
         ];
-
         return notes[midiNote % 12];
     }
-
     /**
      * Returns the note letter concatenated with the octave.
      *

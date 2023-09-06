@@ -1,6 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StringInfo = void 0;
+import { StringCollection } from "./stringcollection.js";
+export { StringInfo };
 /**
  * Represents a guitar string's inalienable characteristics.
  */
@@ -8,7 +7,7 @@ class StringInfo {
     constructor(gauge, unitWeight) {
         this.gauge = gauge;
         this.unitWeight = unitWeight;
-        this.collection = "";
+        this.collection = new StringCollection();
     }
     /**
      * Sets the collection of strings this string belongs to.
@@ -19,4 +18,3 @@ class StringInfo {
         this.collection = collection;
     }
 }
-exports.StringInfo = StringInfo;
