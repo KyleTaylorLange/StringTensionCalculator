@@ -11,7 +11,9 @@ class StringTable {
         this.setDefaultStrings();
     }
     /**
-     * Sets the default strings for this object. Standard tuning.
+     * Sets the default strings for this object.
+     *
+     * @description Standard tuning.
      */
     setDefaultStrings() {
         this.defaultStrings[0] = new StringState(64, 25.5, Strings.dAddarioPlainSteel().getStringByGauge(0.01));
@@ -69,7 +71,7 @@ class StringTable {
              * Though it could be coded to handle weird intervals (e.g. the 4-semitones between string 2 and 3 on guitar).
              */
             for (let i = this.currentStrings.length; i < numStrings; i++) {
-                this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scale, this.defaultStrings[i].strInfo);
+                this.currentStrings[i] = new StringState(this.defaultStrings[i].note, this.defaultStrings[i].scaleLength, this.defaultStrings[i].strInfo);
             }
         }
     }
@@ -102,7 +104,7 @@ class StringTable {
         }
         for (let i = 0; i < this.getNumStrings(); i++) {
             let strScale = scale + (otherScale - scale) * (i / (this.getNumStrings() - 1));
-            this.getString(i).setScaleLength(strScale);
+            this.getString(i).scaleLength = strScale;
         }
     }
 }

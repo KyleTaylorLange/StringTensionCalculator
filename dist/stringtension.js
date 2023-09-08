@@ -97,7 +97,7 @@ class StringTension {
         let buttonPitchUp = Utilities.createElement("button", "button-pitch-up", "+");
         let scaleLengthBox = Utilities.createElement("input", "scale-length");
         scaleLengthBox.type = "text";
-        scaleLengthBox.value = str.scale.toString() + '"';
+        scaleLengthBox.value = str.scaleLength.toString() + '"';
         // TODO: Make more efficient and eventually split into smaller functions.
         scaleLengthBox.onchange = function () {
             let inputScale = scaleLengthBox.value.trim();
@@ -123,12 +123,12 @@ class StringTension {
                     // TODO: A smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
                     inputScale /= 25.4;
                 }
-                str.scale = inputScale;
+                str.scaleLength = inputScale;
                 caller.redrawStringTable("str-table");
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = str.scale + '"';
+                scaleLengthBox.value = str.scaleLength + '"';
             }
         };
         scaleLength.appendChild(scaleLengthBox);

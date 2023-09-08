@@ -117,7 +117,7 @@ class StringTable {
             for (let i = this.currentStrings.length; i < numStrings; i++) {
                 this.currentStrings[i] = new StringState(
                     this.defaultStrings[i].note,
-                    this.defaultStrings[i].scale,
+                    this.defaultStrings[i].scaleLength,
                     this.defaultStrings[i].strInfo
                 )
             }
@@ -157,7 +157,7 @@ class StringTable {
         for (let i = 0; i < this.getNumStrings(); i++) {
             let strScale = scale + (otherScale - scale) * (i / (this.getNumStrings() - 1))
 
-            this.getString(i).setScaleLength(strScale)
+            this.getString(i).scaleLength = strScale
         }
     }
 }

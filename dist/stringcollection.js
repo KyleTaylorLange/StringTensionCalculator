@@ -18,7 +18,7 @@ class StringCollection {
      */
     setStrings(strings) {
         this.strings = strings;
-        strings.forEach((str) => str.setCollection(this));
+        strings.forEach((str) => str.collection = this);
     }
     // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
     //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.

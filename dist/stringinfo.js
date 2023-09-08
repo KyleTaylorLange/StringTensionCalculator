@@ -5,16 +5,26 @@ export { StringInfo };
  */
 class StringInfo {
     constructor(gauge, unitWeight) {
-        this.gauge = gauge;
-        this.unitWeight = unitWeight;
-        this.collection = new StringCollection();
+        this._gauge = gauge;
+        this._unitWeight = unitWeight;
+        this._collection = new StringCollection();
     }
-    /**
-     * Sets the collection of strings this string belongs to.
-     *
-     * @param {StringCollection} collection A collection of guitar strings.
-     */
-    setCollection(collection) {
-        this.collection = collection;
+    get gauge() {
+        return this._gauge;
+    }
+    set gauge(value) {
+        this._gauge = value;
+    }
+    get unitWeight() {
+        return this._unitWeight;
+    }
+    set unitWeight(value) {
+        this._unitWeight = value;
+    }
+    get collection() {
+        return this._collection;
+    }
+    set collection(value) {
+        this._collection = value;
     }
 }

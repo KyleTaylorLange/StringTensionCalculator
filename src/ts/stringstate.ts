@@ -6,14 +6,38 @@ export { StringState }
  * Represents the state of a string on an instrument.
  */
 class StringState {
-    note: number
-    scale: number
-    strInfo: StringInfo
+    private _note: number
+    private _scaleLength: number
+    private _strInfo: StringInfo
 
-    constructor(note: number, scale: number, strInfo: StringInfo) {
-        this.note = note
-        this.scale = scale
-        this.strInfo = strInfo
+    constructor(note: number, scaleLength: number, strInfo: StringInfo) {
+        this._note = note
+        this._scaleLength = scaleLength
+        this._strInfo = strInfo
+    }
+
+    public get note(): number {
+        return this._note
+    }
+
+    public set note(value: number) {
+        this._note = value
+    }
+
+    public get scaleLength(): number {
+        return this._scaleLength
+    }
+
+    public set scaleLength(value: number) {
+        this._scaleLength = value
+    }
+
+    public get strInfo(): StringInfo {
+        return this._strInfo
+    }
+
+    public set strInfo(value: StringInfo) {
+        this._strInfo = value
     }
 
     /**
@@ -26,17 +50,6 @@ class StringState {
     }
 
     /**
-     * // NOTE: Duplicate method name 'setScaleLength' in StringTable. Refactor?
-     *
-     * Sets the string scale length.
-     *
-     * @param {number} scale The string scale length.
-     */
-    setScaleLength(scale: number) {
-        this.scale = scale
-    }
-
-    /**
      * Calculates the tension of the string.
      *
      * @param {StringState} string
@@ -44,10 +57,10 @@ class StringState {
      */
     calculateStringTension(): string {
         // Test code to calculate note frequency.
-        let note = this.note
+        let note = this._note
         let frequency = Math.pow(2, (note - 69) / 12) * 440.0
-        let unitWeight = this.strInfo.unitWeight
-        let scaleLength = this.scale
+        let unitWeight = this._strInfo.unitWeight
+        let scaleLength = this._scaleLength
         let tension = (unitWeight * Math.pow(2 * scaleLength * frequency, 2)) / 386.4
 
         return tension.toFixed(2)

@@ -3,10 +3,28 @@ export { StringState };
  * Represents the state of a string on an instrument.
  */
 class StringState {
-    constructor(note, scale, strInfo) {
-        this.note = note;
-        this.scale = scale;
-        this.strInfo = strInfo;
+    constructor(note, scaleLength, strInfo) {
+        this._note = note;
+        this._scaleLength = scaleLength;
+        this._strInfo = strInfo;
+    }
+    get note() {
+        return this._note;
+    }
+    set note(value) {
+        this._note = value;
+    }
+    get scaleLength() {
+        return this._scaleLength;
+    }
+    set scaleLength(value) {
+        this._scaleLength = value;
+    }
+    get strInfo() {
+        return this._strInfo;
+    }
+    set strInfo(value) {
+        this._strInfo = value;
     }
     /**
      * Shifts the string's pitch by a defined number of semitones.
@@ -17,16 +35,6 @@ class StringState {
         this.note += semitones;
     }
     /**
-     * // NOTE: Duplicate method name 'setScaleLength' in StringTable. Refactor?
-     *
-     * Sets the string scale length.
-     *
-     * @param {number} scale The string scale length.
-     */
-    setScaleLength(scale) {
-        this.scale = scale;
-    }
-    /**
      * Calculates the tension of the string.
      *
      * @param {StringState} string
@@ -34,10 +42,10 @@ class StringState {
      */
     calculateStringTension() {
         // Test code to calculate note frequency.
-        let note = this.note;
+        let note = this._note;
         let frequency = Math.pow(2, (note - 69) / 12) * 440.0;
-        let unitWeight = this.strInfo.unitWeight;
-        let scaleLength = this.scale;
+        let unitWeight = this._strInfo.unitWeight;
+        let scaleLength = this._scaleLength;
         let tension = (unitWeight * Math.pow(2 * scaleLength * frequency, 2)) / 386.4;
         return tension.toFixed(2);
     }

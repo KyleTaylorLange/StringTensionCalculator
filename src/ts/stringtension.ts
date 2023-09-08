@@ -123,7 +123,7 @@ class StringTension {
         let scaleLengthBox = Utilities.createElement("input", "scale-length")
 
         scaleLengthBox.type = "text"
-        scaleLengthBox.value = str.scale.toString() + '"'
+        scaleLengthBox.value = str.scaleLength.toString() + '"'
 
         // TODO: Make more efficient and eventually split into smaller functions.
         scaleLengthBox.onchange = function () {
@@ -158,12 +158,12 @@ class StringTension {
                     inputScale /= 25.4
                 }
 
-                str.scale = inputScale
+                str.scaleLength = inputScale
                 caller.redrawStringTable("str-table")
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = str.scale + '"'
+                scaleLengthBox.value = str.scaleLength + '"'
             }
         }
 
