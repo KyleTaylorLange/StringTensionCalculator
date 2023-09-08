@@ -18,8 +18,10 @@ class StringTable {
         this.setDefaultStrings();
     }
 
-    /**
-     * Sets the default strings for this object. Standard tuning.
+    /** 
+     * Sets the default strings for this object.
+     * 
+     * @description Standard tuning.
      */
     setDefaultStrings() {
         this.defaultStrings[0] = new StringState(
