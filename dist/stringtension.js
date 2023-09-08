@@ -26,8 +26,6 @@ class StringTension {
      */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-        console.log(tableId);
-        console.log(numberId);
         this.stringTable.setNumStrings(Number(numStrings));
         this.redrawStringTable(tableId);
     }

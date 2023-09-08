@@ -1,4 +1,5 @@
 import { StringState } from "./stringstate.js"
+import { Strings } from "./strings.js"
 import { Utilities } from "./utilities.js"
 
 export { StringTable }
@@ -11,58 +12,56 @@ class StringTable {
     currentStrings: StringState[]
 
     constructor() {
-        // Start with standard tuning.
         this.defaultStrings = []
         this.currentStrings = []
 
+        this.setDefaultStrings();
+    }
+
+    /**
+     * Sets the default strings for this object. Standard tuning.
+     */
+    setDefaultStrings() {
         this.defaultStrings[0] = new StringState(
             64,
             25.5,
-            Utilities.getStringWeightTablePL().getStringByGauge(0.01)
+            Strings.dAddarioPlainSteel().getStringByGauge(0.01)
         )
         this.defaultStrings[1] = new StringState(
             59,
             25.5,
-            Utilities.getStringWeightTablePL().getStringByGauge(0.013)
+            Strings.dAddarioPlainSteel().getStringByGauge(0.013)
         )
         this.defaultStrings[2] = new StringState(
             55,
             25.5,
-            Utilities.getStringWeightTablePL().getStringByGauge(0.017)
+            Strings.dAddarioPlainSteel().getStringByGauge(0.017)
         )
         this.defaultStrings[3] = new StringState(
             50,
             25.5,
-            Utilities.getStringWeightTableNW().getStringByGauge(0.026)
+            Strings.dAddarioXLNickelWound().getStringByGauge(0.026)
         )
         this.defaultStrings[4] = new StringState(
             45,
             25.5,
-            Utilities.getStringWeightTableNW().getStringByGauge(0.036)
+            Strings.dAddarioXLNickelWound().getStringByGauge(0.036)
         )
         this.defaultStrings[5] = new StringState(
             40,
             25.5,
-            Utilities.getStringWeightTableNW().getStringByGauge(0.046)
+            Strings.dAddarioXLNickelWound().getStringByGauge(0.046)
         )
         this.defaultStrings[6] = new StringState(
             35,
             25.5,
-            Utilities.getStringWeightTableNW().getStringByGauge(0.059)
+            Strings.dAddarioXLNickelWound().getStringByGauge(0.059)
         )
         this.defaultStrings[7] = new StringState(
             30,
             25.5,
-            Utilities.getStringWeightTableNW().getStringByGauge(0.074)
+            Strings.dAddarioXLNickelWound().getStringByGauge(0.074)
         )
-
-        for (let i = 0; i < 6; i++) {
-            this.currentStrings[i] = new StringState(
-                this.defaultStrings[i].note,
-                this.defaultStrings[i].scale,
-                this.defaultStrings[i].strInfo
-            )
-        }
     }
 
     /**
@@ -155,8 +154,7 @@ class StringTable {
         }
 
         for (let i = 0; i < this.getNumStrings(); i++) {
-            let strScale =
-                scale + (otherScale - scale) * (i / (this.getNumStrings() - 1))
+            let strScale = scale + (otherScale - scale) * (i / (this.getNumStrings() - 1))
 
             this.getString(i).setScaleLength(strScale)
         }
