@@ -7,7 +7,13 @@ export { StringTension };
  */
 class StringTension {
     constructor() {
-        this.stringTable = new StringTable();
+        this._stringTable = new StringTable();
+    }
+    get stringTable() {
+        return this._stringTable;
+    }
+    set stringTable(value) {
+        this._stringTable = value;
     }
     /**
      * Shift every string's pitch.

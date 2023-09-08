@@ -12,7 +12,7 @@ class Strings {
      */
     static dAddarioPlainSteel() {
         let dAddarioPlainSteel = new StringCollection("D'Addario", "Plain Steel");
-        dAddarioPlainSteel.setStrings([
+        dAddarioPlainSteel.strings = ([
             new StringInfo(0.007, 0.00001085),
             new StringInfo(0.008, 0.00001418),
             new StringInfo(0.0085, 0.00001601),
@@ -45,7 +45,7 @@ class Strings {
      */
     static dAddarioXLNickelWound() {
         let dAddarioXLNickelWound = new StringCollection("D'Addario", "XL Nickel Wound");
-        dAddarioXLNickelWound.setStrings([
+        dAddarioXLNickelWound.strings = ([
             new StringInfo(0.017, 0.00005524),
             new StringInfo(0.018, 0.00006215),
             new StringInfo(0.019, 0.00006947),

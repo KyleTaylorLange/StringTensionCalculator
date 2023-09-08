@@ -7,18 +7,28 @@ class StringCollection {
     // TODO: Refactor this - poor practice for default class properties (just a quick fix temporarily
     //       to allow for a default initialization of 'collection' in StringInfo).
     constructor(brand = "", type = "") {
-        this.brand = brand;
-        this.type = type;
-        this.strings = [];
+        this._brand = brand;
+        this._type = type;
+        this._strings = [];
     }
-    /**
-     * Sets the guitar strings.
-     *
-     * @param {StringInfo[]} strings An array of guitar strings.
-     */
-    setStrings(strings) {
-        this.strings = strings;
-        strings.forEach((str) => str.collection = this);
+    get brand() {
+        return this._brand;
+    }
+    set brand(value) {
+        this._brand = value;
+    }
+    get type() {
+        return this._type;
+    }
+    set type(value) {
+        this._type = value;
+    }
+    get strings() {
+        return this._strings;
+    }
+    set strings(value) {
+        this._strings = value;
+        this.strings.forEach((str) => str.collection = this);
     }
     // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
     //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.

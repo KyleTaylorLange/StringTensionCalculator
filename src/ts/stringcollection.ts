@@ -6,27 +6,42 @@ export { StringCollection }
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
 class StringCollection {
-    brand: string
-    type: string
-    strings: StringInfo[]
+    private _brand: string
+    private _type: string
+    private _strings: StringInfo[]
 
     // TODO: Refactor this - poor practice for default class properties (just a quick fix temporarily
     //       to allow for a default initialization of 'collection' in StringInfo).
     constructor(brand: string = "", type: string = "") {
-        this.brand = brand
-        this.type = type
-        this.strings = []
+        this._brand = brand
+        this._type = type
+        this._strings = []
     }
 
-    /**
-     * Sets the guitar strings.
-     * 
-     * @param {StringInfo[]} strings An array of guitar strings.
-     */
-    setStrings(strings: StringInfo[]) {
-        this.strings = strings
-        
-        strings.forEach((str) => str.collection = this)
+    public get brand(): string {
+        return this._brand
+    }
+
+    public set brand(value: string) {
+        this._brand = value
+    }
+
+    public get type(): string {
+        return this._type
+    }
+
+    public set type(value: string) {
+        this._type = value
+    }
+
+    public get strings(): StringInfo[] {
+        return this._strings
+    }
+
+    public set strings(value: StringInfo[]) {
+        this._strings = value
+
+        this.strings.forEach((str) => str.collection = this)
     }
 
     // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying

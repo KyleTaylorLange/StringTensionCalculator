@@ -7,75 +7,82 @@ export { StringTable }
  * Manipulates multiple strings at once.
  */
 class StringTable {
-    defaultStrings: StringState[]
-    currentStrings: StringState[]
+    private _defaultStrings: StringState[]
+    private _currentStrings: StringState[]
 
     constructor() {
-        this.defaultStrings = []
-        this.currentStrings = []
+        this._defaultStrings = this.getStandardTuning()
+        this._currentStrings = []
+    }
 
-        this.setDefaultStrings();
+    public get defaultStrings(): StringState[] {
+        return this._defaultStrings
+    }
+
+    public set defaultStrings(value: StringState[]) {
+        this._defaultStrings = value
+    }
+
+    public get currentStrings(): StringState[] {
+        return this._currentStrings
+    }
+
+    public set currentStrings(value: StringState[]) {
+        this._currentStrings = value
     }
 
     /** 
-     * Sets the default strings for this object.
+     * Get a base set of standard tuning strings.
      * 
      * @description Standard tuning.
      */
-    setDefaultStrings() {
-        this.defaultStrings[0] = new StringState(
-            64,
-            25.5,
-            Strings.dAddarioPlainSteel().getStringByGauge(0.01)
-        )
-        this.defaultStrings[1] = new StringState(
-            59,
-            25.5,
-            Strings.dAddarioPlainSteel().getStringByGauge(0.013)
-        )
-        this.defaultStrings[2] = new StringState(
-            55,
-            25.5,
-            Strings.dAddarioPlainSteel().getStringByGauge(0.017)
-        )
-        this.defaultStrings[3] = new StringState(
-            50,
-            25.5,
-            Strings.dAddarioXLNickelWound().getStringByGauge(0.026)
-        )
-        this.defaultStrings[4] = new StringState(
-            45,
-            25.5,
-            Strings.dAddarioXLNickelWound().getStringByGauge(0.036)
-        )
-        this.defaultStrings[5] = new StringState(
-            40,
-            25.5,
-            Strings.dAddarioXLNickelWound().getStringByGauge(0.046)
-        )
-        this.defaultStrings[6] = new StringState(
-            35,
-            25.5,
-            Strings.dAddarioXLNickelWound().getStringByGauge(0.059)
-        )
-        this.defaultStrings[7] = new StringState(
-            30,
-            25.5,
-            Strings.dAddarioXLNickelWound().getStringByGauge(0.074)
-        )
+    getStandardTuning() {
+        return [
+            new StringState(
+                64,
+                25.5,
+                Strings.dAddarioPlainSteel().getStringByGauge(0.01)
+            ),
+            new StringState(
+                59,
+                25.5,
+                Strings.dAddarioPlainSteel().getStringByGauge(0.013)
+            ),
+            new StringState(
+                55,
+                25.5,
+                Strings.dAddarioPlainSteel().getStringByGauge(0.017)
+            ),
+            new StringState(
+                50,
+                25.5,
+                Strings.dAddarioXLNickelWound().getStringByGauge(0.026)
+            ),
+            new StringState(
+                45,
+                25.5,
+                Strings.dAddarioXLNickelWound().getStringByGauge(0.036)
+            ),
+            new StringState(
+                40,
+                25.5,
+                Strings.dAddarioXLNickelWound().getStringByGauge(0.046)
+            ),
+            new StringState(
+                35,
+                25.5,
+                Strings.dAddarioXLNickelWound().getStringByGauge(0.059)
+            ),
+            new StringState(
+                30,
+                25.5,
+                Strings.dAddarioXLNickelWound().getStringByGauge(0.074)
+            )
+        ]
     }
 
     /**
-     * Gets the current strings.
-     *
-     * @returns {array} The array of all the strings in the table.
-     */
-    getStrings() {
-        return this.currentStrings
-    }
-
-    /**
-     * Gets a current string.
+     * Gets a current single string.
      *
      * @param {number} i The zero-based index for the string.
      * @returns {StringState} The string at the input index.
@@ -132,32 +139,6 @@ class StringTable {
     shiftPitches(semitones: number) {
         for (let string of this.currentStrings) {
             string.shiftPitch(semitones)
-        }
-    }
-
-    /**
-     * // NOTE: Duplicate method name 'setScaleLength' in StringState. Refactor?
-     *
-     * Sets the scale length of all strings in the table.
-     *
-     * If two scale lengths are entered, the intermediate string scales will be calculated.
-     *
-     * @param {number} scale The first (or only) scale length.
-     * @param {number} [otherScale] The optional second scale length.
-     */
-    setScaleLength(scale: number, otherScale: number = 0) {
-        if (scale <= 0) {
-            return
-        }
-
-        if (otherScale <= 0) {
-            otherScale = scale
-        }
-
-        for (let i = 0; i < this.getNumStrings(); i++) {
-            let strScale = scale + (otherScale - scale) * (i / (this.getNumStrings() - 1))
-
-            this.getString(i).scaleLength = strScale
         }
     }
 }

@@ -9,10 +9,18 @@ export { StringTension }
  * Primary class for modulating the string tension.
  */
 class StringTension {
-    stringTable: StringTable
+    private _stringTable: StringTable
 
     constructor() {
-        this.stringTable = new StringTable()
+        this._stringTable = new StringTable()
+    }
+
+    public get stringTable(): StringTable {
+        return this._stringTable
+    }
+    
+    public set stringTable(value: StringTable) {
+        this._stringTable = value
     }
 
     /**
