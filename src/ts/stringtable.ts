@@ -1,6 +1,5 @@
 import { StringState } from "./stringstate.js"
 import { Strings } from "./strings.js"
-import { Utilities } from "./utilities.js"
 
 export { StringTable }
 
