@@ -18,7 +18,7 @@ class StringTension {
     public get stringTable(): StringTable {
         return this._stringTable
     }
-    
+
     public set stringTable(value: StringTable) {
         this._stringTable = value
     }
@@ -102,7 +102,7 @@ class StringTension {
      * @param {StringState} str The string state.
      * @returns {any} A string table row (tr).
      */
-    makeStringRow(num: number, str: StringState) {
+    makeStringRow(num: number, str: StringState): any {
         // The calling object
         let caller = this
 

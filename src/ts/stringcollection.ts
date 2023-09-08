@@ -10,7 +10,7 @@ class StringCollection {
     private _type: string
     private _strings: StringInfo[]
 
-    // TODO: Refactor this - poor practice for default class properties (just a quick fix temporarily
+    // TODO: Needs to be refactored: poor practice for default class properties (was a quick fix, temporarily, 
     //       to allow for a default initialization of 'collection' in StringInfo).
     constructor(brand: string = "", type: string = "") {
         this._brand = brand

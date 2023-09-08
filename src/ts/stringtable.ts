@@ -36,7 +36,7 @@ class StringTable {
      * 
      * @description Standard tuning.
      */
-    getStandardTuning() {
+    getStandardTuning(): StringState[] {
         return [
             new StringState(
                 64,
@@ -87,7 +87,7 @@ class StringTable {
      * @param {number} i The zero-based index for the string.
      * @returns {StringState} The string at the input index.
      */
-    getString(i: number) {
+    getString(i: number): StringState {
         return this.currentStrings[i]
     }
 
@@ -96,7 +96,7 @@ class StringTable {
      *
      * @returns {number} The number of strings in the string table.
      */
-    getNumStrings() {
+    getNumStrings(): number {
         return this.currentStrings.length
     }
 
