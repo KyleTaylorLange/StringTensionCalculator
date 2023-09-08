@@ -1,6 +1,3 @@
-import { StringInfo } from "./stringinfo.js"
-import { StringCollection } from "./stringcollection.js"
-
 export { Utilities }
 
 class Utilities {
