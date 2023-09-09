@@ -7,7 +7,7 @@ class Note {
      * @param {number} midiNote
      * @returns {number} A note octave.
      */
-    static getNoteOctave(midiNote) {
+    static getNoteOctave(midiNote: number) {
         return Math.floor(midiNote / 12 - 1);
     }
 
@@ -17,7 +17,7 @@ class Note {
      * @param {number} midiNote
      * @returns A note letter.
      */
-    static getNoteLetter(midiNote) {
+    static getNoteLetter(midiNote: number) {
         let notes = [
             "C",
             "C#",
@@ -42,7 +42,7 @@ class Note {
      * @param {number} midiNote
      * @returns A note letter and a note octave.
      */
-    static noteToString(midiNote) {
+    static noteToString(midiNote: number) {
         return this.getNoteLetter(midiNote) + this.getNoteOctave(midiNote);
     }
 }
