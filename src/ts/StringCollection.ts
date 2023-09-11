@@ -1,4 +1,4 @@
-import { StringInfo } from "./stringinfo.js"
+import { StringInfo } from "./StringInfo.js"
 
 export { StringCollection }
 
@@ -10,8 +10,6 @@ class StringCollection {
     private _type: string
     private _strings: StringInfo[]
 
-    // TODO: Needs to be refactored: poor practice for default class properties (was a quick fix, temporarily, 
-    //       to allow for a default initialization of 'collection' in StringInfo).
     constructor(brand: string = "", type: string = "") {
         this._brand = brand
         this._type = type
@@ -40,8 +38,20 @@ class StringCollection {
 
     public set strings(value: StringInfo[]) {
         this._strings = value
+    }
 
-        this.strings.forEach((str) => str.collection = this)
+    /**
+     * Take the collection brand name and assign it to each guitar string brand.
+     */
+    public setBrandForStrings() {
+        this.strings.forEach((str) => str.brand = this.brand)
+    }
+
+    /**
+     * Take the collection brand type and assign it to each guitar string type.
+     */
+    public setTypeForStrings() {
+        this.strings.forEach((str) => str.type = this.type)
     }
 
     // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
@@ -53,7 +63,7 @@ class StringCollection {
      * @param {number} gauge The gauge to search for.
      * @returns {StringInfo} A string matching that gauge.
      */
-    getStringByGauge(gauge: number): StringInfo {
+    public getStringByGauge(gauge: number): StringInfo {
         let strFound = new StringInfo(0, 0)
 
         for (let str of this.strings) {
@@ -71,7 +81,7 @@ class StringCollection {
      * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The string before strInfo if both exist.
      */
-    getPreviousString(strInfo: StringInfo): StringInfo {
+    public getPreviousString(strInfo: StringInfo): StringInfo {
         let strPrev = new StringInfo(0, 0)
 
         for (let i = 1; i < this.strings.length; i++) {
@@ -89,7 +99,7 @@ class StringCollection {
      * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The string after strInfo.
      */
-    getNextString(strInfo: StringInfo): StringInfo {
+    public getNextString(strInfo: StringInfo): StringInfo {
         const endpoint = this.strings.length - 1
         let strNext = new StringInfo(0, 0)
 

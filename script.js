@@ -1,4 +1,4 @@
-import { StringTension } from './dist/stringtension.js'
+import { StringTension } from './dist/StringTension.js'
 
 // So that the HTML has loaded before we start manipulating our elements with JavaScript
 window.onload = function() {

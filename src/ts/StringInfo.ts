@@ -1,4 +1,4 @@
-import { StringCollection } from "./stringcollection.js"
+import { StringCollection } from "./StringCollection.js"
 
 export { StringInfo }
 
@@ -6,14 +6,32 @@ export { StringInfo }
  * Represents a guitar string's inalienable characteristics.
  */
 class StringInfo {
+    private _brand: string
+    private _type: string
     private _gauge: number
     private _unitWeight: number
-    private _collection: StringCollection
 
     constructor(gauge: number, unitWeight: number) {
+        this._brand = ""
+        this._type = ""
         this._gauge = gauge
         this._unitWeight = unitWeight
-        this._collection = new StringCollection()
+    }
+
+    public get brand(): string {
+        return this._brand
+    }
+
+    public set brand(value: string) {
+        this._brand = value
+    }
+
+    public get type(): string {
+        return this._type
+    }
+
+    public set type(value: string) {
+        this._type = value
     }
 
     public get gauge() {
@@ -30,13 +48,5 @@ class StringInfo {
 
     public set unitWeight(value: number) {
         this._unitWeight = value
-    }
-
-    public get collection() {
-        return this._collection
-    }
-
-    public set collection(value: StringCollection) {
-        this._collection = value
     }
 }

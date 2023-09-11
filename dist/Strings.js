@@ -1,5 +1,5 @@
-import { StringCollection } from "./stringcollection.js";
-import { StringInfo } from "./stringinfo.js";
+import { StringCollection } from "./StringCollection.js";
+import { StringInfo } from "./StringInfo.js";
 export { Strings };
 /**
  * Represents guitar string brands. Each brand of guitar string is a collection, represented as a StringCollection.
@@ -36,6 +36,9 @@ class Strings {
             new StringInfo(0.024, 0.0001276),
             new StringInfo(0.026, 0.00014975),
         ]);
+        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        dAddarioPlainSteel.setBrandForStrings();
+        dAddarioPlainSteel.setTypeForStrings();
         return dAddarioPlainSteel;
     }
     /**
@@ -80,6 +83,9 @@ class Strings {
             new StringInfo(0.074, 0.00098869),
             new StringInfo(0.08, 0.00115011),
         ]);
+        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        dAddarioXLNickelWound.setBrandForStrings();
+        dAddarioXLNickelWound.setTypeForStrings();
         return dAddarioXLNickelWound;
     }
 }

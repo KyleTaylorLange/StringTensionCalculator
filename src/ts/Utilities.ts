@@ -10,7 +10,7 @@ class Utilities {
      *
      * @returns The element.
      */
-    static createElement(elementType: any, className: any, textContent: any = null): any {
+    public static createElement(elementType: any, className: any, textContent: any = null): any {
         let element = document.createElement(elementType)
 
         element.classList.add(className)

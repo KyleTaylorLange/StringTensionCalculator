@@ -1,7 +1,7 @@
-import { Utilities } from "./utilities.js"
-import { Note } from "./note.js"
-import { StringTable } from "./stringtable.js"
-import { StringState } from "./stringstate.js"
+import { Utilities } from "./Utilities.js"
+import { Note } from "./Note.js"
+import { StringTable } from "./StringTable.js"
+import { StringState } from "./StringState.js"
 
 export { StringTension }
 
@@ -28,7 +28,7 @@ class StringTension {
      *
      * @param {number} semitones A semitone count.
      */
-    shiftPitches(semitones: number) {
+    public shiftPitches(semitones: number) {
         this.stringTable.shiftPitches(semitones)
         this.redrawStringTable("str-table")
     }
@@ -39,7 +39,7 @@ class StringTension {
      * @param {string} tableId The id for the string table.
      * @param {string} numberId The id for the `Number of Strings` input element.
      */
-    makeStringTable(tableId: string, numberId: string) {
+    public makeStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value
 
         this.stringTable.setNumStrings(Number(numStrings))
@@ -51,7 +51,7 @@ class StringTension {
      *
      * @param {string} tableId The id for the string table.
      */
-    redrawStringTable(tableId: string) {
+    public redrawStringTable(tableId: string) {
         let strTable = document.createElement("table")
         let tr = document.createElement("tr")
 
@@ -82,7 +82,7 @@ class StringTension {
 
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
-            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i))
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i), this.stringTable)
 
             strTable.appendChild(strRow)
         }
@@ -102,9 +102,19 @@ class StringTension {
      * @param {StringState} str The string state.
      * @returns {any} A string table row (tr).
      */
-    makeStringRow(num: number, str: StringState): any {
+    public makeStringRow(num: number, state: StringState, strTable: StringTable): any {
         // The calling object
         let caller = this
+
+        // State and current strings properties
+        let stateBrand = state.strInfo.brand
+        let stateType = state.strInfo.type
+        let dAddarioPlainSteelBrand = strTable.currentStrings.dAddarioPlainSteel.brand
+        let dAddarioPlainSteelType = strTable.currentStrings.dAddarioPlainSteel.type
+        let dAddarioXLNickelWoundBrand = strTable.currentStrings.dAddarioXLNickelWound.brand
+        let dAddarioXLNickelWoundType = strTable.currentStrings.dAddarioXLNickelWound.type
+        let dAddarioPlainSteelCollection = strTable.currentStrings.dAddarioXLNickelWound
+        let dAddarioXLNickelWoundCollection = strTable.currentStrings.dAddarioPlainSteel
 
         // Array that will hold our fields/columns
         let fields = []
@@ -114,12 +124,12 @@ class StringTension {
         let stringNum = Utilities.createElement("td", "string-num")
         let noteName = Utilities.createElement("td", "note-name")
         let noteInner = Utilities.createElement("div", "note-inner")
-        let noteLetter = Utilities.createElement("span", "note-letter", Note.getNoteLetter(str.note))
-        let noteOctave = Utilities.createElement("sub", "note-octave", Note.getNoteOctave(str.note))
+        let noteLetter = Utilities.createElement("span", "note-letter", Note.getNoteLetter(state.note))
+        let noteOctave = Utilities.createElement("sub", "note-octave", Note.getNoteOctave(state.note))
         let scaleLength = Utilities.createElement("td", "scale-length")
-        let stringType = Utilities.createElement("td", "string-type", str.strInfo.collection.brand + " " + str.strInfo.collection.type)
-        let gauge = Utilities.createElement("td", "gauge", str.strInfo.gauge * 1000)
-        let tension = Utilities.createElement("td", "tension", str.calculateStringTension())
+        let stringType = Utilities.createElement("td", "string-type", state.strInfo.brand + " " + state.strInfo.type)
+        let gauge = Utilities.createElement("td", "gauge", state.strInfo.gauge * 1000)
+        let tension = Utilities.createElement("td", "tension", state.calculateStringTension())
 
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
@@ -131,7 +141,7 @@ class StringTension {
         let scaleLengthBox = Utilities.createElement("input", "scale-length")
 
         scaleLengthBox.type = "text"
-        scaleLengthBox.value = str.scaleLength.toString() + '"'
+        scaleLengthBox.value = state.scaleLength.toString() + '"'
 
         // TODO: Make more efficient and eventually split into smaller functions.
         scaleLengthBox.onchange = function () {
@@ -166,12 +176,12 @@ class StringTension {
                     inputScale /= 25.4
                 }
 
-                str.scaleLength = inputScale
+                state.scaleLength = inputScale
                 caller.redrawStringTable("str-table")
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = str.scaleLength + '"'
+                scaleLengthBox.value = state.scaleLength + '"'
             }
         }
 
@@ -184,33 +194,27 @@ class StringTension {
         stringNum.appendChild(document.createTextNode(num.toString()))
 
         buttonPitchDown.onclick = function () {
-            str.shiftPitch(-1)
+            state.shiftPitch(-1)
             caller.redrawStringTable("str-table")
         }
 
         buttonPitchUp.onclick = function () {
-            str.shiftPitch(1)
+            state.shiftPitch(1)
             caller.redrawStringTable("str-table")
         }
 
         buttonGaugeDecrease.onclick = function () {
-            let lighterGauge = str.strInfo.collection.getPreviousString(
-                str.strInfo
-            )
+            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType)
 
-            if (lighterGauge != undefined) {
-                str.strInfo = lighterGauge
-            }
+            state.strInfo = currentCollection.getPreviousString(state.strInfo)
 
             caller.redrawStringTable("str-table")
         }
 
         buttonGaugeIncrease.onclick = function () {
-            let heavierGauge = str.strInfo.collection.getNextString(str.strInfo)
+            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType)
 
-            if (heavierGauge != undefined) {
-                str.strInfo = heavierGauge
-            }
+            state.strInfo = currentCollection.getNextString(state.strInfo)
 
             caller.redrawStringTable("str-table")
         }

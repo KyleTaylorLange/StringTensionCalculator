@@ -1,6 +1,6 @@
-import { Utilities } from "./utilities.js";
-import { Note } from "./note.js";
-import { StringTable } from "./stringtable.js";
+import { Utilities } from "./Utilities.js";
+import { Note } from "./Note.js";
+import { StringTable } from "./StringTable.js";
 export { StringTension };
 /**
  * Primary class for modulating the string tension.
@@ -65,7 +65,7 @@ class StringTension {
         strTable.appendChild(tr);
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
-            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i), this.stringTable);
             strTable.appendChild(strRow);
         }
         // NOTE: Note the use of the non-null assertion operators here.
@@ -80,9 +80,18 @@ class StringTension {
      * @param {StringState} str The string state.
      * @returns {any} A string table row (tr).
      */
-    makeStringRow(num, str) {
+    makeStringRow(num, state, strTable) {
         // The calling object
         let caller = this;
+        // State and current strings properties
+        let stateBrand = state.strInfo.brand;
+        let stateType = state.strInfo.type;
+        let dAddarioPlainSteelBrand = strTable.currentStrings.dAddarioPlainSteel.brand;
+        let dAddarioPlainSteelType = strTable.currentStrings.dAddarioPlainSteel.type;
+        let dAddarioXLNickelWoundBrand = strTable.currentStrings.dAddarioXLNickelWound.brand;
+        let dAddarioXLNickelWoundType = strTable.currentStrings.dAddarioXLNickelWound.type;
+        let dAddarioPlainSteelCollection = strTable.currentStrings.dAddarioXLNickelWound;
+        let dAddarioXLNickelWoundCollection = strTable.currentStrings.dAddarioPlainSteel;
         // Array that will hold our fields/columns
         let fields = [];
         // Creating our elements with their respective class names
@@ -90,12 +99,12 @@ class StringTension {
         let stringNum = Utilities.createElement("td", "string-num");
         let noteName = Utilities.createElement("td", "note-name");
         let noteInner = Utilities.createElement("div", "note-inner");
-        let noteLetter = Utilities.createElement("span", "note-letter", Note.getNoteLetter(str.note));
-        let noteOctave = Utilities.createElement("sub", "note-octave", Note.getNoteOctave(str.note));
+        let noteLetter = Utilities.createElement("span", "note-letter", Note.getNoteLetter(state.note));
+        let noteOctave = Utilities.createElement("sub", "note-octave", Note.getNoteOctave(state.note));
         let scaleLength = Utilities.createElement("td", "scale-length");
-        let stringType = Utilities.createElement("td", "string-type", str.strInfo.collection.brand + " " + str.strInfo.collection.type);
-        let gauge = Utilities.createElement("td", "gauge", str.strInfo.gauge * 1000);
-        let tension = Utilities.createElement("td", "tension", str.calculateStringTension());
+        let stringType = Utilities.createElement("td", "string-type", state.strInfo.brand + " " + state.strInfo.type);
+        let gauge = Utilities.createElement("td", "gauge", state.strInfo.gauge * 1000);
+        let tension = Utilities.createElement("td", "tension", state.calculateStringTension());
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension);
         let buttonContainer = Utilities.createElement("div", "note-buttons");
@@ -103,7 +112,7 @@ class StringTension {
         let buttonPitchUp = Utilities.createElement("button", "button-pitch-up", "+");
         let scaleLengthBox = Utilities.createElement("input", "scale-length");
         scaleLengthBox.type = "text";
-        scaleLengthBox.value = str.scaleLength.toString() + '"';
+        scaleLengthBox.value = state.scaleLength.toString() + '"';
         // TODO: Make more efficient and eventually split into smaller functions.
         scaleLengthBox.onchange = function () {
             let inputScale = scaleLengthBox.value.trim();
@@ -129,12 +138,12 @@ class StringTension {
                     // TODO: A smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
                     inputScale /= 25.4;
                 }
-                str.scaleLength = inputScale;
+                state.scaleLength = inputScale;
                 caller.redrawStringTable("str-table");
             }
             // If it is not a number, just return the original value.
             else {
-                scaleLengthBox.value = str.scaleLength + '"';
+                scaleLengthBox.value = state.scaleLength + '"';
             }
         };
         scaleLength.appendChild(scaleLengthBox);
@@ -143,25 +152,21 @@ class StringTension {
         let buttonGaugeIncrease = Utilities.createElement("button", "button-gauge-increase", "+");
         stringNum.appendChild(document.createTextNode(num.toString()));
         buttonPitchDown.onclick = function () {
-            str.shiftPitch(-1);
+            state.shiftPitch(-1);
             caller.redrawStringTable("str-table");
         };
         buttonPitchUp.onclick = function () {
-            str.shiftPitch(1);
+            state.shiftPitch(1);
             caller.redrawStringTable("str-table");
         };
         buttonGaugeDecrease.onclick = function () {
-            let lighterGauge = str.strInfo.collection.getPreviousString(str.strInfo);
-            if (lighterGauge != undefined) {
-                str.strInfo = lighterGauge;
-            }
+            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentCollection.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         buttonGaugeIncrease.onclick = function () {
-            let heavierGauge = str.strInfo.collection.getNextString(str.strInfo);
-            if (heavierGauge != undefined) {
-                str.strInfo = heavierGauge;
-            }
+            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentCollection.getNextString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field

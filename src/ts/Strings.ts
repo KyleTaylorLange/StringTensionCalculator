@@ -1,5 +1,5 @@
-import { StringCollection } from "./stringcollection.js"
-import { StringInfo } from "./stringinfo.js"
+import { StringCollection } from "./StringCollection.js"
+import { StringInfo } from "./StringInfo.js"
 
 export { Strings }
 
@@ -12,7 +12,7 @@ class Strings {
      *
      * @returns {StringCollection} D'Addario Plain Steel strings.
      */
-    static dAddarioPlainSteel(): StringCollection {
+    public static dAddarioPlainSteel(): StringCollection {
         let dAddarioPlainSteel = new StringCollection("D'Addario", "Plain Steel")
 
         dAddarioPlainSteel.strings = ([
@@ -40,6 +40,10 @@ class Strings {
             new StringInfo(0.026, 0.00014975),
         ])
 
+        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        dAddarioPlainSteel.setBrandForStrings()
+        dAddarioPlainSteel.setTypeForStrings()
+
         return dAddarioPlainSteel
     }
 
@@ -48,7 +52,7 @@ class Strings {
      *
      * @returns {StringCollection} D'Addario XL Nickel Wound strings.
      */
-    static dAddarioXLNickelWound(): StringCollection {
+    public static dAddarioXLNickelWound(): StringCollection {
         let dAddarioXLNickelWound = new StringCollection("D'Addario", "XL Nickel Wound")
 
         dAddarioXLNickelWound.strings = ([
@@ -86,6 +90,10 @@ class Strings {
             new StringInfo(0.074, 0.00098869),
             new StringInfo(0.08, 0.00115011),
         ])
+
+        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        dAddarioXLNickelWound.setBrandForStrings()
+        dAddarioXLNickelWound.setTypeForStrings()
 
         return dAddarioXLNickelWound
     }
