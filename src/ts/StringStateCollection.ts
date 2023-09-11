@@ -7,6 +7,8 @@ export { StringStateCollection }
 
 /**
  * A collection of string states - what will be displayed in the table at any given time.
+ * 
+ * Regular string collections are also used to check the string brands/types against the current state.
  */
 class StringStateCollection {
     private _states: StringState[]
@@ -53,50 +55,5 @@ class StringStateCollection {
         }
 
         return new StringCollection("", "")
-    }
-
-    // NOTE: It remains to be seen whether the following two methods will be necessary - it may not
-    //       but necessary to iterate through these collections in here. 
-    
-    /**
-     * Get the previous string in a string collection.
-     * 
-     * @param collection 
-     * @param currentString 
-     * @returns A string (i.e. an instance of StringInfo)
-     */
-    public getPreviousString(collection: StringCollection, currentString: StringInfo): StringInfo {
-        let strPrev = currentString
-
-        if (collection !== undefined) {
-            collection.strings.forEach((str: StringInfo, index: number) => {
-                if (str === currentString && index !== 0) {
-                    strPrev = collection.strings[index - 1]
-                }   
-            })
-        }
-
-        return strPrev
-    }
-
-    /**
-     * Get the next string in a string collection.
-     * 
-     * @param collection 
-     * @param currentString 
-     * @returns A string (i.e. an instance of StringInfo)
-     */
-    public getNextString(collection: StringCollection, currentString: StringInfo): StringInfo {
-        let strNext = currentString
-
-        if (collection !== undefined) {
-            collection.strings.forEach((str: StringInfo, index: number) => {
-                if (str === currentString && index !== collection.strings.length - 1) {
-                    strNext = collection.strings[index + 1]
-                }   
-            })
-        }
-
-        return strNext
     }
 }
