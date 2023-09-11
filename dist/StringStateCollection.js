@@ -30,6 +30,13 @@ class StringStateCollection {
     set dAddarioXLNickelWound(value) {
         this._dAddarioXLNickelWound = value;
     }
+    /**
+     * Gets a collection by guitar string and string type.
+     *
+     * @param {string} brand
+     * @param {string} type
+     * @returns A string collection.
+     */
     getCollectionByBrandAndType(brand, type) {
         if (this.dAddarioPlainSteel.brand === brand && this.dAddarioPlainSteel.type === type) {
             return this.dAddarioPlainSteel;
@@ -37,6 +44,6 @@ class StringStateCollection {
         if (this.dAddarioXLNickelWound.brand === brand && this.dAddarioXLNickelWound.type === type) {
             return this.dAddarioXLNickelWound;
         }
-        return new StringCollection("", "");
+        return new StringCollection("Undefined", "Guitar String");
     }
 }
