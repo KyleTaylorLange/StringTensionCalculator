@@ -112,7 +112,7 @@ class StringTable {
             return
         }
 
-        while (numStrings >= this.currentStrings.states.length) {
+        while (numStrings > this.currentStrings.states.length) {
             this.currentStrings.states.push(this.stringCache.states.pop()!)
         }
 
