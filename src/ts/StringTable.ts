@@ -9,10 +9,12 @@ export { StringTable }
  */
 class StringTable {
     private _currentStrings: StringStateCollection
+    private _stringCache: StringStateCollection
 
     constructor() {
         // Standard tuning is set as the default (original) state for the current strings
         this._currentStrings = this.getStandardTuning()
+        this._stringCache = new StringStateCollection
     }
 
     public get currentStrings(): StringStateCollection {
@@ -21,6 +23,14 @@ class StringTable {
 
     public set currentStrings(value: StringStateCollection) {
         this._currentStrings = value
+    }
+
+    public get stringCache(): StringStateCollection {
+        return this._stringCache
+    }
+    
+    public set stringCache(value: StringStateCollection) {
+        this._stringCache = value
     }
 
     /** 
@@ -104,26 +114,12 @@ class StringTable {
             return
         }
 
-        while (numStrings < this.currentStrings.states.length) {
-            this.currentStrings.states.pop()
+        while (numStrings >= this.currentStrings.states.length) {
+            this.currentStrings.states.push(this.stringCache.states.pop()!)
         }
 
-        if (numStrings > this.currentStrings.states.length) {
-            /**
-             * // TODO: Revisions for algorithm for setting the number of strings.
-             *
-             * If the number of requested strings is longer than the defaultStrings, just keep duplicating the last one.
-             * Additional idea: instead of taking the pitch from the defaultStrings, predict the subsequent pitch.
-             * For guitar/bass this would just be the current pitch - 5., for mandolin it'd be - 7.
-             * Though it could be coded to handle weird intervals (e.g. the 4-semitones between string 2 and 3 on guitar).
-             */
-            for (let i = this.currentStrings.states.length; i < numStrings; i++) {
-                this.currentStrings.states[i] = new StringState(
-                    this.currentStrings.states[i].note,
-                    this.currentStrings.states[i].scaleLength,
-                    this.currentStrings.states[i].strInfo
-                )
-            }
+        while (numStrings < this.currentStrings.states.length) {
+            this.stringCache.states.push(this.currentStrings.states.pop()!)
         }
     }
 
