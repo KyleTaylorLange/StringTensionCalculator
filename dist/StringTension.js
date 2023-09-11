@@ -83,15 +83,9 @@ class StringTension {
     makeStringRow(num, state, strTable) {
         // The calling object
         let caller = this;
-        // State and current strings properties
+        // State brand and type
         let stateBrand = state.strInfo.brand;
         let stateType = state.strInfo.type;
-        let dAddarioPlainSteelBrand = strTable.currentStrings.dAddarioPlainSteel.brand;
-        let dAddarioPlainSteelType = strTable.currentStrings.dAddarioPlainSteel.type;
-        let dAddarioXLNickelWoundBrand = strTable.currentStrings.dAddarioXLNickelWound.brand;
-        let dAddarioXLNickelWoundType = strTable.currentStrings.dAddarioXLNickelWound.type;
-        let dAddarioPlainSteelCollection = strTable.currentStrings.dAddarioXLNickelWound;
-        let dAddarioXLNickelWoundCollection = strTable.currentStrings.dAddarioPlainSteel;
         // Array that will hold our fields/columns
         let fields = [];
         // Creating our elements with their respective class names
@@ -159,11 +153,13 @@ class StringTension {
             state.shiftPitch(1);
             caller.redrawStringTable("str-table");
         };
+        // Increase gauge
         buttonGaugeDecrease.onclick = function () {
             let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
             state.strInfo = currentCollection.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
+        // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
             let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
             state.strInfo = currentCollection.getNextString(state.strInfo);

@@ -106,15 +106,9 @@ class StringTension {
         // The calling object
         let caller = this
 
-        // State and current strings properties
+        // State brand and type
         let stateBrand = state.strInfo.brand
         let stateType = state.strInfo.type
-        let dAddarioPlainSteelBrand = strTable.currentStrings.dAddarioPlainSteel.brand
-        let dAddarioPlainSteelType = strTable.currentStrings.dAddarioPlainSteel.type
-        let dAddarioXLNickelWoundBrand = strTable.currentStrings.dAddarioXLNickelWound.brand
-        let dAddarioXLNickelWoundType = strTable.currentStrings.dAddarioXLNickelWound.type
-        let dAddarioPlainSteelCollection = strTable.currentStrings.dAddarioXLNickelWound
-        let dAddarioXLNickelWoundCollection = strTable.currentStrings.dAddarioPlainSteel
 
         // Array that will hold our fields/columns
         let fields = []
@@ -203,6 +197,7 @@ class StringTension {
             caller.redrawStringTable("str-table")
         }
 
+        // Increase gauge
         buttonGaugeDecrease.onclick = function () {
             let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType)
 
@@ -211,6 +206,7 @@ class StringTension {
             caller.redrawStringTable("str-table")
         }
 
+        // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
             let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType)
 
