@@ -39,7 +39,7 @@ class StringTable {
      * @description Standard tuning.
      */
     public getStandardTuning(): StringStateCollection {
-        let standardTuning = new StringStateCollection([
+        return new StringStateCollection([
             new StringState(
                 64,
                 25.5,
@@ -81,8 +81,6 @@ class StringTable {
                 Strings.dAddarioXLNickelWound().getStringByGauge(0.074)
             )
         ])
-
-        return standardTuning
     }
 
     /**

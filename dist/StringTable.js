@@ -29,7 +29,7 @@ class StringTable {
      * @description Standard tuning.
      */
     getStandardTuning() {
-        let standardTuning = new StringStateCollection([
+        return new StringStateCollection([
             new StringState(64, 25.5, Strings.dAddarioPlainSteel().getStringByGauge(0.01)),
             new StringState(59, 25.5, Strings.dAddarioPlainSteel().getStringByGauge(0.013)),
             new StringState(55, 25.5, Strings.dAddarioPlainSteel().getStringByGauge(0.017)),
@@ -39,7 +39,6 @@ class StringTable {
             new StringState(35, 25.5, Strings.dAddarioXLNickelWound().getStringByGauge(0.059)),
             new StringState(30, 25.5, Strings.dAddarioXLNickelWound().getStringByGauge(0.074))
         ]);
-        return standardTuning;
     }
     /**
      * Gets a current single string.
