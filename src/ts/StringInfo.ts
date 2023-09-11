@@ -1,5 +1,3 @@
-import { StringCollection } from "./StringCollection.js"
-
 export { StringInfo }
 
 /**

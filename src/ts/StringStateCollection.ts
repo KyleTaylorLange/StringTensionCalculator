@@ -1,5 +1,4 @@
 import { StringCollection } from "./StringCollection.js"
-import { StringInfo } from "./StringInfo.js"
 import { StringState } from "./StringState.js"
 import { Strings } from "./Strings.js"
 
