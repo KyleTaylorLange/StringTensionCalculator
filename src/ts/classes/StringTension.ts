@@ -1,7 +1,7 @@
-import { Utilities } from "./static/Utilities.js"
-import { Note } from "./static/Note.js"
-import { StringTable } from "./classes/StringTable.js"
-import { StringState } from "./classes/StringState.js"
+import { Utilities } from "../static/Utilities.js"
+import { Note } from "../static/Note.js"
+import { StringTable } from "./StringTable.js"
+import { StringState } from "./StringState.js"
 
 export { StringTension }
 
