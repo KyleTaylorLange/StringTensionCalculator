@@ -41,6 +41,9 @@ class StringCollection {
     }
     // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
     //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.
+    //
+    //       We can resolve this by explicitly requiring an arg type (for object construction) that contain brands/string
+    //       rather than passing them in as strings. And then these can be required in the methods.
     /**
      * Returns the first string with the input gauge.
      *
@@ -49,9 +52,13 @@ class StringCollection {
      */
     getStringByGauge(gauge) {
         let strFound = new StringInfo(0, 0);
-        for (let str of this.strings) {
-            if (str.gauge == gauge) {
-                strFound = str;
+        for (const i in this.strings) {
+            if (this.strings[i].gauge == gauge) {
+                strFound = this.strings[i];
+                break;
+            }
+            if (this.strings[i].gauge != gauge && this.strings.length - 1 == Number(i)) {
+                strFound = this.strings[i];
             }
         }
         return strFound;
@@ -63,13 +70,18 @@ class StringCollection {
      * @returns {StringInfo} The string before strInfo if both exist.
      */
     getPreviousString(strInfo) {
-        let strPrev = new StringInfo(0, 0);
-        for (let i = 1; i < this.strings.length; i++) {
-            if (this.strings[i].gauge == strInfo.gauge) {
-                strPrev = this.strings[i - 1];
+        let prev = new StringInfo(0, 0);
+        const first = 0;
+        const last = this.strings.length - 1;
+        for (let i = last; i >= first; i--) {
+            if (i === first || this.strings[first].gauge === strInfo.gauge) {
+                return this.strings[first];
+            }
+            if (this.strings[i].gauge === strInfo.gauge) {
+                return this.strings[i - 1];
             }
         }
-        return strPrev;
+        return prev;
     }
     /**
      * Gets the string after the input string in the collection.
@@ -78,13 +90,17 @@ class StringCollection {
      * @returns {StringInfo} The string after strInfo.
      */
     getNextString(strInfo) {
-        const endpoint = this.strings.length - 1;
-        let strNext = new StringInfo(0, 0);
-        for (let i = 0; i < endpoint; i++) {
-            if (this.strings[i].gauge == strInfo.gauge) {
-                strNext = this.strings[i + 1];
+        let next = new StringInfo(0, 0);
+        const first = 0;
+        const last = this.strings.length - 1;
+        for (let i = first; i <= last; i++) {
+            if (i === last || this.strings[last].gauge === strInfo.gauge) {
+                return this.strings[last];
+            }
+            if (this.strings[i].gauge === strInfo.gauge) {
+                return this.strings[i + 1];
             }
         }
-        return strNext;
+        return next;
     }
 }

@@ -143,12 +143,10 @@ class StringTension {
             let inputScale = scaleLengthBox.value.trim()
 
             // Temp: convert from mm to inches.
-            let convertFromMillimeters =
-                inputScale.substring(inputScale.length - 2) == "mm"
+            let convertFromMillimeters = inputScale.substring(inputScale.length - 2) == "mm"
 
             // Easter Egg: convert feet to inches if a single tick is input.
-            let convertFromFeet =
-                inputScale.charAt(inputScale.length - 1) == "'"
+            let convertFromFeet = inputScale.charAt(inputScale.length - 1) == "'"
 
             // Trim out units from string.
             if (inputScale.charAt(inputScale.length - 1) == '"' || convertFromFeet) {
