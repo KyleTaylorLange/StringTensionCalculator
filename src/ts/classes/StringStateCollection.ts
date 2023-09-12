@@ -1,6 +1,6 @@
 import { StringCollection } from "./StringCollection.js"
 import { StringState } from "./StringState.js"
-import { Strings } from "./Strings.js"
+import { Strings } from "../static/Strings.js"
 
 export { StringStateCollection }
 

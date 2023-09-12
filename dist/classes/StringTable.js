@@ -1,5 +1,5 @@
 import { StringState } from "./StringState.js";
-import { Strings } from "./Strings.js";
+import { Strings } from "../static/Strings.js";
 import { StringStateCollection } from "./StringStateCollection.js";
 export { StringTable };
 /**

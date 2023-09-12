@@ -1,6 +1,6 @@
-import { Utilities } from "./Utilities.js";
-import { Note } from "./Note.js";
-import { StringTable } from "./StringTable.js";
+import { Utilities } from "./static/Utilities.js";
+import { Note } from "./static/Note.js";
+import { StringTable } from "./classes/StringTable.js";
 export { StringTension };
 /**
  * Primary class for modulating the string tension.

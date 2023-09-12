@@ -1,5 +1,5 @@
 import { StringCollection } from "./StringCollection.js";
-import { Strings } from "./Strings.js";
+import { Strings } from "../static/Strings.js";
 export { StringStateCollection };
 /**
  * A collection of string states - what will be displayed in the table at any given time.
