@@ -10,10 +10,10 @@ class StringCollection implements StringMake {
     private _type: string
     private _strings: StringInfo[]
 
-    constructor(brand: string = "", type: string = "") {
+    constructor(brand: string, type: string, strings: StringInfo[]) {
         this._brand = brand
         this._type = type
-        this._strings = []
+        this._strings = strings
     }
 
     public get brand(): string {

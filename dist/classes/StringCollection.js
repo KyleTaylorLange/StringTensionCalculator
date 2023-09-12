@@ -3,10 +3,10 @@ export { StringCollection };
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
 class StringCollection {
-    constructor(brand = "", type = "") {
+    constructor(brand, type, strings) {
         this._brand = brand;
         this._type = type;
-        this._strings = [];
+        this._strings = strings;
     }
     get brand() {
         return this._brand;
