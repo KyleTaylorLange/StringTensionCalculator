@@ -54,40 +54,31 @@ class StringCollection implements StringMake {
         this.strings.forEach((str) => str.type = this.type)
     }
 
-    // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
-    //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.
-
     /**
-     * Returns the first string with the input gauge.
+     * Returns the first string matching the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {StringInfo} A string matching that gauge.
+     * @returns {StringInfo} A string matching that gauge, or else the middle string in the collection.
      */
     public getStringByGauge(gauge: number): StringInfo {
-        let strFound = new StringInfo(0, 0)
-
+        const last = this.strings.length - 1
+        
         for (const i in this.strings) {
             if (this.strings[i].gauge == gauge) {
-                strFound = this.strings[i]
-                break;
-            }
-
-            if (this.strings[i].gauge != gauge && this.strings.length - 1 == Number(i)) {
-                strFound = this.strings[i]
+                return this.strings[i]
             }
         }
 
-        return strFound
+        return this.strings[Math.trunc(last / 2)]
     }
 
     /**
      * Gets the string before the input string in the collection.
      *
      * @param {StringInfo} strInfo A guitar string.
-     * @returns {StringInfo} The string before strInfo if both exist.
+     * @returns {StringInfo} The previous string, or else the first string.
      */
     public getPreviousString(strInfo: StringInfo): StringInfo {
-        let prev = new StringInfo(0, 0)
         const first = 0
         const last = this.strings.length - 1
 
@@ -101,17 +92,16 @@ class StringCollection implements StringMake {
             }
         }
 
-        return prev
+        return this.strings[first]
     }
 
     /**
      * Gets the string after the input string in the collection.
      *
      * @param {StringInfo} strInfo A guitar string.
-     * @returns {StringInfo} The string after strInfo.
+     * @returns {StringInfo} The next string, or else the last string.
      */
     public getNextString(strInfo: StringInfo): StringInfo {
-        let next = new StringInfo(0, 0)
         const first = 0
         const last = this.strings.length - 1
 
@@ -125,6 +115,6 @@ class StringCollection implements StringMake {
             }
         }
 
-        return next
+        return this.strings[last]
     }
 }

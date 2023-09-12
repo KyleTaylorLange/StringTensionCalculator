@@ -1,4 +1,3 @@
-import { StringInfo } from "./StringInfo.js";
 export { StringCollection };
 /**
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
@@ -39,35 +38,28 @@ class StringCollection {
     setTypeForStrings() {
         this.strings.forEach((str) => str.type = this.type);
     }
-    // TODO: The following methods are now quite ugly and need to be refactored. We shouldn't be relying
-    //       on a dummy object in order for the function to not return a union type of StringInfo | undefined.
     /**
-     * Returns the first string with the input gauge.
+     * Returns the first string matching the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {StringInfo} A string matching that gauge.
+     * @returns {StringInfo} A string matching that gauge, or else the middle string in the collection.
      */
     getStringByGauge(gauge) {
-        let strFound = new StringInfo(0, 0);
+        const last = this.strings.length - 1;
         for (const i in this.strings) {
             if (this.strings[i].gauge == gauge) {
-                strFound = this.strings[i];
-                break;
-            }
-            if (this.strings[i].gauge != gauge && this.strings.length - 1 == Number(i)) {
-                strFound = this.strings[i];
+                return this.strings[i];
             }
         }
-        return strFound;
+        return this.strings[Math.trunc(last / 2)];
     }
     /**
      * Gets the string before the input string in the collection.
      *
      * @param {StringInfo} strInfo A guitar string.
-     * @returns {StringInfo} The string before strInfo if both exist.
+     * @returns {StringInfo} The previous string, or else the first string.
      */
     getPreviousString(strInfo) {
-        let prev = new StringInfo(0, 0);
         const first = 0;
         const last = this.strings.length - 1;
         for (let i = last; i >= first; i--) {
@@ -78,16 +70,15 @@ class StringCollection {
                 return this.strings[i - 1];
             }
         }
-        return prev;
+        return this.strings[first];
     }
     /**
      * Gets the string after the input string in the collection.
      *
      * @param {StringInfo} strInfo A guitar string.
-     * @returns {StringInfo} The string after strInfo.
+     * @returns {StringInfo} The next string, or else the last string.
      */
     getNextString(strInfo) {
-        let next = new StringInfo(0, 0);
         const first = 0;
         const last = this.strings.length - 1;
         for (let i = first; i <= last; i++) {
@@ -98,6 +89,6 @@ class StringCollection {
                 return this.strings[i + 1];
             }
         }
-        return next;
+        return this.strings[last];
     }
 }
