@@ -3,7 +3,7 @@ export { StringInfo }
 /**
  * Represents a guitar string's inalienable characteristics.
  */
-class StringInfo {
+class StringInfo implements StringMake {
     private _brand: string
     private _type: string
     private _gauge: number

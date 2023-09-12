@@ -5,7 +5,7 @@ export { StringCollection }
 /**
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
-class StringCollection {
+class StringCollection implements StringMake {
     private _brand: string
     private _type: string
     private _strings: StringInfo[]
