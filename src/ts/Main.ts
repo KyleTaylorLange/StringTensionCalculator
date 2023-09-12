@@ -24,9 +24,9 @@ class Main {
 	  * Run time!
 	  */
     public runTime() {
-		  let caller = this
+        let caller = this
 
-			// Some of our elements to be used
+        // Some of our elements to be used
         let numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName("number-of-strings")[0]
         let buttonPitchDown = <HTMLInputElement>document.getElementsByClassName("button-pitches-decrease")[0]
         let buttonPitchUp = <HTMLInputElement>document.getElementsByClassName("button-pitches-increase")[0]
