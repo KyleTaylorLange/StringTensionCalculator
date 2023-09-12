@@ -64,7 +64,7 @@ class StringCollection implements StringMake {
         const last = this.strings.length - 1
         
         for (const i in this.strings) {
-            if (this.strings[i].gauge == gauge) {
+            if (this.strings[i].gauge === gauge) {
                 return this.strings[i]
             }
         }
