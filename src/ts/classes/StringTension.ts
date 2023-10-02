@@ -2,6 +2,7 @@ import { Utilities } from "../static/Utilities.js"
 import { Note } from "../static/Note.js"
 import { StringTable } from "./StringTable.js"
 import { StringState } from "./StringState.js"
+import { StringManager } from "./StringManager.js"
 
 export { StringTension }
 
@@ -9,10 +10,12 @@ export { StringTension }
  * Primary class for modulating the string tension.
  */
 class StringTension {
+    private _stringManager: StringManager
     private _stringTable: StringTable
 
     constructor() {
-        this._stringTable = new StringTable()
+        this._stringManager = new StringManager()
+        this._stringTable = new StringTable(this._stringManager.getStandardTuning())
     }
 
     public get stringTable(): StringTable {
@@ -21,6 +24,10 @@ class StringTension {
 
     public set stringTable(value: StringTable) {
         this._stringTable = value
+    }
+
+    public get stringManager(): StringManager {
+        return this._stringManager
     }
 
     /**
@@ -198,7 +205,7 @@ class StringTension {
 
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getPreviousString(state.strInfo)
 
@@ -207,7 +214,7 @@ class StringTension {
 
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getNextString(state.strInfo)
 
