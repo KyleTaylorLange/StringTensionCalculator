@@ -26,3 +26,8 @@ To compile TypeScript code into the JavaScript files, in the root directory of t
 ```
 tsc
 ```
+
+To compile TypeScript and watch for changes, use:
+```
+tsc --watch
+```

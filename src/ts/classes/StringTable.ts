@@ -1,5 +1,6 @@
-import { StringState } from "./stringstate.js"
-import { Strings } from "./strings.js"
+import { StringState } from "./StringState.js"
+import { Strings } from "../static/Strings.js"
+import { StringStateCollection } from "./StringStateCollection.js"
 
 export { StringTable }
 
@@ -7,28 +8,29 @@ export { StringTable }
  * Manipulates multiple strings at once.
  */
 class StringTable {
-    private _defaultStrings: StringState[]
-    private _currentStrings: StringState[]
+    private _currentStrings: StringStateCollection
+    private _stringCache: StringStateCollection
 
     constructor() {
-        this._defaultStrings = this.getStandardTuning()
-        this._currentStrings = []
+        // Standard tuning is set as the default (original) state for the current strings
+        this._currentStrings = this.getStandardTuning()
+        this._stringCache = new StringStateCollection
     }
 
-    public get defaultStrings(): StringState[] {
-        return this._defaultStrings
-    }
-
-    public set defaultStrings(value: StringState[]) {
-        this._defaultStrings = value
-    }
-
-    public get currentStrings(): StringState[] {
+    public get currentStrings(): StringStateCollection {
         return this._currentStrings
     }
 
-    public set currentStrings(value: StringState[]) {
+    public set currentStrings(value: StringStateCollection) {
         this._currentStrings = value
+    }
+
+    public get stringCache(): StringStateCollection {
+        return this._stringCache
+    }
+    
+    public set stringCache(value: StringStateCollection) {
+        this._stringCache = value
     }
 
     /** 
@@ -36,8 +38,8 @@ class StringTable {
      * 
      * @description Standard tuning.
      */
-    getStandardTuning(): StringState[] {
-        return [
+    public getStandardTuning(): StringStateCollection {
+        return new StringStateCollection([
             new StringState(
                 64,
                 25.5,
@@ -78,7 +80,7 @@ class StringTable {
                 25.5,
                 Strings.dAddarioXLNickelWound().getStringByGauge(0.074)
             )
-        ]
+        ])
     }
 
     /**
@@ -87,8 +89,8 @@ class StringTable {
      * @param {number} i The zero-based index for the string.
      * @returns {StringState} The string at the input index.
      */
-    getString(i: number): StringState {
-        return this.currentStrings[i]
+    public getString(i: number): StringState {
+        return this.currentStrings.states[i]
     }
 
     /**
@@ -96,8 +98,8 @@ class StringTable {
      *
      * @returns {number} The number of strings in the string table.
      */
-    getNumStrings(): number {
-        return this.currentStrings.length
+    public getNumStrings(): number {
+        return this.currentStrings.states.length
     }
 
     /**
@@ -105,29 +107,17 @@ class StringTable {
      *
      * @param {number} numStrings
      */
-    setNumStrings(numStrings: number) {
-        if (numStrings < 1) return
-
-        while (numStrings < this.currentStrings.length) {
-            this.currentStrings.pop()
+    public setNumStrings(numStrings: number) {
+        if (numStrings < 1) {
+            return
         }
 
-        if (numStrings > this.currentStrings.length) {
-            /**
-             * // TODO: Revisions for algorithm for setting the number of strings.
-             *
-             * If the number of requested strings is longer than the defaultStrings, just keep duplicating the last one.
-             * Additional idea: instead of taking the pitch from the defaultStrings, predict the subsequent pitch.
-             * For guitar/bass this would just be the current pitch - 5., for mandolin it'd be - 7.
-             * Though it could be coded to handle weird intervals (e.g. the 4-semitones between string 2 and 3 on guitar).
-             */
-            for (let i = this.currentStrings.length; i < numStrings; i++) {
-                this.currentStrings[i] = new StringState(
-                    this.defaultStrings[i].note,
-                    this.defaultStrings[i].scaleLength,
-                    this.defaultStrings[i].strInfo
-                )
-            }
+        while (numStrings > this.currentStrings.states.length) {
+            this.currentStrings.states.push(this.stringCache.states.pop()!)
+        }
+
+        while (numStrings < this.currentStrings.states.length) {
+            this.stringCache.states.push(this.currentStrings.states.pop()!)
         }
     }
 
@@ -136,8 +126,8 @@ class StringTable {
      *
      * @param {number} semitones A semitone count.
      */
-    shiftPitches(semitones: number) {
-        for (let string of this.currentStrings) {
+    public shiftPitches(semitones: number) {
+        for (let string of this.currentStrings.states) {
             string.shiftPitch(semitones)
         }
     }

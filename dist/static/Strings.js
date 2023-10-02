@@ -1,18 +1,17 @@
-import { StringCollection } from "./stringcollection.js";
-import { StringInfo } from "./stringinfo.js";
+import { StringSeries } from "../classes/StringSeries.js";
+import { StringInfo } from "../classes/StringInfo.js";
 export { Strings };
 /**
- * Represents guitar string brands. Each brand of guitar string is a collection, represented as a StringCollection.
+ * Represents guitar string brands. Each brand of guitar string is a series, represented by a StringSeries instance.
  */
 class Strings {
     /**
-     * Get the D'Addario Plain Steel collection.
+     * Get the D'Addario Plain Steel series.
      *
-     * @returns {StringCollection} D'Addario Plain Steel strings.
+     * @returns {StringSeries} D'Addario Plain Steel strings.
      */
     static dAddarioPlainSteel() {
-        let dAddarioPlainSteel = new StringCollection("D'Addario", "Plain Steel");
-        dAddarioPlainSteel.strings = ([
+        let dAddarioPlainSteel = new StringSeries("D'Addario", "Plain Steel", [
             new StringInfo(0.007, 0.00001085),
             new StringInfo(0.008, 0.00001418),
             new StringInfo(0.0085, 0.00001601),
@@ -36,16 +35,18 @@ class Strings {
             new StringInfo(0.024, 0.0001276),
             new StringInfo(0.026, 0.00014975),
         ]);
+        // Pass the brand and type down from the StringSeries to each StringInfo instance
+        dAddarioPlainSteel.setBrandForStrings();
+        dAddarioPlainSteel.setTypeForStrings();
         return dAddarioPlainSteel;
     }
     /**
-     * Get the D'Addario XL Nickel Wound collection.
+     * Get the D'Addario XL Nickel Wound series.
      *
-     * @returns {StringCollection} D'Addario XL Nickel Wound strings.
+     * @returns {StringSeries} D'Addario XL Nickel Wound strings.
      */
     static dAddarioXLNickelWound() {
-        let dAddarioXLNickelWound = new StringCollection("D'Addario", "XL Nickel Wound");
-        dAddarioXLNickelWound.strings = ([
+        let dAddarioXLNickelWound = new StringSeries("D'Addario", "XL Nickel Wound", [
             new StringInfo(0.017, 0.00005524),
             new StringInfo(0.018, 0.00006215),
             new StringInfo(0.019, 0.00006947),
@@ -80,6 +81,9 @@ class Strings {
             new StringInfo(0.074, 0.00098869),
             new StringInfo(0.08, 0.00115011),
         ]);
+        // Pass the brand and type down from the StringSeries to each StringInfo instance
+        dAddarioXLNickelWound.setBrandForStrings();
+        dAddarioXLNickelWound.setTypeForStrings();
         return dAddarioXLNickelWound;
     }
 }
