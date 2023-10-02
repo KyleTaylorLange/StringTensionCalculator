@@ -1,5 +1,7 @@
 import { StringSeries } from "./StringSeries.js"
 import { Strings } from "../static/Strings.js"
+import { StringState } from "./StringState.js"
+import { StringStateCollection } from "./StringStateCollection.js"
 
 export { StringManager }
 
@@ -29,6 +31,56 @@ class StringManager {
 
     public set dAddarioXLNickelWound(value: StringSeries) {
         this._dAddarioXLNickelWound = value
+    }
+
+    /** 
+     * Get a base set of standard tuning strings.
+     * 
+     * @description Standard tuning.
+     */
+    public getStandardTuning(): StringStateCollection {
+        return new StringStateCollection([
+            new StringState(
+                64,
+                25.5,
+                this.dAddarioPlainSteel.getStringByGauge(0.01)
+            ),
+            new StringState(
+                59,
+                25.5,
+                this.dAddarioPlainSteel.getStringByGauge(0.013)
+            ),
+            new StringState(
+                55,
+                25.5,
+                this.dAddarioPlainSteel.getStringByGauge(0.017)
+            ),
+            new StringState(
+                50,
+                25.5,
+                this.dAddarioXLNickelWound.getStringByGauge(0.026)
+            ),
+            new StringState(
+                45,
+                25.5,
+                this.dAddarioXLNickelWound.getStringByGauge(0.036)
+            ),
+            new StringState(
+                40,
+                25.5,
+                this.dAddarioXLNickelWound.getStringByGauge(0.046)
+            ),
+            new StringState(
+                35,
+                25.5,
+                this.dAddarioXLNickelWound.getStringByGauge(0.059)
+            ),
+            new StringState(
+                30,
+                25.5,
+                this.dAddarioXLNickelWound.getStringByGauge(0.074)
+            )
+        ])
     }
     
     /**

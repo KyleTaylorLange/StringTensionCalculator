@@ -15,7 +15,7 @@ class StringTension {
 
     constructor() {
         this._stringManager = new StringManager()
-        this._stringTable = new StringTable(this._stringManager)
+        this._stringTable = new StringTable(this._stringManager.getStandardTuning())
     }
 
     public get stringTable(): StringTable {

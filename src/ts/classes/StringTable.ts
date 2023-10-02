@@ -8,19 +8,12 @@ export { StringTable }
  * Manipulates multiple strings at once.
  */
 class StringTable {
-    private _stringManager: StringManager
     private _currentStrings: StringStateCollection
     private _stringCache: StringStateCollection
 
-    constructor(stringManager: StringManager) {
-        // Standard tuning is set as the default (original) state for the current strings
-        this._stringManager = stringManager
-        this._currentStrings = this.getStandardTuning()
+    constructor(startingStrings: StringStateCollection) {
+        this._currentStrings = startingStrings
         this._stringCache = new StringStateCollection
-    }
-
-    public get stringManager(): StringManager {
-        return this._stringManager
     }
 
     public get currentStrings(): StringStateCollection {
@@ -37,56 +30,6 @@ class StringTable {
     
     public set stringCache(value: StringStateCollection) {
         this._stringCache = value
-    }
-
-    /** 
-     * Get a base set of standard tuning strings.
-     * 
-     * @description Standard tuning.
-     */
-    public getStandardTuning(): StringStateCollection {
-        return new StringStateCollection([
-            new StringState(
-                64,
-                25.5,
-                this.stringManager.dAddarioPlainSteel.getStringByGauge(0.01)
-            ),
-            new StringState(
-                59,
-                25.5,
-                this.stringManager.dAddarioPlainSteel.getStringByGauge(0.013)
-            ),
-            new StringState(
-                55,
-                25.5,
-                this.stringManager.dAddarioPlainSteel.getStringByGauge(0.017)
-            ),
-            new StringState(
-                50,
-                25.5,
-                this.stringManager.dAddarioXLNickelWound.getStringByGauge(0.026)
-            ),
-            new StringState(
-                45,
-                25.5,
-                this.stringManager.dAddarioXLNickelWound.getStringByGauge(0.036)
-            ),
-            new StringState(
-                40,
-                25.5,
-                this.stringManager.dAddarioXLNickelWound.getStringByGauge(0.046)
-            ),
-            new StringState(
-                35,
-                25.5,
-                this.stringManager.dAddarioXLNickelWound.getStringByGauge(0.059)
-            ),
-            new StringState(
-                30,
-                25.5,
-                this.stringManager.dAddarioXLNickelWound.getStringByGauge(0.074)
-            )
-        ])
     }
 
     /**
