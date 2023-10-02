@@ -1,11 +1,11 @@
 import { StringInfo } from "./StringInfo.js"
 
-export { StringCollection }
+export { StringSeries }
 
 /**
  * Represents a collection of guitar strings with different gauges but with other shared characteristics.
  */
-class StringCollection implements StringMake {
+class StringSeries implements StringMake {
     private _brand: string
     private _type: string
     private _strings: StringInfo[]

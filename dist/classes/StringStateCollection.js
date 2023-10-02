@@ -1,4 +1,4 @@
-import { StringCollection } from "./StringCollection.js";
+import { StringSeries } from "./StringSeries.js";
 import { Strings } from "../static/Strings.js";
 export { StringStateCollection };
 /**
@@ -44,6 +44,6 @@ class StringStateCollection {
         if (this.dAddarioXLNickelWound.brand === brand && this.dAddarioXLNickelWound.type === type) {
             return this.dAddarioXLNickelWound;
         }
-        return new StringCollection("Undefined", "Guitar String", []);
+        return new StringSeries("Undefined", "Guitar String", []);
     }
 }

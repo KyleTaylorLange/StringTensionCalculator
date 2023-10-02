@@ -1,19 +1,19 @@
-import { StringCollection } from "../classes/StringCollection.js"
+import { StringSeries } from "../classes/StringSeries.js"
 import { StringInfo } from "../classes/StringInfo.js"
 
 export { Strings }
 
 /**
- * Represents guitar string brands. Each brand of guitar string is a collection, represented as a StringCollection.
+ * Represents guitar string brands. Each brand of guitar string is a collection, represented as a StringSeries.
  */
 class Strings {
     /**
      * Get the D'Addario Plain Steel collection.
      *
-     * @returns {StringCollection} D'Addario Plain Steel strings.
+     * @returns {StringSeries} D'Addario Plain Steel strings.
      */
-    public static dAddarioPlainSteel(): StringCollection {
-        let dAddarioPlainSteel = new StringCollection(
+    public static dAddarioPlainSteel(): StringSeries {
+        let dAddarioPlainSteel = new StringSeries(
             "D'Addario",
             "Plain Steel",
             [
@@ -42,7 +42,7 @@ class Strings {
             ]
         )
 
-        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        // Pass the brand and type down from the StringSeries to each StringInfo instance
         dAddarioPlainSteel.setBrandForStrings()
         dAddarioPlainSteel.setTypeForStrings()
 
@@ -52,10 +52,10 @@ class Strings {
     /**
      * Get the D'Addario XL Nickel Wound collection.
      *
-     * @returns {StringCollection} D'Addario XL Nickel Wound strings.
+     * @returns {StringSeries} D'Addario XL Nickel Wound strings.
      */
-    public static dAddarioXLNickelWound(): StringCollection {
-        let dAddarioXLNickelWound = new StringCollection(
+    public static dAddarioXLNickelWound(): StringSeries {
+        let dAddarioXLNickelWound = new StringSeries(
             "D'Addario",
             "XL Nickel Wound",
             [
@@ -95,7 +95,7 @@ class Strings {
             ]
         )
 
-        // Pass the brand and type down from the StringCollection to each StringInfo instance
+        // Pass the brand and type down from the StringSeries to each StringInfo instance
         dAddarioXLNickelWound.setBrandForStrings()
         dAddarioXLNickelWound.setTypeForStrings()
 

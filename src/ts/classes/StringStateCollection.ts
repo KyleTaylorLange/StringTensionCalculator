@@ -1,4 +1,4 @@
-import { StringCollection } from "./StringCollection.js"
+import { StringSeries } from "./StringSeries.js"
 import { StringState } from "./StringState.js"
 import { Strings } from "../static/Strings.js"
 
@@ -11,8 +11,8 @@ export { StringStateCollection }
  */
 class StringStateCollection {
     private _states: StringState[]
-    private _dAddarioPlainSteel: StringCollection
-    private _dAddarioXLNickelWound: StringCollection
+    private _dAddarioPlainSteel: StringSeries
+    private _dAddarioXLNickelWound: StringSeries
 
     constructor(states: StringState[] = []) {
         this._states = states
@@ -28,19 +28,19 @@ class StringStateCollection {
         this._states = value
     }
 
-    public get dAddarioPlainSteel(): StringCollection {
+    public get dAddarioPlainSteel(): StringSeries {
         return this._dAddarioPlainSteel
     }
 
-    public set dAddarioPlainSteel(value: StringCollection) {
+    public set dAddarioPlainSteel(value: StringSeries) {
         this._dAddarioPlainSteel = value
     }
 
-    public get dAddarioXLNickelWound(): StringCollection {
+    public get dAddarioXLNickelWound(): StringSeries {
         return this._dAddarioXLNickelWound
     }
 
-    public set dAddarioXLNickelWound(value: StringCollection) {
+    public set dAddarioXLNickelWound(value: StringSeries) {
         this._dAddarioXLNickelWound = value
     }
     
@@ -51,7 +51,7 @@ class StringStateCollection {
      * @param {string} type 
      * @returns A string collection.
      */
-    public getCollectionByBrandAndType(brand: string, type: string) : StringCollection {
+    public getCollectionByBrandAndType(brand: string, type: string) : StringSeries {
         if (this.dAddarioPlainSteel.brand === brand && this.dAddarioPlainSteel.type === type) {
             return this.dAddarioPlainSteel
         }
@@ -60,6 +60,6 @@ class StringStateCollection {
             return this.dAddarioXLNickelWound
         }
 
-        return new StringCollection("Undefined", "Guitar String", [])
+        return new StringSeries("Undefined", "Guitar String", [])
     }
 }
