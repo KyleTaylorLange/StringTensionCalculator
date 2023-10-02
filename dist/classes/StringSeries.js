@@ -1,6 +1,6 @@
 export { StringSeries };
 /**
- * Represents a collection of guitar strings with different gauges but with other shared characteristics.
+ * Represents a series of guitar strings that compose a specific set with shared characteristics.
  */
 class StringSeries {
     constructor(brand, type, strings) {
@@ -27,13 +27,13 @@ class StringSeries {
         this._strings = value;
     }
     /**
-     * Take the collection brand name and assign it to each guitar string brand.
+     * Take the series brand name and assign it to each guitar string brand.
      */
     setBrandForStrings() {
         this.strings.forEach((str) => str.brand = this.brand);
     }
     /**
-     * Take the collection brand type and assign it to each guitar string type.
+     * Take the series brand type and assign it to each guitar string type.
      */
     setTypeForStrings() {
         this.strings.forEach((str) => str.type = this.type);
@@ -42,7 +42,7 @@ class StringSeries {
      * Returns the first string matching the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {StringInfo} A string matching that gauge, or else the middle string in the collection.
+     * @returns {StringInfo} A string matching that gauge, or else the middle string in the series.
      */
     getStringByGauge(gauge) {
         const last = this.strings.length - 1;
@@ -54,7 +54,7 @@ class StringSeries {
         return this.strings[Math.trunc(last / 2)];
     }
     /**
-     * Gets the string before the input string in the collection.
+     * Gets the string before the input string in the series.
      *
      * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The previous string, or else the first string.
@@ -73,7 +73,7 @@ class StringSeries {
         return this.strings[first];
     }
     /**
-     * Gets the string after the input string in the collection.
+     * Gets the string after the input string in the series.
      *
      * @param {StringInfo} strInfo A guitar string.
      * @returns {StringInfo} The next string, or else the last string.

@@ -31,13 +31,13 @@ class StringStateCollection {
         this._dAddarioXLNickelWound = value;
     }
     /**
-     * Gets a collection by guitar string and string type.
+     * Gets a series by guitar string and string type.
      *
      * @param {string} brand
      * @param {string} type
-     * @returns A string collection.
+     * @returns A string series.
      */
-    getCollectionByBrandAndType(brand, type) {
+    getSeriesByBrandAndType(brand, type) {
         if (this.dAddarioPlainSteel.brand === brand && this.dAddarioPlainSteel.type === type) {
             return this.dAddarioPlainSteel;
         }

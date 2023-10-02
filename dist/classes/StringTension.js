@@ -156,14 +156,14 @@ class StringTension {
         };
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
-            state.strInfo = currentCollection.getPreviousString(state.strInfo);
+            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentSeries.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
-            state.strInfo = currentCollection.getNextString(state.strInfo);
+            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentSeries.getNextString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field

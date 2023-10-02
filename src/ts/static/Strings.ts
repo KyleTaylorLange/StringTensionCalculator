@@ -4,11 +4,11 @@ import { StringInfo } from "../classes/StringInfo.js"
 export { Strings }
 
 /**
- * Represents guitar string brands. Each brand of guitar string is a collection, represented as a StringSeries.
+ * Represents guitar string brands. Each brand of guitar string is a series, represented by a StringSeries instance.
  */
 class Strings {
     /**
-     * Get the D'Addario Plain Steel collection.
+     * Get the D'Addario Plain Steel series.
      *
      * @returns {StringSeries} D'Addario Plain Steel strings.
      */
@@ -50,7 +50,7 @@ class Strings {
     }
 
     /**
-     * Get the D'Addario XL Nickel Wound collection.
+     * Get the D'Addario XL Nickel Wound series.
      *
      * @returns {StringSeries} D'Addario XL Nickel Wound strings.
      */
