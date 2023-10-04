@@ -12,6 +12,12 @@ class StringTable {
         this._currentStrings = this._stringManager.getStandardTuning();
         this._stringCache = new StringStateCollection();
     }
+    get stringManager() {
+        return this._stringManager;
+    }
+    set stringManager(value) {
+        this._stringManager = value;
+    }
     get currentStrings() {
         return this._currentStrings;
     }
@@ -187,13 +193,13 @@ class StringTable {
         };
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = caller._stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getPreviousString(state.strInfo);
             caller.render('str-table');
         };
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = caller._stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getNextString(state.strInfo);
             caller.render('str-table');
         };

@@ -20,6 +20,14 @@ class StringTable {
         this._stringCache = new StringStateCollection()
     }
 
+    public get stringManager(): StringManager {
+        return this._stringManager
+    }
+
+    public set stringManager(value: StringManager) {
+        this._stringManager = value
+    }
+
     public get currentStrings(): StringStateCollection {
         return this._currentStrings
     }
@@ -235,7 +243,7 @@ class StringTable {
 
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = caller._stringManager.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getPreviousString(state.strInfo)
 
@@ -244,7 +252,7 @@ class StringTable {
 
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = caller._stringManager.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getNextString(state.strInfo)
 
