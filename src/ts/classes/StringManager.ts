@@ -82,7 +82,7 @@ class StringManager {
             )
         ])
     }
-    
+
     /**
      * Gets a series by guitar string and string type.
      * 
@@ -90,7 +90,7 @@ class StringManager {
      * @param {string} type 
      * @returns A string series.
      */
-    public getSeriesByBrandAndType(brand: string, type: string) : StringSeries {
+    public getSeriesByBrandAndType(brand: string, type: string): StringSeries {
         if (this.dAddarioPlainSteel.brand === brand && this.dAddarioPlainSteel.type === type) {
             return this.dAddarioPlainSteel
         }

@@ -34,9 +34,9 @@ class Main extends StringTable {
         this.render(tableId)
     }
 
-	 /**
-	  * Run time!
-	  */
+    /**
+     * Run time!
+     */
     public runTime() {
         let caller = this
 

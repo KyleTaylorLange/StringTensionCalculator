@@ -73,24 +73,24 @@ class StringTable {
      * @param {string} tableId The id for the string table.
      */
     render(tableId) {
-        let strTable = document.createElement("table");
-        let tr = document.createElement("tr");
+        let strTable = document.createElement('table');
+        let tr = document.createElement('tr');
         let tableHeaderCells = [
-            document.createElement("th"),
-            document.createElement("th"),
-            document.createElement("th"),
-            document.createElement("th"),
-            document.createElement("th"),
-            document.createElement("th"),
+            document.createElement('th'),
+            document.createElement('th'),
+            document.createElement('th'),
+            document.createElement('th'),
+            document.createElement('th'),
+            document.createElement('th'),
         ];
-        tr.classList.add("row-top");
-        strTable.setAttribute("id", tableId);
-        tableHeaderCells[0].innerText = "String";
-        tableHeaderCells[1].innerText = "Note";
-        tableHeaderCells[2].innerText = "Scale";
-        tableHeaderCells[3].innerText = "String Type";
-        tableHeaderCells[4].innerText = "Gauge";
-        tableHeaderCells[5].innerText = "Tension";
+        tr.classList.add('row-top');
+        strTable.setAttribute('id', tableId);
+        tableHeaderCells[0].innerText = 'String';
+        tableHeaderCells[1].innerText = 'Note';
+        tableHeaderCells[2].innerText = 'Scale';
+        tableHeaderCells[3].innerText = 'String Type';
+        tableHeaderCells[4].innerText = 'Gauge';
+        tableHeaderCells[5].innerText = 'Tension';
         for (let headerCell of tableHeaderCells) {
             tr.appendChild(headerCell);
         }

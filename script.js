@@ -1,5 +1,5 @@
 import { Main } from './dist/Main.js'
 
-window.onload = function() {
+window.onload = function () {
 	new Main().runTime()
 }
