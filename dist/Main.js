@@ -1,17 +1,31 @@
-import { StringTension } from "./classes/StringTension.js";
+import { StringTable } from './classes/StringTable.js';
 export { Main };
 /**
  * Main class.
  */
-class Main {
+class Main extends StringTable {
     constructor() {
-        this._stringTension = new StringTension();
+        super();
     }
-    get stringTension() {
-        return this._stringTension;
+    /**
+     * Shift every string's pitch and render the table.
+     *
+     * @param {number} semitones A semitone count.
+     */
+    renderPitchShifts(semitones) {
+        this.shiftPitches(semitones);
+        this.render("str-table");
     }
-    set stringTension(value) {
-        this._stringTension = value;
+    /**
+     * Clears the old table and re-renders a new one.
+     *
+     * @param {string} tableId The id for the string table.
+     * @param {string} numberId The id for the `Number of Strings` input element.
+     */
+    renderStringTable(tableId, numberId) {
+        let numStrings = document.getElementById(numberId).value;
+        this.setNumStrings(Number(numStrings));
+        this.render(tableId);
     }
     /**
      * Run time!
@@ -24,14 +38,14 @@ class Main {
         let buttonPitchUp = document.getElementsByClassName("button-pitches-increase")[0];
         // Events
         numberOfStringsInput.onchange = function () {
-            caller.stringTension.makeStringTable("str-table", "num-strings");
+            caller.renderStringTable("str-table", "num-strings");
         };
         buttonPitchDown.onclick = function () {
-            caller.stringTension.shiftPitches(-1);
+            caller.renderPitchShifts(-1);
         };
         buttonPitchUp.onclick = function () {
-            caller.stringTension.shiftPitches(1);
+            caller.renderPitchShifts(1);
         };
-        caller.stringTension.makeStringTable("str-table", "num-strings");
+        caller.renderStringTable("str-table", "num-strings");
     }
 }
