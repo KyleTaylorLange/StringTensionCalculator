@@ -1,4 +1,4 @@
-export { Note };
+export { Note }
 
 class Note {
     /**

@@ -1,3 +1,4 @@
+import { StringMake } from "../interfaces/StringMake.js"
 import { StringInfo } from "./StringInfo.js"
 
 export { StringSeries }

@@ -1,3 +1,5 @@
+import { StringMake } from "../interfaces/StringMake.js"
+
 export { StringInfo }
 
 /**

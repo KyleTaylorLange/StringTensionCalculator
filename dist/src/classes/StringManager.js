@@ -1,7 +1,7 @@
 import { StringSeries } from "./StringSeries.js";
 import { StringState } from "./StringState.js";
 import { StringStateCollection } from "./StringStateCollection.js";
-import { Strings } from "../static/Strings.js";
+import stringsJson from "../../json/DAddario.json" assert { type: "json" };
 export { StringManager };
 /**
  * Manages all StringSeries objects used for all StringTables in the program.
@@ -10,8 +10,7 @@ class StringManager {
     constructor() {
         this._stringSeries = [];
         // Parse the JSON into StringSeries instances
-        // TODO: Allow an array of JSONs to be supplied via the constructor so that all can be concatenated at object construction.
-        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(Strings.stringsJson));
+        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(stringsJson));
     }
     /**
      * Get a base set of standard tuning strings.
