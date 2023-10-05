@@ -50,19 +50,22 @@ class StringInfo implements StringMake {
 
     /**
      * Creates StringInfo instances from JSON.
+     * 
      * @param inJson The JSON to use for the StringInfo instances.
      * @returns An array of StringInfo objects. Array may be empty if none could be created.
      */
     public static createFromJson(inJson: any[]): StringInfo[] {
         let stringInfoArray: StringInfo[] = []
+
         for (let j in inJson) {
             let gauge = inJson[j].gauge
             let unitWeight = inJson[j].unitWeight
+
             if (gauge != undefined && unitWeight != undefined) {
-                let strInfo = new StringInfo(gauge, unitWeight)
-                stringInfoArray.push(strInfo)
+                stringInfoArray.push(new StringInfo(gauge, unitWeight))
             }
         }
+
         return stringInfoArray
     }
 }

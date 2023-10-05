@@ -1,3 +1,4 @@
+import { StringInfo } from "./StringInfo.js";
 export { StringSeries };
 /**
  * Represents a series of guitar strings that compose a specific set with shared characteristics.
@@ -90,5 +91,33 @@ class StringSeries {
             }
         }
         return this.strings[last];
+    }
+    /**
+     * Creates StringSeries instances from JSON.
+     *
+     * @param {any} inJson The JSON to use for the StringSeries instances.
+     * @returns An array of StringSeries objects. Array may be empty if none could be created.
+     */
+    static createFromJson(inJson) {
+        let stringSeriesArray = [];
+        if (inJson.series == undefined) {
+            return [];
+        }
+        for (let i in inJson.series) {
+            let brand = inJson.series[i].brand;
+            let type = inJson.series[i].type;
+            let stringsArray = inJson.series[i].strings;
+            if (brand != undefined && type != undefined && stringsArray != undefined) {
+                let stringInfoArray = StringInfo.createFromJson(stringsArray);
+                // Only bother to create the series if there's at least one StringInfo in it.
+                if (stringInfoArray.length > 0) {
+                    let stringSeries = new StringSeries(brand, type, stringInfoArray);
+                    stringSeries.setBrandForStrings();
+                    stringSeries.setTypeForStrings();
+                    stringSeriesArray.push(stringSeries);
+                }
+            }
+        }
+        return stringSeriesArray;
     }
 }

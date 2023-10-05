@@ -1,19 +1,24 @@
 import { Utilities } from "../static/Utilities.js";
 import { Note } from "../static/Note.js";
 import { StringTable } from "./StringTable.js";
+import { StringManager } from "./StringManager.js";
 export { StringTension };
 /**
  * Primary class for modulating the string tension.
  */
 class StringTension {
     constructor() {
-        this._stringTable = new StringTable();
+        this._stringManager = new StringManager();
+        this._stringTable = new StringTable(this._stringManager.getStandardTuning());
     }
     get stringTable() {
         return this._stringTable;
     }
     set stringTable(value) {
         this._stringTable = value;
+    }
+    get stringManager() {
+        return this._stringManager;
     }
     /**
      * Shift every string's pitch.
@@ -156,13 +161,13 @@ class StringTension {
         };
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = strTable.currentStrings.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getNextString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
