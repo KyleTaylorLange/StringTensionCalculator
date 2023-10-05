@@ -13,10 +13,8 @@ class StringManager {
     private _stringSeries: StringSeries[]
 
     constructor() {
-        this._stringSeries = []
-        
         // Parse the JSON into StringSeries instances
-        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(stringsJson))
+        this._stringSeries = StringSeries.createFromJson(stringsJson)
     }
 
     /** 
