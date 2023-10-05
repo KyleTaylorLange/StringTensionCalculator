@@ -70,7 +70,7 @@ class StringTension {
         strTable.appendChild(tr);
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
-            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i), this.stringTable);
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
             strTable.appendChild(strRow);
         }
         // NOTE: Note the use of the non-null assertion operators here.
@@ -82,10 +82,10 @@ class StringTension {
      * Makes a row for a guitar string.
      *
      * @param {number} num The string number.
-     * @param {StringState} str The string state.
+     * @param {StringState} state The string state.
      * @returns {any} A string table row (tr).
      */
-    makeStringRow(num, state, strTable) {
+    makeStringRow(num, state) {
         // The calling object
         let caller = this;
         // State brand and type
