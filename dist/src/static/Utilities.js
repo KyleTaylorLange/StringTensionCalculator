@@ -18,25 +18,16 @@ class Utilities {
         return element;
     }
     /**
-     * Gets JSON.
+     * Gets JSON data.
      *
-     * @param {string} filename
+     * @param {string} filename The name of the JSON file (without the extension).
+     * @returns {Promise} The promise with the JSON data.
      */
-    static getJson(filename) {
-        return fetch(`/json/${filename}.json`)
-            .then(res => {
-            if (!res.ok) {
-                throw new Error("Status :: " + res.status);
-            }
-            return res.json();
-        });
-    }
-    /**
-     * Callback for Utilities.getJson.
-     *
-     * @param {string} filename
-     */
-    static async getJsonResult(filename) {
-        return await Utilities.getJson(filename).then(result => result.series);
+    static async getJson(filename) {
+        const res = await fetch(`/json/${filename}.json`);
+        if (!res.ok) {
+            throw new Error("Status :: " + res.status);
+        }
+        return await res.json();
     }
 }
