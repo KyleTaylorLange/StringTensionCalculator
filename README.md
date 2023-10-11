@@ -15,7 +15,7 @@ To compile the scss code to css, in the root directory of the project, use:
 npm run build-styles
 ```
 
-To compile scss code while watching for changes, in the root directory of the project, use:
+To watch for changes in scss code, use:
 ```
 npm run watch-styles
 ```
@@ -31,7 +31,7 @@ To compile TypeScript code into the JavaScript files, in the root directory of t
 tsc
 ```
 
-To compile TypeScript and watch for changes, use:
+To watch for changes in TypeScript code, use:
 ```
 tsc --watch
 ```
