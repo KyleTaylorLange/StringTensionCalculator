@@ -13,8 +13,8 @@ class StringTension {
     private _stringManager: StringManager
     private _stringTable: StringTable
 
-    constructor() {
-        this._stringManager = new StringManager()
+    constructor(jsonData: any) {
+        this._stringManager = new StringManager(jsonData)
         this._stringTable = new StringTable(this._stringManager.getStandardTuning())
     }
 

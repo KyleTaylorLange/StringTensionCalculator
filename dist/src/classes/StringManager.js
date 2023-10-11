@@ -1,15 +1,26 @@
 import { StringSeries } from "./StringSeries.js";
 import { StringState } from "./StringState.js";
 import { StringStateCollection } from "./StringStateCollection.js";
-import stringsJson from "../../json/DAddario.json" assert { type: "json" };
 export { StringManager };
 /**
  * Manages all StringSeries objects used for all StringTables in the program.
  */
 class StringManager {
-    constructor() {
-        // Parse the JSON into StringSeries instances
-        this._stringSeries = StringSeries.createFromJson(stringsJson);
+    constructor(jsonData) {
+        this._jsonData = jsonData;
+        this._stringSeries = StringSeries.createFromJson(jsonData);
+    }
+    get jsonData() {
+        return this._jsonData;
+    }
+    set jsonData(value) {
+        this._jsonData = value;
+    }
+    get stringSeries() {
+        return this._stringSeries;
+    }
+    set stringSeries(value) {
+        this._stringSeries = value;
     }
     /**
      * Get a base set of standard tuning strings.

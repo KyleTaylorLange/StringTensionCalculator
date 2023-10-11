@@ -17,4 +17,26 @@ class Utilities {
         }
         return element;
     }
+    /**
+     * Gets JSON.
+     *
+     * @param {string} filename
+     */
+    static getJson(filename) {
+        return fetch(`/json/${filename}.json`)
+            .then(res => {
+            if (!res.ok) {
+                throw new Error("Status :: " + res.status);
+            }
+            return res.json();
+        });
+    }
+    /**
+     * Callback for Utilities.getJson.
+     *
+     * @param {string} filename
+     */
+    static async getJsonResult(filename) {
+        return await Utilities.getJson(filename).then(result => result.series);
+    }
 }

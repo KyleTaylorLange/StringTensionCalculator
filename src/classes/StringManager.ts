@@ -2,19 +2,34 @@ import { StringSeries } from "./StringSeries.js"
 import { StringState } from "./StringState.js"
 import { StringStateCollection } from "./StringStateCollection.js"
 
-import stringsJson from "../../json/DAddario.json" assert { type: "json" }
-
 export { StringManager }
 
 /**
  * Manages all StringSeries objects used for all StringTables in the program.
  */
 class StringManager {
+    private _jsonData: any
     private _stringSeries: StringSeries[]
 
-    constructor() {
-        // Parse the JSON into StringSeries instances
-        this._stringSeries = StringSeries.createFromJson(stringsJson)
+    constructor(jsonData: any) {
+        this._jsonData = jsonData
+        this._stringSeries = StringSeries.createFromJson(jsonData)
+    }
+
+    public get jsonData(): any {
+        return this._jsonData
+    }
+
+    public set jsonData(value: any) {
+        this._jsonData = value
+    }
+
+    public get stringSeries(): StringSeries[] | undefined {
+        return this._stringSeries
+    }
+    
+    public set stringSeries(value: StringSeries[]) {
+        this._stringSeries = value
     }
 
     /** 

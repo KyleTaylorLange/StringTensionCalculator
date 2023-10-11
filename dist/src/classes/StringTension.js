@@ -7,8 +7,8 @@ export { StringTension };
  * Primary class for modulating the string tension.
  */
 class StringTension {
-    constructor() {
-        this._stringManager = new StringManager();
+    constructor(jsonData) {
+        this._stringManager = new StringManager(jsonData);
         this._stringTable = new StringTable(this._stringManager.getStandardTuning());
     }
     get stringTable() {
