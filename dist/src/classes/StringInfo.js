@@ -33,4 +33,21 @@ class StringInfo {
     set unitWeight(value) {
         this._unitWeight = value;
     }
+    /**
+     * Creates StringInfo instances from JSON.
+     *
+     * @param inJson The JSON to use for the StringInfo instances.
+     * @returns An array of StringInfo objects. Array may be empty if none could be created.
+     */
+    static createFromJson(inJson) {
+        let stringInfoArray = [];
+        for (let j in inJson) {
+            let gauge = inJson[j].gauge;
+            let unitWeight = inJson[j].unitWeight;
+            if (gauge != undefined && unitWeight != undefined) {
+                stringInfoArray.push(new StringInfo(gauge, unitWeight));
+            }
+        }
+        return stringInfoArray;
+    }
 }

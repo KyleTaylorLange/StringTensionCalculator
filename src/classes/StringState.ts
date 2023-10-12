@@ -7,7 +7,7 @@ export { StringState }
  */
 class StringState {
     private _note: number
-    private _scaleLength: number
+    private _scaleLength: number 
     private _strInfo: StringInfo
 
     constructor(note: number, scaleLength: number, strInfo: StringInfo) {

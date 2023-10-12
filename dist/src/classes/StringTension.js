@@ -1,19 +1,24 @@
-import { Utilities } from "./static/Utilities.js";
-import { Note } from "./static/Note.js";
-import { StringTable } from "./classes/StringTable.js";
+import { Utilities } from "../static/Utilities.js";
+import { Note } from "../static/Note.js";
+import { StringTable } from "./StringTable.js";
+import { StringManager } from "./StringManager.js";
 export { StringTension };
 /**
  * Primary class for modulating the string tension.
  */
 class StringTension {
-    constructor() {
-        this._stringTable = new StringTable();
+    constructor(jsonData) {
+        this._stringManager = new StringManager(jsonData);
+        this._stringTable = new StringTable(this._stringManager.getStandardTuning());
     }
     get stringTable() {
         return this._stringTable;
     }
     set stringTable(value) {
         this._stringTable = value;
+    }
+    get stringManager() {
+        return this._stringManager;
     }
     /**
      * Shift every string's pitch.
@@ -32,7 +37,6 @@ class StringTension {
      */
     makeStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-        console.log(numStrings);
         this.stringTable.setNumStrings(Number(numStrings));
         this.redrawStringTable(tableId);
     }
@@ -66,7 +70,7 @@ class StringTension {
         strTable.appendChild(tr);
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
-            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i), this.stringTable);
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i));
             strTable.appendChild(strRow);
         }
         // NOTE: Note the use of the non-null assertion operators here.
@@ -78,10 +82,10 @@ class StringTension {
      * Makes a row for a guitar string.
      *
      * @param {number} num The string number.
-     * @param {StringState} str The string state.
+     * @param {StringState} state The string state.
      * @returns {any} A string table row (tr).
      */
-    makeStringRow(num, state, strTable) {
+    makeStringRow(num, state) {
         // The calling object
         let caller = this;
         // State brand and type
@@ -156,14 +160,14 @@ class StringTension {
         };
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
-            state.strInfo = currentCollection.getPreviousString(state.strInfo);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentSeries.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentCollection = strTable.currentStrings.getCollectionByBrandAndType(stateBrand, stateType);
-            state.strInfo = currentCollection.getNextString(state.strInfo);
+            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            state.strInfo = currentSeries.getNextString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field

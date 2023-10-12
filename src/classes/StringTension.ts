@@ -13,8 +13,8 @@ class StringTension {
     private _stringManager: StringManager
     private _stringTable: StringTable
 
-    constructor() {
-        this._stringManager = new StringManager()
+    constructor(jsonData: any) {
+        this._stringManager = new StringManager(jsonData)
         this._stringTable = new StringTable(this._stringManager.getStandardTuning())
     }
 
@@ -49,7 +49,6 @@ class StringTension {
     public makeStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value
 
-        console.log(numStrings)
         this.stringTable.setNumStrings(Number(numStrings))
         this.redrawStringTable(tableId)
     }
@@ -90,7 +89,7 @@ class StringTension {
 
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {
-            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i), this.stringTable)
+            let strRow = this.makeStringRow(i + 1, this.stringTable.getString(i))
 
             strTable.appendChild(strRow)
         }
@@ -107,10 +106,10 @@ class StringTension {
      * Makes a row for a guitar string.
      *
      * @param {number} num The string number.
-     * @param {StringState} str The string state.
+     * @param {StringState} state The string state.
      * @returns {any} A string table row (tr).
      */
-    public makeStringRow(num: number, state: StringState, strTable: StringTable): any {
+    public makeStringRow(num: number, state: StringState): any {
         // The calling object
         let caller = this
 

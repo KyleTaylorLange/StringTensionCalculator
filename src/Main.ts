@@ -3,13 +3,13 @@ import { StringTension } from "./classes/StringTension.js"
 export { Main }
 
 /**
- * Main class.
+ * Main class. Pass JSON data in through this.
  */
 class Main {
     private _stringTension: StringTension
 
-    constructor() {
-        this._stringTension = new StringTension()
+    constructor(jsonData: any) {
+        this._stringTension = new StringTension(jsonData)
     }
 
     public get stringTension(): StringTension {

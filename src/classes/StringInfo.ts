@@ -1,3 +1,5 @@
+import { StringMake } from "../interfaces/StringMake.js"
+
 export { StringInfo }
 
 /**
@@ -46,5 +48,26 @@ class StringInfo implements StringMake {
 
     public set unitWeight(value: number) {
         this._unitWeight = value
+    }
+
+    /**
+     * Creates StringInfo instances from JSON.
+     * 
+     * @param inJson The JSON to use for the StringInfo instances.
+     * @returns An array of StringInfo objects. Array may be empty if none could be created.
+     */
+    public static createFromJson(inJson: any[]): StringInfo[] {
+        let stringInfoArray: StringInfo[] = []
+
+        for (let j in inJson) {
+            let gauge = inJson[j].gauge
+            let unitWeight = inJson[j].unitWeight
+
+            if (gauge != undefined && unitWeight != undefined) {
+                stringInfoArray.push(new StringInfo(gauge, unitWeight))
+            }
+        }
+
+        return stringInfoArray
     }
 }

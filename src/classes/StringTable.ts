@@ -1,6 +1,5 @@
 import { StringState } from "./StringState.js"
 import { StringStateCollection } from "./StringStateCollection.js"
-import { StringManager } from "./StringManager.js"
 
 export { StringTable }
 

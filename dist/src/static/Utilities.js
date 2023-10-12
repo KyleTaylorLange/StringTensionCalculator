@@ -17,4 +17,17 @@ class Utilities {
         }
         return element;
     }
+    /**
+     * Gets JSON data.
+     *
+     * @param {string} filename The name of the JSON file (without the extension).
+     * @returns {Promise} The promise with the JSON data.
+     */
+    static async getJson(filename) {
+        const res = await fetch(`/json/${filename}.json`);
+        if (!res.ok) {
+            throw new Error("Status :: " + res.status);
+        }
+        return await res.json();
+    }
 }

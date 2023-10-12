@@ -1,4 +1,4 @@
-export { Note };
+export { Note }
 
 class Note {
     /**
@@ -7,7 +7,7 @@ class Note {
      * @param {number} midiNote
      * @returns {number} A note octave.
      */
-    public static getNoteOctave(midiNote: number) {
+    public static getNoteOctave(midiNote: number): number {
         return Math.floor(midiNote / 12 - 1);
     }
 
@@ -17,7 +17,7 @@ class Note {
      * @param {number} midiNote
      * @returns A note letter.
      */
-    public static getNoteLetter(midiNote: number) {
+    public static getNoteLetter(midiNote: number): string {
         let notes = [
             "C",
             "C#",
@@ -42,7 +42,7 @@ class Note {
      * @param {number} midiNote
      * @returns A note letter and a note octave.
      */
-    public static noteToString(midiNote: number) {
+    public static noteToString(midiNote: number): string {
         return this.getNoteLetter(midiNote) + this.getNoteOctave(midiNote);
     }
 }

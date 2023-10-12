@@ -1,3 +1,4 @@
+import { StringMake } from "../interfaces/StringMake.js"
 import { StringInfo } from "./StringInfo.js"
 
 export { StringSeries }
@@ -116,5 +117,36 @@ class StringSeries implements StringMake {
         }
 
         return this.strings[last]
+    }
+
+    /**
+     * Creates StringSeries instances from JSON.
+     * 
+     * @param {any} inJson The JSON to use for the StringSeries instances.
+     * @returns An array of StringSeries objects. Array may be empty if none could be created.
+     */
+    public static createFromJson(inJson: any[]): StringSeries[] {
+        let stringSeriesArray: StringSeries[] = []
+
+        for (let i in inJson) {
+            let brand = inJson[i].brand
+            let type = inJson[i].type
+            let stringsArray = inJson[i].strings
+
+            if (brand != undefined && type != undefined && stringsArray != undefined) {
+                let stringInfoArray: StringInfo[] = StringInfo.createFromJson(stringsArray)
+
+                // Only bother to create the series if there's at least one StringInfo in it.
+                if (stringInfoArray.length > 0) {
+                    let stringSeries = new StringSeries(brand, type, stringInfoArray)
+
+                    stringSeries.setBrandForStrings()
+                    stringSeries.setTypeForStrings()
+                    stringSeriesArray.push(stringSeries)
+                }
+            }
+        }
+
+        return stringSeriesArray
     }
 }
