@@ -1,4 +1,4 @@
-import { StringMake } from "../interfaces/StringMake.js"
+import { StringMake } from '../interfaces/StringMake.js'
 
 export { StringInfo }
 

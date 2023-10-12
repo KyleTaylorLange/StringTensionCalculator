@@ -1,4 +1,4 @@
-import { StringInfo } from "./StringInfo.js";
+import { StringInfo } from './StringInfo.js';
 export { StringSeries };
 /**
  * Represents a series of guitar strings that compose a specific set with shared characteristics.

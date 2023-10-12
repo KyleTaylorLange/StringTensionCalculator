@@ -1,6 +1,6 @@
-import { StringSeries } from "./StringSeries.js";
-import { StringState } from "./StringState.js";
-import { StringStateCollection } from "./StringStateCollection.js";
+import { StringSeries } from './StringSeries.js';
+import { StringState } from './StringState.js';
+import { StringStateCollection } from './StringStateCollection.js';
 export { StringManager };
 /**
  * Manages all StringSeries objects used for all StringTables in the program.

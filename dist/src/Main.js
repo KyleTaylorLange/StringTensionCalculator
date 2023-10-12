@@ -4,6 +4,7 @@ export { Main };
  * Main class. Pass JSON data in through this.
  */
 class Main extends StringTableManager {
+    // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
         super(jsonData);
     }

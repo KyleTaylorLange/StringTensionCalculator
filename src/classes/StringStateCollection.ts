@@ -1,4 +1,4 @@
-import { StringState } from "./StringState.js"
+import { StringState } from './StringState.js'
 
 export { StringStateCollection }
 
