@@ -9,11 +9,9 @@ def cleanFiles():
   paths_to_delete = [os.path.join("dist", "src"), os.path.join("dist", "json")]
 
   for rel_path in paths_to_delete:
-    abs_path = os.path.join(os.getcwd(), rel_path)
-
-    if (os.path.exists(abs_path)):
+    if (os.path.exists(rel_path)):
       try:
-        shutil.rmtree(abs_path)
+        shutil.rmtree(rel_path)
         print("  Deleted: " + rel_path)
       except:
         raise Exception("Unable to delete: " + rel_path)
