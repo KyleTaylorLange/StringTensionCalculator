@@ -1,9 +1,9 @@
-import { StringTable } from './classes/StringTable.js';
+import { StringTableManager } from './classes/StringTableManager.js';
 export { Main };
 /**
  * Main class. Pass JSON data in through this.
  */
-class Main extends StringTable {
+class Main extends StringTableManager {
     constructor(jsonData) {
         super(jsonData);
     }
@@ -13,8 +13,8 @@ class Main extends StringTable {
      * @param {number} semitones A semitone count.
      */
     renderPitchShifts(semitones) {
-        this.shiftPitches(semitones);
-        this.render("str-table");
+        this.stringTables[0].shiftPitches(semitones);
+        this.stringTables[0].render("str-table");
     }
     /**
      * Clears the old table and re-renders a new one.
@@ -24,8 +24,8 @@ class Main extends StringTable {
      */
     renderStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-        this.setNumStrings(Number(numStrings));
-        this.render(tableId);
+        this.stringTables[0].setNumStrings(Number(numStrings));
+        this.stringTables[0].render(tableId);
     }
     /**
      * Run time!

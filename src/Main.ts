@@ -1,12 +1,13 @@
-import { StringTable } from './classes/StringTable.js'
+import { StringTableManager } from './classes/StringTableManager.js'
 
 export { Main }
 
 /**
  * Main class. Pass JSON data in through this.
  */
-class Main extends StringTable {
+class Main extends StringTableManager {
 
+    // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData: any) {
         super(jsonData)
     }
@@ -17,8 +18,8 @@ class Main extends StringTable {
      * @param {number} semitones A semitone count.
      */
     public renderPitchShifts(semitones: number) {
-        this.shiftPitches(semitones)
-        this.render("str-table")
+        this.stringTables[0].shiftPitches(semitones)
+        this.stringTables[0].render("str-table")
     }
 
     /**
@@ -30,8 +31,8 @@ class Main extends StringTable {
     public renderStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value
 
-        this.setNumStrings(Number(numStrings))
-        this.render(tableId)
+        this.stringTables[0].setNumStrings(Number(numStrings))
+        this.stringTables[0].render(tableId)
     }
 
     /**
