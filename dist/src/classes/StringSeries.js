@@ -100,13 +100,10 @@ class StringSeries {
      */
     static createFromJson(inJson) {
         let stringSeriesArray = [];
-        if (inJson.series == undefined) {
-            return [];
-        }
-        for (let i in inJson.series) {
-            let brand = inJson.series[i].brand;
-            let type = inJson.series[i].type;
-            let stringsArray = inJson.series[i].strings;
+        for (let i in inJson) {
+            let brand = inJson[i].brand;
+            let type = inJson[i].type;
+            let stringsArray = inJson[i].strings;
             if (brand != undefined && type != undefined && stringsArray != undefined) {
                 let stringInfoArray = StringInfo.createFromJson(stringsArray);
                 // Only bother to create the series if there's at least one StringInfo in it.
