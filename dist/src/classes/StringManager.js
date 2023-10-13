@@ -3,24 +3,29 @@ import { StringState } from './StringState.js';
 import { StringStateCollection } from './StringStateCollection.js';
 export { StringManager };
 /**
- * Manages all StringSeries objects used for all StringTables in the program.
+ * Singleton object that manages all StringSeries objects used throughout the program.
  */
 class StringManager {
-    constructor(jsonData) {
-        this._jsonData = jsonData;
-        this._stringSeries = StringSeries.createFromJson(jsonData);
+    constructor() {
+        this._stringSeries = [];
     }
-    get jsonData() {
-        return this._jsonData;
+    /**
+     * Gets the StringManager instance. Creates it if it is not already created.
+     *
+     * @returns The singleton StringManager instance.
+     */
+    static getInstance() {
+        if (!StringManager._instance) {
+            StringManager._instance = new StringManager();
+        }
+        return StringManager._instance;
     }
-    set jsonData(value) {
-        this._jsonData = value;
-    }
-    get stringSeries() {
-        return this._stringSeries;
-    }
-    set stringSeries(value) {
-        this._stringSeries = value;
+    /**
+     * Creates new StringSeries objects from JSON and appends them to the current array of StringSeries objects.
+     * @param jsonData The JSON source of the new StringSeries objects.
+     */
+    appendFromJson(jsonData) {
+        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(jsonData));
     }
     /**
      * Get a base set of standard tuning strings.
