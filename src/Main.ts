@@ -29,8 +29,8 @@ class Main extends StringTableManager {
      * @param {string} numberId The id for the `Number of Strings` input element.
      */
     public renderStringTable(tableId: string, numberId: string) {
-        let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value
-
+        let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
+        
         this.stringTables[0].setNumStrings(Number(numStrings))
         this.stringTables[0].render(tableId)
     }

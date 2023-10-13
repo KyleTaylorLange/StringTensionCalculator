@@ -1,3 +1,4 @@
+import { StringManager } from './StringManager.js';
 import { StringTable } from './StringTable.js';
 export { StringTableManager };
 /**
@@ -6,7 +7,8 @@ export { StringTableManager };
 class StringTableManager {
     constructor(jsonData) {
         this._stringTables = [];
-        this._stringTables.push(new StringTable(jsonData));
+        StringManager.getInstance().appendFromJson(jsonData);
+        this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()));
     }
     get stringTables() {
         return this._stringTables;
