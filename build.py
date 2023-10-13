@@ -29,7 +29,7 @@ def runTypeScriptCompiler():
   ts_compiler_path = shutil.which("tsc")
 
   if type(ts_compiler_path) != str:
-    raise Exception("Unable to find TypeScript compiler (TSC).")
+    raise Exception("Unable to find TypeScript compiler (tsc).")
 
   print("Running the TypeScript compiler.")
   process_results = subprocess.run([ts_compiler_path])
@@ -45,17 +45,17 @@ Builds the styles.
 """
 def buildStyles():
     # Ensure Node Package Manager is installed.
-    print("Building SASS styles.")
+    print("Building Sass styles.")
     npm_path = shutil.which("npm")
 
     if type(npm_path) != str:
-      raise Exception("unable to find Node Package Manager")
+      raise Exception("Unable to find Node Package Manager (npm).")
     
     # Rebuild the SASS styles.
     process_results = subprocess.run([npm_path, "run", "build-styles"])
 
     if (process_results.returncode != 0):
-      raise Exception("error building SASS styles")
+      raise Exception("Error building Sass styles.")
     
     print("Styles built successfully.\n")
 
