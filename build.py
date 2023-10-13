@@ -51,7 +51,7 @@ def buildStyles():
     if type(npm_path) != str:
       raise Exception("Unable to find Node Package Manager (npm).")
     
-    # Rebuild the SASS styles.
+    # Rebuild the Sass styles.
     process_results = subprocess.run([npm_path, "run", "build-styles"])
 
     if (process_results.returncode != 0):
