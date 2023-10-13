@@ -10,12 +10,11 @@ export { StringTension }
  * Primary class for modulating the string tension.
  */
 class StringTension {
-    private _stringManager: StringManager
     private _stringTable: StringTable
 
     constructor(jsonData: any) {
-        this._stringManager = new StringManager(jsonData)
-        this._stringTable = new StringTable(this._stringManager.getStandardTuning())
+        StringManager.getInstance().appendFromJson(jsonData)
+        this._stringTable = new StringTable(StringManager.getInstance().getStandardTuning())
     }
 
     public get stringTable(): StringTable {
@@ -24,10 +23,6 @@ class StringTension {
 
     public set stringTable(value: StringTable) {
         this._stringTable = value
-    }
-
-    public get stringManager(): StringManager {
-        return this._stringManager
     }
 
     /**
@@ -204,7 +199,7 @@ class StringTension {
 
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getPreviousString(state.strInfo)
 
@@ -213,7 +208,7 @@ class StringTension {
 
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType)
+            let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getNextString(state.strInfo)
 

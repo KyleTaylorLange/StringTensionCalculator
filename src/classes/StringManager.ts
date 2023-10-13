@@ -5,31 +5,33 @@ import { StringStateCollection } from "./StringStateCollection.js"
 export { StringManager }
 
 /**
- * Manages all StringSeries objects used for all StringTables in the program.
+ * Singleton object that manages all StringSeries objects used throughout the program.
  */
 class StringManager {
-    private _jsonData: any
+    private static _instance: StringManager
     private _stringSeries: StringSeries[]
 
-    constructor(jsonData: any) {
-        this._jsonData = jsonData
-        this._stringSeries = StringSeries.createFromJson(jsonData)
+    private constructor() {
+        this._stringSeries = []
     }
 
-    public get jsonData(): any {
-        return this._jsonData
+    /**
+     * Gets the StringManager instance. Creates it if it is not already created.
+     * @returns The singleton StirngManager instance
+     */
+    public static getInstance(): StringManager {
+        if (!StringManager._instance) {
+            StringManager._instance = new StringManager()
+        }
+        return StringManager._instance
     }
 
-    public set jsonData(value: any) {
-        this._jsonData = value
-    }
-
-    public get stringSeries(): StringSeries[] | undefined {
-        return this._stringSeries
-    }
-    
-    public set stringSeries(value: StringSeries[]) {
-        this._stringSeries = value
+    /**
+     * Creates new StringSeries objects from JSON and appends them to the current array of StringSeries objects.
+     * @param jsonData The JSON source of the new StringSeries objects.
+     */
+    public appendFromJson(jsonData: any) {
+        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(jsonData))
     }
 
     /** 
