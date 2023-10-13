@@ -1,5 +1,5 @@
-import { StringMake } from "../interfaces/StringMake.js"
-import { StringInfo } from "./StringInfo.js"
+import { StringMake } from '../interfaces/StringMake.js'
+import { StringInfo } from './StringInfo.js'
 
 export { StringSeries }
 
@@ -63,7 +63,7 @@ class StringSeries implements StringMake {
      */
     public getStringByGauge(gauge: number): StringInfo {
         const last = this.strings.length - 1
-        
+
         for (const i in this.strings) {
             if (this.strings[i].gauge === gauge) {
                 return this.strings[i]
