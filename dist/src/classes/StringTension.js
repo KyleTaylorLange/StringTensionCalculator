@@ -8,17 +8,14 @@ export { StringTension };
  */
 class StringTension {
     constructor(jsonData) {
-        this._stringManager = new StringManager(jsonData);
-        this._stringTable = new StringTable(this._stringManager.getStandardTuning());
+        StringManager.getInstance().appendFromJson(jsonData);
+        this._stringTable = new StringTable(StringManager.getInstance().getStandardTuning());
     }
     get stringTable() {
         return this._stringTable;
     }
     set stringTable(value) {
         this._stringTable = value;
-    }
-    get stringManager() {
-        return this._stringManager;
     }
     /**
      * Shift every string's pitch.
@@ -160,13 +157,13 @@ class StringTension {
         };
         // Increase gauge
         buttonGaugeDecrease.onclick = function () {
-            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getPreviousString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
         // Decrease gauge
         buttonGaugeIncrease.onclick = function () {
-            let currentSeries = caller.stringManager.getSeriesByBrandAndType(stateBrand, stateType);
+            let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getNextString(state.strInfo);
             caller.redrawStringTable("str-table");
         };
