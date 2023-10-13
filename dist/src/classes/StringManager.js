@@ -11,7 +11,8 @@ class StringManager {
     }
     /**
      * Gets the StringManager instance. Creates it if it is not already created.
-     * @returns The singleton StirngManager instance
+     *
+     * @returns The singleton StringManager instance.
      */
     static getInstance() {
         if (!StringManager._instance) {

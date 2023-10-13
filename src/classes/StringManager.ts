@@ -17,12 +17,14 @@ class StringManager {
 
     /**
      * Gets the StringManager instance. Creates it if it is not already created.
-     * @returns The singleton StirngManager instance
+     * 
+     * @returns The singleton StringManager instance.
      */
     public static getInstance(): StringManager {
         if (!StringManager._instance) {
             StringManager._instance = new StringManager()
         }
+
         return StringManager._instance
     }
 
