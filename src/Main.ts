@@ -5,11 +5,21 @@ export { Main }
 /**
  * Main class. Pass JSON data in through this.
  */
-class Main extends StringTableManager {
+class Main {
+
+    private _strTableManager: StringTableManager
 
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData: any) {
-        super(jsonData)
+        this._strTableManager = new StringTableManager(jsonData)
+    }
+
+    get strTableManager(): StringTableManager {
+        return this._strTableManager
+    }
+
+    set strTableManager(value: StringTableManager) {
+        this._strTableManager = value
     }
 
     /**
@@ -18,8 +28,8 @@ class Main extends StringTableManager {
      * @param {number} semitones A semitone count.
      */
     public renderPitchShifts(semitones: number) {
-        this.stringTables[0].shiftPitches(semitones)
-        this.stringTables[0].render("str-table")
+        this.strTableManager.stringTables[0].shiftPitches(semitones)
+        this.strTableManager.stringTables[0].render("str-table")
     }
 
     /**
@@ -31,8 +41,8 @@ class Main extends StringTableManager {
     public renderStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
         
-        this.stringTables[0].setNumStrings(Number(numStrings))
-        this.stringTables[0].render(tableId)
+        this.strTableManager.stringTables[0].setNumStrings(Number(numStrings))
+        this.strTableManager.stringTables[0].render(tableId)
     }
 
     /**
