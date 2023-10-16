@@ -1,4 +1,4 @@
-import { StringInfo } from "./StringInfo.js"
+import { StringInfo } from './StringInfo.js'
 
 export { StringState }
 

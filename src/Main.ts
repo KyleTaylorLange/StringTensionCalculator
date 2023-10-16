@@ -1,4 +1,4 @@
-import { StringTension } from "./classes/StringTension.js"
+import { StringTableManager } from './classes/StringTableManager.js'
 
 export { Main }
 
@@ -6,23 +6,48 @@ export { Main }
  * Main class. Pass JSON data in through this.
  */
 class Main {
-    private _stringTension: StringTension
 
+    private _strTableManager: StringTableManager
+
+    // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData: any) {
-        this._stringTension = new StringTension(jsonData)
+        this._strTableManager = new StringTableManager(jsonData)
     }
 
-    public get stringTension(): StringTension {
-        return this._stringTension
+    get strTableManager(): StringTableManager {
+        return this._strTableManager
     }
 
-    public set stringTension(value: StringTension) {
-        this._stringTension = value
+    set strTableManager(value: StringTableManager) {
+        this._strTableManager = value
     }
 
-	 /**
-	  * Run time!
-	  */
+    /**
+     * Shift every string's pitch and render the table.
+     *
+     * @param {number} semitones A semitone count.
+     */
+    public renderPitchShifts(semitones: number) {
+        this.strTableManager.stringTables[0].shiftPitches(semitones)
+        this.strTableManager.stringTables[0].render("str-table")
+    }
+
+    /**
+     * Clears the old table and re-renders a new one.
+     *
+     * @param {string} tableId The id for the string table.
+     * @param {string} numberId The id for the `Number of Strings` input element.
+     */
+    public renderStringTable(tableId: string, numberId: string) {
+        let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
+        
+        this.strTableManager.stringTables[0].setNumStrings(Number(numStrings))
+        this.strTableManager.stringTables[0].render(tableId)
+    }
+
+    /**
+     * Run time!
+     */
     public runTime() {
         let caller = this
 
@@ -33,17 +58,17 @@ class Main {
 
         // Events
         numberOfStringsInput.onchange = function () {
-            caller.stringTension.makeStringTable("str-table", "num-strings")
+            caller.renderStringTable("str-table", "num-strings")
         }
 
         buttonPitchDown.onclick = function () {
-            caller.stringTension.shiftPitches(-1)
+            caller.renderPitchShifts(-1)
         }
 
         buttonPitchUp.onclick = function () {
-            caller.stringTension.shiftPitches(1)
+            caller.renderPitchShifts(1)
         }
 
-        caller.stringTension.makeStringTable("str-table", "num-strings")
+        caller.renderStringTable("str-table", "num-strings")
     }
 }

@@ -1,17 +1,38 @@
-import { StringTension } from "./classes/StringTension.js";
+import { StringTableManager } from './classes/StringTableManager.js';
 export { Main };
 /**
  * Main class. Pass JSON data in through this.
  */
 class Main {
+    // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
-        this._stringTension = new StringTension(jsonData);
+        this._strTableManager = new StringTableManager(jsonData);
     }
-    get stringTension() {
-        return this._stringTension;
+    get strTableManager() {
+        return this._strTableManager;
     }
-    set stringTension(value) {
-        this._stringTension = value;
+    set strTableManager(value) {
+        this._strTableManager = value;
+    }
+    /**
+     * Shift every string's pitch and render the table.
+     *
+     * @param {number} semitones A semitone count.
+     */
+    renderPitchShifts(semitones) {
+        this.strTableManager.stringTables[0].shiftPitches(semitones);
+        this.strTableManager.stringTables[0].render("str-table");
+    }
+    /**
+     * Clears the old table and re-renders a new one.
+     *
+     * @param {string} tableId The id for the string table.
+     * @param {string} numberId The id for the `Number of Strings` input element.
+     */
+    renderStringTable(tableId, numberId) {
+        let numStrings = document.getElementById(numberId).value;
+        this.strTableManager.stringTables[0].setNumStrings(Number(numStrings));
+        this.strTableManager.stringTables[0].render(tableId);
     }
     /**
      * Run time!
@@ -24,14 +45,14 @@ class Main {
         let buttonPitchUp = document.getElementsByClassName("button-pitches-increase")[0];
         // Events
         numberOfStringsInput.onchange = function () {
-            caller.stringTension.makeStringTable("str-table", "num-strings");
+            caller.renderStringTable("str-table", "num-strings");
         };
         buttonPitchDown.onclick = function () {
-            caller.stringTension.shiftPitches(-1);
+            caller.renderPitchShifts(-1);
         };
         buttonPitchUp.onclick = function () {
-            caller.stringTension.shiftPitches(1);
+            caller.renderPitchShifts(1);
         };
-        caller.stringTension.makeStringTable("str-table", "num-strings");
+        caller.renderStringTable("str-table", "num-strings");
     }
 }
