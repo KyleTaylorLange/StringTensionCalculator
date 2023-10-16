@@ -3,10 +3,16 @@ export { Main };
 /**
  * Main class. Pass JSON data in through this.
  */
-class Main extends StringTableManager {
+class Main {
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
-        super(jsonData);
+        this._strTableManager = new StringTableManager(jsonData);
+    }
+    get strTableManager() {
+        return this._strTableManager;
+    }
+    set strTableManager(value) {
+        this._strTableManager = value;
     }
     /**
      * Shift every string's pitch and render the table.
@@ -14,8 +20,8 @@ class Main extends StringTableManager {
      * @param {number} semitones A semitone count.
      */
     renderPitchShifts(semitones) {
-        this.stringTables[0].shiftPitches(semitones);
-        this.stringTables[0].render("str-table");
+        this.strTableManager.stringTables[0].shiftPitches(semitones);
+        this.strTableManager.stringTables[0].render("str-table");
     }
     /**
      * Clears the old table and re-renders a new one.
@@ -25,8 +31,8 @@ class Main extends StringTableManager {
      */
     renderStringTable(tableId, numberId) {
         let numStrings = document.getElementById(numberId).value;
-        this.stringTables[0].setNumStrings(Number(numStrings));
-        this.stringTables[0].render(tableId);
+        this.strTableManager.stringTables[0].setNumStrings(Number(numStrings));
+        this.strTableManager.stringTables[0].render(tableId);
     }
     /**
      * Run time!
