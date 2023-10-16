@@ -24,7 +24,13 @@ class Utilities {
      * @returns {Promise} The promise with the JSON data.
      */
     static async getJson(filename) {
-        const res = await fetch(`/json/${filename}.json`);
+        let res;
+        if (document.URL === 'https://kyletaylorlange.github.io/StringTensionCalculator/') {
+            res = await fetch(`/StringTensionCalculator/dist/json/${filename}.json`);
+        }
+        else {
+            res = await fetch(`/dist/json/${filename}.json`);
+        }
         if (!res.ok) {
             throw new Error("Status :: " + res.status);
         }
