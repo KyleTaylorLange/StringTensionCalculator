@@ -111,6 +111,10 @@ button {
 	}
 }
 
+.add-custom-strings {
+	padding: 0.25rem 0.75rem;
+}
+
 .str-table-container {
 	display: flex;
 	flex-direction: column;
@@ -193,5 +197,47 @@ button {
 	.button-pitches-increase {
 		width: 100px;
 		height: 30px;
+	}
+}
+
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.card {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transform: translate(-50%, -50%);
+	width: 35rem;
+	height: 50rem;
+	background-color: $green-secondary;
+	border: 1px solid $yellow-primary;
+
+	.content {
+		position: absolute;
+		display: flex;
+	}
+
+	.input-table {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+
+		label {
+			color: $white;
+		}
 	}
 }

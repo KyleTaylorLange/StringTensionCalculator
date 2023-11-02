@@ -1,3 +1,4 @@
+import { StringCustomInput } from './classes/StringCustomInput.js';
 import { StringTableManager } from './classes/StringTableManager.js';
 export { Main };
 /**
@@ -7,12 +8,25 @@ class Main {
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
         this._strTableManager = new StringTableManager(jsonData);
+        this._stringCustomInput = new StringCustomInput();
     }
     get strTableManager() {
         return this._strTableManager;
     }
     set strTableManager(value) {
         this._strTableManager = value;
+    }
+    get stringCustomInput() {
+        return this._stringCustomInput;
+    }
+    set stringCustomInput(value) {
+        this._stringCustomInput = value;
+    }
+    /**
+     * Renders the string custom input. Allows the user to enter a custom string set for use.
+     */
+    renderStringCustomInput() {
+        this.stringCustomInput.render();
     }
     /**
      * Shift every string's pitch and render the table.
@@ -21,7 +35,7 @@ class Main {
      */
     renderPitchShifts(semitones) {
         this.strTableManager.stringTables[0].shiftPitches(semitones);
-        this.strTableManager.stringTables[0].render("str-table");
+        this.strTableManager.stringTables[0].render('str-table');
     }
     /**
      * Clears the old table and re-renders a new one.
@@ -38,14 +52,18 @@ class Main {
      * Run time!
      */
     runTime() {
-        let caller = this;
+        const caller = this;
         // Some of our elements to be used
-        let numberOfStringsInput = document.getElementsByClassName("number-of-strings")[0];
-        let buttonPitchDown = document.getElementsByClassName("button-pitches-decrease")[0];
-        let buttonPitchUp = document.getElementsByClassName("button-pitches-increase")[0];
+        let addCustomStrings = document.getElementsByClassName('add-custom-strings')[0];
+        let numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
+        let buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
+        let buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
         // Events
+        addCustomStrings.onclick = function () {
+            caller.renderStringCustomInput();
+        };
         numberOfStringsInput.onchange = function () {
-            caller.renderStringTable("str-table", "num-strings");
+            caller.renderStringTable('str-table', 'num-strings');
         };
         buttonPitchDown.onclick = function () {
             caller.renderPitchShifts(-1);
@@ -53,6 +71,6 @@ class Main {
         buttonPitchUp.onclick = function () {
             caller.renderPitchShifts(1);
         };
-        caller.renderStringTable("str-table", "num-strings");
+        caller.renderStringTable('str-table', 'num-strings');
     }
 }
