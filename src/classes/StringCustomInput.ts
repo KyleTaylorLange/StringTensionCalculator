@@ -8,34 +8,53 @@ class StringCustomInput {
 	constructor() {
 		const card = Utilities.createElement('div', 'card')
 		const content = Utilities.createElement('div', 'content')
-		const inputTable = Utilities.createElement('table', 'input-table')
+		const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.')
 		const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand')
 		const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type')
 		const stringBrand = Utilities.createElement('input', 'string-brand')
 		const stringType = Utilities.createElement('input', 'string-type')
+		const rowTop = Utilities.createElement('div', 'row-top')
+		const submit = Utilities.createElement('button', 'submit', 'Submit')
 
-		let count = 0
+		// TODO: Allow user to define the count
+		let count = 8;
 		let stringLabels = []
-		let stringInputs = []
+		let stringGauges = []
+		let stringWeights = []
 
-		while (count < 8) {
+			
+		for (let i = 0; i < count; ++i) {
 			stringLabels.push(Utilities.createElement('label', 'string-label', `String`))
-			stringInputs.push(Utilities.createElement('input', 'string'))
-			++count
+			stringGauges.push(Utilities.createElement('input', 'string-gauge'))
+			stringWeights.push(Utilities.createElement('input', 'string-weight'))
 		}
 
 		card.appendChild(content)
-		content.appendChild(inputTable)
-		inputTable.appendChild(stringBrandLabel)
-		inputTable.appendChild(stringBrand)
-		inputTable.appendChild(stringTypeLabel)
-		inputTable.appendChild(stringType)
+		content.appendChild(openingMessage)
+		content.appendChild(rowTop)
+		rowTop.appendChild(stringBrandLabel)
+		rowTop.appendChild(stringBrand)
+		rowTop.appendChild(stringTypeLabel)
+		rowTop.appendChild(stringType)
 
-		for (let i = 0; i < 8; ++i) {
-			inputTable.appendChild(stringLabels[i])
-			inputTable.appendChild(stringInputs[i])
+		for (let i = 0; i < count + 1; ++i) {
+
+			if (i === 0) {
+				const row = Utilities.createElement('div', 'row-string-top')
+				content.appendChild(row)
+				row.appendChild(Utilities.createElement('div', 'gauge', 'Gauge'))
+				row.appendChild(Utilities.createElement('div', 'weight', 'Weight'))
+				
+				continue;
+			}
+
+			const row = Utilities.createElement('div', 'row')
+			content.appendChild(row)
+			row.appendChild(stringGauges[i - 1])
+			row.appendChild(stringWeights[i - 1])
 		}
 
+		card.appendChild(submit)
 		this.customStringUI.appendChild(card)
 	}
 

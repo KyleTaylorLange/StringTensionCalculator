@@ -154,28 +154,74 @@ button:hover {
 
 .card {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 50%;
   left: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 50rem;
   transform: translate(-50%, -50%);
-  width: 35rem;
-  height: 50rem;
+  padding: 5rem;
   background-color: #255d55;
   border: 1px solid #f0d19d;
 }
 .card .content {
-  position: absolute;
-  display: flex;
-}
-.card .input-table {
   position: relative;
   display: flex;
   flex-direction: column;
 }
-.card .input-table label {
+.card .content *:not(input) {
   color: #ffffff;
+}
+.card .content label,
+.card .content input {
+  margin-bottom: 1rem;
+}
+.card .content .opening-message {
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+}
+.card .content .row-top {
+  display: flex;
+  flex-direction: column;
+}
+.card .content .row-top .string-brand-label,
+.card .content .row-top .string-type-label {
+  text-align: center;
+  font-weight: 600;
+}
+.card .content .row-string-top {
+  display: flex;
+  flex-direction: row;
+}
+.card .content .row-string-top .gauge,
+.card .content .row-string-top .weight {
+  text-align: center;
+  flex-basis: 50%;
+  min-width: 50%;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+.card .content .row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+.card .content .row .string-label {
+  flex-shrink: 0;
+}
+.card .content .row .string-weight,
+.card .content .row .string-gauge {
+  flex-basis: 50%;
+}
+.card .submit {
+  width: 15rem;
+  height: 2.5rem;
+  margin: 1rem 2.5rem 0 2.5rem;
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=style.css.map */
