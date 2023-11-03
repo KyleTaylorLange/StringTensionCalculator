@@ -59,6 +59,7 @@ class Main {
         let gaugeArray = [];
         let weightsArray = [];
         let stringObjects = [];
+        // NOTE: Add logic to validate entries on submission
         for (let gauge of stringGauges) {
             let gaugeValue = gauge.value;
             if (gaugeValue) {
