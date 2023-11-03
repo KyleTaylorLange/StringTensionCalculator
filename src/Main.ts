@@ -62,23 +62,55 @@ class Main {
         this.strTableManager.stringTables[0].render(tableId)
     }
 
+	/**
+	 * Submit function for the custom string data.
+	 */
+	public submit() {
+		const stringBrandValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-brand')[0]).value
+		const stringTypeValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-type')[0]).value
+		const stringGauges = <HTMLCollectionOf<Element>>document.getElementsByClassName('custom-string-gauge')
+		const stringWeights = <HTMLCollectionOf<Element>>document.getElementsByClassName('custom-string-weight')
+
+        let gaugeArray = []
+        let weightsArray = []
+        let stringObjects = []
+
+        for (let gauge of stringGauges) {
+            let gaugeValue = (gauge as HTMLInputElement).value
+
+            if (gaugeValue) {
+                gaugeArray.push(gaugeValue)
+            }
+        }
+
+        for (let weight of stringWeights) {
+            let weightValue = (weight as HTMLInputElement).value
+            
+            if (weightValue) {
+                weightsArray.push(weightValue)
+            }
+        }
+
+        for (let i = 0; i < gaugeArray.length; ++i) {
+            stringObjects.push({"gauge": gaugeArray[i], "unitWeight": weightsArray[i]})
+        }
+
+        this.stringCustomInput.setCustomStringInfo(stringBrandValue, stringTypeValue, stringObjects)
+	}
+
     /**
      * Run time!
      */
     public runTime() {
         const caller = this
-
+        
         // Some of our elements to be used
         let customStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
         let numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
         let buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
         let buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
-
+        
         // Events
-        customStrings.onclick = function() {
-            caller.renderStringCustomInput()
-        }
-
         numberOfStringsInput.onchange = function () {
             caller.renderStringTable('str-table', 'num-strings')
         }
@@ -89,6 +121,19 @@ class Main {
 
         buttonPitchUp.onclick = function () {
             caller.renderPitchShifts(1)
+        }
+
+        customStrings.onclick = function() {
+            caller.renderStringCustomInput()
+
+            // Watch for click on submit button
+            const customSubmit = <HTMLInputElement>document.getElementsByClassName('submit')[0]
+
+            if (customSubmit) {
+                customSubmit.onclick = function() {
+                    caller.submit()
+                }
+            }
         }
 
         caller.renderStringTable('str-table', 'num-strings')

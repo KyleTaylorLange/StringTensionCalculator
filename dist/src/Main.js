@@ -49,19 +49,46 @@ class Main {
         this.strTableManager.stringTables[0].render(tableId);
     }
     /**
+     * Submit function for the custom string data.
+     */
+    submit() {
+        const stringBrandValue = document.getElementsByClassName('custom-string-brand')[0].value;
+        const stringTypeValue = document.getElementsByClassName('custom-string-type')[0].value;
+        const stringGauges = document.getElementsByClassName('custom-string-gauge');
+        const stringWeights = document.getElementsByClassName('custom-string-weight');
+        let gaugeArray = [];
+        let weightsArray = [];
+        let stringObjects = [];
+        for (let gauge of stringGauges) {
+            let gaugeValue = gauge.value;
+            if (gaugeValue) {
+                gaugeArray.push(gaugeValue);
+            }
+        }
+        for (let weight of stringWeights) {
+            let weightValue = weight.value;
+            if (weightValue) {
+                weightsArray.push(weightValue);
+            }
+        }
+        for (let i = 0; i < gaugeArray.length; ++i) {
+            stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
+        }
+        this.stringCustomInput.setCustomStringInfo(stringBrandValue, stringTypeValue, stringObjects);
+    }
+    /**
      * Run time!
      */
     runTime() {
         const caller = this;
+        // DEBUG: customSubmit is not yet in the DOM, so it can't be accessed immediately at runtime
+        //        events on this submit button need to be watched for *only* once it is accessible
         // Some of our elements to be used
         let customStrings = document.getElementsByClassName('add-custom-strings')[0];
         let numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
         let buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
         let buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
         // Events
-        customStrings.onclick = function () {
-            caller.renderStringCustomInput();
-        };
         numberOfStringsInput.onchange = function () {
             caller.renderStringTable('str-table', 'num-strings');
         };
@@ -70,6 +97,16 @@ class Main {
         };
         buttonPitchUp.onclick = function () {
             caller.renderPitchShifts(1);
+        };
+        customStrings.onclick = function () {
+            caller.renderStringCustomInput();
+            // Watch for click on submit button
+            const customSubmit = document.getElementsByClassName('submit')[0];
+            if (customSubmit) {
+                customSubmit.onclick = function () {
+                    caller.submit();
+                };
+            }
         };
         caller.renderStringTable('str-table', 'num-strings');
     }

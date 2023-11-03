@@ -4,15 +4,18 @@ export { StringCustomInput }
 
 class StringCustomInput {
 	private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay')
+	private _stringInfo: Object = {}
 
 	constructor() {
+		const caller = this
+
 		const card = Utilities.createElement('div', 'card')
 		const content = Utilities.createElement('div', 'content')
 		const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.')
 		const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand')
 		const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type')
-		const stringBrand = Utilities.createElement('input', 'string-brand')
-		const stringType = Utilities.createElement('input', 'string-type')
+		const stringBrand = Utilities.createElement('input', 'custom-string-brand')
+		const stringType = Utilities.createElement('input', 'custom-string-type')
 		const rowTop = Utilities.createElement('div', 'row-top')
 		const submit = Utilities.createElement('button', 'submit', 'Submit')
 
@@ -25,8 +28,8 @@ class StringCustomInput {
 			
 		for (let i = 0; i < count; ++i) {
 			stringLabels.push(Utilities.createElement('label', 'string-label', `String`))
-			stringGauges.push(Utilities.createElement('input', 'string-gauge'))
-			stringWeights.push(Utilities.createElement('input', 'string-weight'))
+			stringGauges.push(Utilities.createElement('input', 'custom-string-gauge'))
+			stringWeights.push(Utilities.createElement('input', 'custom-string-weight'))
 		}
 
 		card.appendChild(content)
@@ -65,6 +68,25 @@ class StringCustomInput {
 	public set customStringUI(value: any) {
 		this._customStringUI = value
 	}
+
+	public get stringInfo(): Object {
+		return this._stringInfo
+	}
+
+	public set stringInfo(value: Object) {
+		this._stringInfo = value
+	}
+
+    /**
+     * Sets the custom string info.
+     */
+    public setCustomStringInfo(brand: string, type: string, strings: Array<Object>) {
+        this.stringInfo = {
+            "brand": brand,
+            "type": type,
+            "strings": strings
+        }
+    }
 	
 	/**
 	 * Renders the custom string user interface.

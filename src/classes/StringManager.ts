@@ -30,6 +30,7 @@ class StringManager {
 
     /**
      * Creates new StringSeries objects from JSON and appends them to the current array of StringSeries objects.
+     * 
      * @param jsonData The JSON source of the new StringSeries objects.
      */
     public appendFromJson(jsonData: any) {
@@ -84,6 +85,15 @@ class StringManager {
                 this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.074)
             )
         ])
+    }
+
+    /** 
+     * Get a base set of custom tuning strings.
+     * 
+     * @description Custom tuning.
+     */
+    public getCustomTuning(stringStates: StringState[]): StringStateCollection {
+        return new StringStateCollection(stringStates)
     }
     
     /**

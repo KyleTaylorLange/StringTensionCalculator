@@ -22,6 +22,7 @@ class StringManager {
     }
     /**
      * Creates new StringSeries objects from JSON and appends them to the current array of StringSeries objects.
+     *
      * @param jsonData The JSON source of the new StringSeries objects.
      */
     appendFromJson(jsonData) {
@@ -43,6 +44,14 @@ class StringManager {
             new StringState(35, 25.5, this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.059)),
             new StringState(30, 25.5, this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.074))
         ]);
+    }
+    /**
+     * Get a base set of custom tuning strings.
+     *
+     * @description Custom tuning.
+     */
+    getCustomTuning(stringStates) {
+        return new StringStateCollection(stringStates);
     }
     /**
      * Gets a series by guitar string and string type.

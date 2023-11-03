@@ -3,13 +3,15 @@ export { StringCustomInput };
 class StringCustomInput {
     constructor() {
         this._customStringUI = Utilities.createElement('div', 'overlay');
+        this._stringInfo = {};
+        const caller = this;
         const card = Utilities.createElement('div', 'card');
         const content = Utilities.createElement('div', 'content');
         const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.');
         const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand');
         const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type');
-        const stringBrand = Utilities.createElement('input', 'string-brand');
-        const stringType = Utilities.createElement('input', 'string-type');
+        const stringBrand = Utilities.createElement('input', 'custom-string-brand');
+        const stringType = Utilities.createElement('input', 'custom-string-type');
         const rowTop = Utilities.createElement('div', 'row-top');
         const submit = Utilities.createElement('button', 'submit', 'Submit');
         // TODO: Allow user to define the count
@@ -19,8 +21,8 @@ class StringCustomInput {
         let stringWeights = [];
         for (let i = 0; i < count; ++i) {
             stringLabels.push(Utilities.createElement('label', 'string-label', `String`));
-            stringGauges.push(Utilities.createElement('input', 'string-gauge'));
-            stringWeights.push(Utilities.createElement('input', 'string-weight'));
+            stringGauges.push(Utilities.createElement('input', 'custom-string-gauge'));
+            stringWeights.push(Utilities.createElement('input', 'custom-string-weight'));
         }
         card.appendChild(content);
         content.appendChild(openingMessage);
@@ -50,6 +52,22 @@ class StringCustomInput {
     }
     set customStringUI(value) {
         this._customStringUI = value;
+    }
+    get stringInfo() {
+        return this._stringInfo;
+    }
+    set stringInfo(value) {
+        this._stringInfo = value;
+    }
+    /**
+     * Sets the custom string info.
+     */
+    setCustomStringInfo(brand, type, strings) {
+        this.stringInfo = {
+            "brand": brand,
+            "type": type,
+            "strings": strings
+        };
     }
     /**
      * Renders the custom string user interface.
