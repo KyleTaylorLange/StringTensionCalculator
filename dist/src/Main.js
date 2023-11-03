@@ -81,8 +81,6 @@ class Main {
      */
     runTime() {
         const caller = this;
-        // DEBUG: customSubmit is not yet in the DOM, so it can't be accessed immediately at runtime
-        //        events on this submit button need to be watched for *only* once it is accessible
         // Some of our elements to be used
         let customStrings = document.getElementsByClassName('add-custom-strings')[0];
         let numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
