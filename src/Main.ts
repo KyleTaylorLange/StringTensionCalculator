@@ -69,16 +69,16 @@ class Main {
         const caller = this
 
         // Some of our elements to be used
-        let addCustomStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
+        let customStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
         let numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
         let buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
         let buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
 
         // Events
-        addCustomStrings.onclick = function() {
+        customStrings.onclick = function() {
             caller.renderStringCustomInput()
         }
-        
+
         numberOfStringsInput.onchange = function () {
             caller.renderStringTable('str-table', 'num-strings')
         }
