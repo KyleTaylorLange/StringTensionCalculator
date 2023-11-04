@@ -9,6 +9,7 @@ class StringTableManager {
         this._stringTables = [];
         StringManager.getInstance().appendFromJson(jsonData);
         this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()));
+        this.stringTables[0].isCurrent = true;
     }
     get stringTables() {
         return this._stringTables;

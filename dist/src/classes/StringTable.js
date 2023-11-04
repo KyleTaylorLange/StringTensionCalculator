@@ -10,6 +10,7 @@ class StringTable {
     constructor(startingStrings) {
         this._currentStrings = startingStrings;
         this._stringCache = new StringStateCollection();
+        this._isCurrent = false;
     }
     get currentStrings() {
         return this._currentStrings;
@@ -22,6 +23,12 @@ class StringTable {
     }
     set stringCache(value) {
         this._stringCache = value;
+    }
+    get isCurrent() {
+        return this._isCurrent;
+    }
+    set isCurrent(value) {
+        this._isCurrent = value;
     }
     /**
      * Gets a current single string.

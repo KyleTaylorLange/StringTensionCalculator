@@ -12,6 +12,7 @@ class StringTableManager  {
 	constructor(jsonData: any) {
 		StringManager.getInstance().appendFromJson(jsonData)
 		this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()))
+		this.stringTables[0].isCurrent = true
     }
 
 	public get stringTables(): StringTable[] {

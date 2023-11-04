@@ -52,11 +52,12 @@ class Main {
      *
      * @param {string} tableId The id for the string table.
      * @param {string} numberId The id for the `Number of Strings` input element.
+     * @param {number} index The index of the table to be retrieved.
      */
-    renderStringTable(tableId, numberId) {
+    renderStringTable(tableId, numberId, index) {
         let numStrings = document.getElementById(numberId).value;
-        this.strTableManager.stringTables[0].setNumStrings(Number(numStrings));
-        this.strTableManager.stringTables[0].render(tableId);
+        this.strTableManager.stringTables[index].setNumStrings(Number(numStrings));
+        this.strTableManager.stringTables[index].render(tableId);
     }
     /**
      * Submit function for the custom string data.
@@ -91,10 +92,14 @@ class Main {
         }
         // Push a new string table
         this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)));
+        // Set the new string table as the current
+        this.strTableManager.stringTables[1].isCurrent = true;
+        this.strTableManager.stringTables[0].isCurrent = false;
         overlay.classList.replace('show', 'hide');
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 500);
+        this.renderStringTable('str-table', 'num-strings', 1);
     }
     /**
      * Run time!
@@ -108,7 +113,11 @@ class Main {
         const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
         // Events
         numberOfStringsInput.onchange = function () {
-            caller.renderStringTable('str-table', 'num-strings');
+            for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
+                if (caller.strTableManager.stringTables[i].isCurrent) {
+                    caller.renderStringTable('str-table', 'num-strings', i);
+                }
+            }
         };
         buttonPitchDown.onclick = function () {
             caller.renderPitchShifts(-1);
@@ -132,6 +141,6 @@ class Main {
                 };
             }
         };
-        caller.renderStringTable('str-table', 'num-strings');
+        caller.renderStringTable('str-table', 'num-strings', 0);
     }
 }

@@ -12,10 +12,12 @@ export { StringTable }
 class StringTable {
     private _currentStrings: StringStateCollection
     private _stringCache: StringStateCollection
+    private _isCurrent: boolean
 
     constructor(startingStrings: StringStateCollection) {
         this._currentStrings = startingStrings
         this._stringCache = new StringStateCollection()
+        this._isCurrent = false
     }
 
     public get currentStrings(): StringStateCollection {
@@ -32,6 +34,14 @@ class StringTable {
 
     public set stringCache(value: StringStateCollection) {
         this._stringCache = value
+    }
+
+    public get isCurrent(): boolean {
+        return this._isCurrent
+    }
+
+    public set isCurrent(value: boolean) {
+        this._isCurrent = value
     }
 
     /**
