@@ -102,8 +102,8 @@ class Main {
     runTime() {
         const caller = this;
         // Some of our elements to be used
-        const customStrings = document.getElementsByClassName('add-custom-strings')[0];
         const numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
+        const buttonAddCustomStrings = document.getElementsByClassName('add-custom-strings')[0];
         const buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
         const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
         // Events
@@ -116,7 +116,7 @@ class Main {
         buttonPitchUp.onclick = function () {
             caller.renderPitchShifts(1);
         };
-        customStrings.onclick = function () {
+        buttonAddCustomStrings.onclick = function () {
             const overlay = document.getElementsByClassName('overlay')[0];
             if (overlay) {
                 overlay.style.display = 'block';

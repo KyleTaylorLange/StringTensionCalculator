@@ -131,8 +131,8 @@ class Main {
         const caller = this
         
         // Some of our elements to be used
-        const customStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
         const numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
+        const buttonAddCustomStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
         const buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
         const buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
         
@@ -149,7 +149,7 @@ class Main {
             caller.renderPitchShifts(1)
         }
 
-        customStrings.onclick = function() {
+        buttonAddCustomStrings.onclick = function() {
             const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
 
             if (overlay) {
