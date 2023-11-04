@@ -57,8 +57,12 @@ class Main {
      * @param {number} semitones A semitone count.
      */
     public renderPitchShifts(semitones: number) {
-        this.strTableManager.stringTables[0].shiftPitches(semitones)
-        this.strTableManager.stringTables[0].render('str-table')
+        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
+            if (this.strTableManager.stringTables[i].isCurrent) {
+                this.strTableManager.stringTables[i].shiftPitches(semitones)
+                this.strTableManager.stringTables[i].render('str-table')
+            }
+        }
     }
 
     /**
@@ -66,13 +70,17 @@ class Main {
      *
      * @param {string} tableId The id for the string table.
      * @param {string} numberId The id for the `Number of Strings` input element.
-     * @param {number} index The index of the table to be retrieved.
      */
-    public renderStringTable(tableId: string, numberId: string, index: number) {
+    public renderStringTable(tableId: string, numberId: string) {
         let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
         
-        this.strTableManager.stringTables[index].setNumStrings(Number(numStrings))
-        this.strTableManager.stringTables[index].render(tableId)
+        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
+            if (this.strTableManager.stringTables[i].isCurrent) {
+                this.strTableManager.stringTables[i].setNumStrings(Number(numStrings))
+                this.strTableManager.stringTables[i].render(tableId)
+            }
+        }
+  
     }
 
 	/**
@@ -129,7 +137,11 @@ class Main {
             overlay.style.display = 'none'
         }, 500);
 
-        this.renderStringTable('str-table', 'num-strings', 1)
+        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
+            if (this.strTableManager.stringTables[i].isCurrent) {
+                this.renderStringTable('str-table', 'num-strings')
+            }
+        }
 	}
 
     /**
@@ -148,7 +160,7 @@ class Main {
         numberOfStringsInput.onchange = function () {
             for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
                 if (caller.strTableManager.stringTables[i].isCurrent) {
-                    caller.renderStringTable('str-table', 'num-strings', i);
+                    caller.renderStringTable('str-table', 'num-strings');
                 }
             }
         }
@@ -182,6 +194,6 @@ class Main {
             }
         }
 
-        caller.renderStringTable('str-table', 'num-strings', 0)
+        caller.renderStringTable('str-table', 'num-strings')
     }
 }
