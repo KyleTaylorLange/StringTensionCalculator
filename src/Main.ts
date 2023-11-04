@@ -86,7 +86,7 @@ class Main {
 	/**
 	 * Submit function for the custom string data.
 	 */
-	public submit() {
+	public submitCustomStringData() {
         const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
 		const stringBrandValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-brand')[0]).value
 		const stringTypeValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-type')[0]).value
@@ -189,7 +189,7 @@ class Main {
 
             if (customSubmit) {
                 customSubmit.onclick = function() {
-                    caller.submit()
+                    caller.submitCustomStringData()
                 }
             }
         }

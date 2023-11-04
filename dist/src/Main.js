@@ -69,7 +69,7 @@ class Main {
     /**
      * Submit function for the custom string data.
      */
-    submit() {
+    submitCustomStringData() {
         const overlay = document.getElementsByClassName('overlay')[0];
         const stringBrandValue = document.getElementsByClassName('custom-string-brand')[0].value;
         const stringTypeValue = document.getElementsByClassName('custom-string-type')[0].value;
@@ -148,7 +148,7 @@ class Main {
             const customSubmit = document.getElementsByClassName('submit')[0];
             if (customSubmit) {
                 customSubmit.onclick = function () {
-                    caller.submit();
+                    caller.submitCustomStringData();
                 };
             }
         };
