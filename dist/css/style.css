@@ -222,8 +222,8 @@ button:hover {
 .card .content .row .string-label {
   flex-shrink: 0;
 }
-.card .content .row .string-weight,
-.card .content .row .string-gauge {
+.card .content .row .custom-string-weight,
+.card .content .row .custom-string-gauge {
   flex-basis: 50%;
 }
 .card .submit {
