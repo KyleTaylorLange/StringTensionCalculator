@@ -1,4 +1,7 @@
 import { StringCustomInput } from './classes/StringCustomInput.js'
+import { StringInfo } from './classes/StringInfo.js'
+import { StringManager } from './classes/StringManager.js'
+import { StringTable } from './classes/StringTable.js'
 import { StringTableManager } from './classes/StringTableManager.js'
 
 export { Main }
@@ -9,6 +12,7 @@ export { Main }
 class Main {
     private _strTableManager: StringTableManager
     private _stringCustomInput: StringCustomInput
+    private _stringCustomInfoArray: StringInfo[] = []
 
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData: any) {
@@ -30,6 +34,14 @@ class Main {
 
     public set stringCustomInput(value: StringCustomInput) {
         this._stringCustomInput = value
+    }
+
+    public get stringCustomInfoArray(): StringInfo[] {
+        return this._stringCustomInfoArray
+    }
+
+    public set stringCustomInfoArray(value: StringInfo[]) {
+        this._stringCustomInfoArray = value
     }
 
     /**
@@ -80,7 +92,7 @@ class Main {
             let gaugeValue = (gauge as HTMLInputElement).value
 
             if (gaugeValue) {
-                gaugeArray.push(gaugeValue)
+                gaugeArray.push(Number(gaugeValue))
             }
         }
 
@@ -88,7 +100,7 @@ class Main {
             let weightValue = (weight as HTMLInputElement).value
             
             if (weightValue) {
-                weightsArray.push(weightValue)
+                weightsArray.push(Number(weightValue))
             }
         }
 
@@ -96,7 +108,14 @@ class Main {
             stringObjects.push({"gauge": gaugeArray[i], "unitWeight": weightsArray[i]})
         }
 
-        this.stringCustomInput.setCustomStringInfo(stringBrandValue, stringTypeValue, stringObjects)
+        for (let i = 0; i < stringObjects.length; i++) {
+            this.stringCustomInfoArray.push(
+                new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue
+            ))
+        }
+        
+        // Push a new string table
+        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)))
 	}
 
     /**

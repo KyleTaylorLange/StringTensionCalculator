@@ -1,14 +1,12 @@
 import { Utilities } from '../static/Utilities.js'
+import { StringInfo } from './StringInfo.js'
 
 export { StringCustomInput }
 
 class StringCustomInput {
 	private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay')
-	private _stringInfo: Object = {}
 
 	constructor() {
-		const caller = this
-
 		const card = Utilities.createElement('div', 'card')
 		const content = Utilities.createElement('div', 'content')
 		const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.')
@@ -68,25 +66,6 @@ class StringCustomInput {
 	public set customStringUI(value: any) {
 		this._customStringUI = value
 	}
-
-	public get stringInfo(): Object {
-		return this._stringInfo
-	}
-
-	public set stringInfo(value: Object) {
-		this._stringInfo = value
-	}
-
-    /**
-     * Sets the custom string info.
-     */
-    public setCustomStringInfo(brand: string, type: string, strings: Array<Object>) {
-        this.stringInfo = {
-            "brand": brand,
-            "type": type,
-            "strings": strings
-        }
-    }
 	
 	/**
 	 * Renders the custom string user interface.

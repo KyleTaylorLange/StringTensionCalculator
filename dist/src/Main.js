@@ -1,4 +1,7 @@
 import { StringCustomInput } from './classes/StringCustomInput.js';
+import { StringInfo } from './classes/StringInfo.js';
+import { StringManager } from './classes/StringManager.js';
+import { StringTable } from './classes/StringTable.js';
 import { StringTableManager } from './classes/StringTableManager.js';
 export { Main };
 /**
@@ -7,6 +10,7 @@ export { Main };
 class Main {
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
+        this._stringCustomInfoArray = [];
         this._strTableManager = new StringTableManager(jsonData);
         this._stringCustomInput = new StringCustomInput();
     }
@@ -21,6 +25,12 @@ class Main {
     }
     set stringCustomInput(value) {
         this._stringCustomInput = value;
+    }
+    get stringCustomInfoArray() {
+        return this._stringCustomInfoArray;
+    }
+    set stringCustomInfoArray(value) {
+        this._stringCustomInfoArray = value;
     }
     /**
      * Renders the string custom input. Allows the user to enter a custom string set for use.
@@ -63,19 +73,23 @@ class Main {
         for (let gauge of stringGauges) {
             let gaugeValue = gauge.value;
             if (gaugeValue) {
-                gaugeArray.push(gaugeValue);
+                gaugeArray.push(Number(gaugeValue));
             }
         }
         for (let weight of stringWeights) {
             let weightValue = weight.value;
             if (weightValue) {
-                weightsArray.push(weightValue);
+                weightsArray.push(Number(weightValue));
             }
         }
         for (let i = 0; i < gaugeArray.length; ++i) {
             stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
         }
-        this.stringCustomInput.setCustomStringInfo(stringBrandValue, stringTypeValue, stringObjects);
+        for (let i = 0; i < stringObjects.length; i++) {
+            this.stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
+        }
+        // Push a new string table
+        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)));
     }
     /**
      * Run time!

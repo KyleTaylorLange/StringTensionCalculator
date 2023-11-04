@@ -3,8 +3,6 @@ export { StringCustomInput };
 class StringCustomInput {
     constructor() {
         this._customStringUI = Utilities.createElement('div', 'overlay');
-        this._stringInfo = {};
-        const caller = this;
         const card = Utilities.createElement('div', 'card');
         const content = Utilities.createElement('div', 'content');
         const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.');
@@ -52,22 +50,6 @@ class StringCustomInput {
     }
     set customStringUI(value) {
         this._customStringUI = value;
-    }
-    get stringInfo() {
-        return this._stringInfo;
-    }
-    set stringInfo(value) {
-        this._stringInfo = value;
-    }
-    /**
-     * Sets the custom string info.
-     */
-    setCustomStringInfo(brand, type, strings) {
-        this.stringInfo = {
-            "brand": brand,
-            "type": type,
-            "strings": strings
-        };
     }
     /**
      * Renders the custom string user interface.
