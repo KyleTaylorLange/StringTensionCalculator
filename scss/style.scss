@@ -45,6 +45,32 @@ $black: #000000;
 	transition: opacity 300ms;
 }
 
+.exit {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	top: 1.25rem;
+	right: 1.5rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	padding-top: 0.15rem;
+
+	background: $yellow-hover;
+	border: 1px solid $green-primary;
+	border-radius: 50%;
+
+	color: $green-primary;
+	font-weight: 900;
+	font-size: 1.75rem;
+	cursor: pointer;
+
+		&:hover {
+			filter: brightness(90%);
+		}
+}
+
 // Main styles
 *, *::before, *::after {
   box-sizing: border-box;

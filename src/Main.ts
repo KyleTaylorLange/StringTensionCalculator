@@ -80,7 +80,6 @@ class Main {
                 this.strTableManager.stringTables[i].render(tableId)
             }
         }
-  
     }
 
 	/**
@@ -184,12 +183,25 @@ class Main {
 
             caller.renderStringCustomInput()
 
-            // Watch for click on submit button
+            // Watch for click on exit or submit
             const customSubmit = <HTMLInputElement>document.getElementsByClassName('submit')[0]
+            const customExit = <HTMLInputElement>document.getElementsByClassName('exit')[0]
 
             if (customSubmit) {
                 customSubmit.onclick = function() {
                     caller.submitCustomStringData()
+                }
+            }
+
+            if (customExit) {
+                customExit.onclick = function() {
+                    const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
+                    
+                    overlay.classList.replace('show', 'hide')
+        
+                    setTimeout(() => {
+                        overlay.style.display = 'none'
+                    }, 500);
                 }
             }
         }

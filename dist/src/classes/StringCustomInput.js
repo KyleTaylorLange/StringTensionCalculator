@@ -12,6 +12,7 @@ class StringCustomInput {
         const stringType = Utilities.createElement('input', 'custom-string-type');
         const rowTop = Utilities.createElement('div', 'row-top');
         const submit = Utilities.createElement('button', 'submit', 'Submit');
+        const exit = Utilities.createElement('div', 'exit', 'X');
         // TODO: Allow user to define the count
         let count = 8;
         let stringLabels = [];
@@ -43,6 +44,7 @@ class StringCustomInput {
             row.appendChild(stringWeights[i - 1]);
         }
         card.appendChild(submit);
+        card.appendChild(exit);
         this.customStringUI.appendChild(card);
     }
     get customStringUI() {
