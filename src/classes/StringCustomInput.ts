@@ -23,7 +23,6 @@ class StringCustomInput {
 		let stringGauges = []
 		let stringWeights = []
 
-			
 		for (let i = 0; i < count; ++i) {
 			stringLabels.push(Utilities.createElement('label', 'string-label', `String`))
 			stringGauges.push(Utilities.createElement('input', 'custom-string-gauge'))
