@@ -62,6 +62,7 @@ class Main {
      * Submit function for the custom string data.
      */
     submit() {
+        const overlay = document.getElementsByClassName('overlay')[0];
         const stringBrandValue = document.getElementsByClassName('custom-string-brand')[0].value;
         const stringTypeValue = document.getElementsByClassName('custom-string-type')[0].value;
         const stringGauges = document.getElementsByClassName('custom-string-gauge');
@@ -90,6 +91,10 @@ class Main {
         }
         // Push a new string table
         this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)));
+        overlay.classList.replace('show', 'hide');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 500);
     }
     /**
      * Run time!
@@ -97,10 +102,10 @@ class Main {
     runTime() {
         const caller = this;
         // Some of our elements to be used
-        let customStrings = document.getElementsByClassName('add-custom-strings')[0];
-        let numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
-        let buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
-        let buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
+        const customStrings = document.getElementsByClassName('add-custom-strings')[0];
+        const numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
+        const buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
+        const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
         // Events
         numberOfStringsInput.onchange = function () {
             caller.renderStringTable('str-table', 'num-strings');
@@ -112,6 +117,12 @@ class Main {
             caller.renderPitchShifts(1);
         };
         customStrings.onclick = function () {
+            const overlay = document.getElementsByClassName('overlay')[0];
+            if (overlay) {
+                overlay.style.display = 'block';
+                overlay.classList.replace('hide', 'show');
+                return;
+            }
             caller.renderStringCustomInput();
             // Watch for click on submit button
             const customSubmit = document.getElementsByClassName('submit')[0];

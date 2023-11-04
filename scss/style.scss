@@ -35,6 +35,16 @@ $black: #000000;
 	padding-bottom: 1rem;
 }
 
+// Utilities
+.show {
+	opacity: 1;
+}
+
+.hide {
+	opacity: 0;
+	transition: opacity 300ms;
+}
+
 // Main styles
 *, *::before, *::after {
   box-sizing: border-box;

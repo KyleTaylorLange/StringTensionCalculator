@@ -4,7 +4,7 @@ import { StringInfo } from './StringInfo.js'
 export { StringCustomInput }
 
 class StringCustomInput {
-	private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay')
+	private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay show')
 
 	constructor() {
 		const card = Utilities.createElement('div', 'card')

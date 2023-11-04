@@ -2,7 +2,7 @@ import { Utilities } from '../static/Utilities.js';
 export { StringCustomInput };
 class StringCustomInput {
     constructor() {
-        this._customStringUI = Utilities.createElement('div', 'overlay');
+        this._customStringUI = Utilities.createElement('div', 'overlay show');
         const card = Utilities.createElement('div', 'card');
         const content = Utilities.createElement('div', 'content');
         const openingMessage = Utilities.createElement('div', 'opening-message', 'You can add your own custom strings here. Please provide values for up to eight strings. Any rows that have no data will not be used.');

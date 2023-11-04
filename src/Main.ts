@@ -78,6 +78,7 @@ class Main {
 	 * Submit function for the custom string data.
 	 */
 	public submit() {
+        const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
 		const stringBrandValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-brand')[0]).value
 		const stringTypeValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-type')[0]).value
 		const stringGauges = <HTMLCollectionOf<Element>>document.getElementsByClassName('custom-string-gauge')
@@ -116,6 +117,11 @@ class Main {
         
         // Push a new string table
         this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)))
+        overlay.classList.replace('show', 'hide')
+        
+        setTimeout(() => {
+            overlay.style.display = 'none'
+        }, 500);
 	}
 
     /**
@@ -125,10 +131,10 @@ class Main {
         const caller = this
         
         // Some of our elements to be used
-        let customStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
-        let numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
-        let buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
-        let buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
+        const customStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
+        const numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
+        const buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
+        const buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
         
         // Events
         numberOfStringsInput.onchange = function () {
@@ -144,6 +150,14 @@ class Main {
         }
 
         customStrings.onclick = function() {
+            const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
+
+            if (overlay) {
+                overlay.style.display = 'block'
+                overlay.classList.replace('hide', 'show')
+                return
+            }
+
             caller.renderStringCustomInput()
 
             // Watch for click on submit button

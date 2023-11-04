@@ -5,15 +5,18 @@ class Utilities {
      * Create and return an element of a given type, with a given class name. Optional text content may be added.
      *
      * @param {any} elementType The type of the element.
-     * @param {any} className The class name assigned to the element.
+     * @param {any} classNames The class name(s) assigned to the element. If multiple, separate by spaces.
      * @param {any} [textContent] Text content to be added to the element, if any.
      *
      * @returns The element.
      */
-    public static createElement(elementType: any, className: any, textContent: any = null): any {
+    public static createElement(elementType: any, classNames: any, textContent: any = null): any {
         let element = document.createElement(elementType)
+        let classes = classNames.split(' ')
 
-        element.classList.add(className)
+        for (let className of classes) {
+            element.classList.add(className)
+        }
 
         if (textContent !== null) {
             element.textContent = textContent
