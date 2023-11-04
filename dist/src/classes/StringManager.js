@@ -29,9 +29,24 @@ class StringManager {
         this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(jsonData));
     }
     /**
-     * Gets a default array of StringInfo objects (i.e. strings).
+     * Gets a series by guitar string and string type.
      *
-     * @returns Default string info array.
+     * @param {string} brand
+     * @param {string} type
+     * @returns A string series.
+     */
+    getSeriesByBrandAndType(brand, type) {
+        for (let i = 0; i < this._stringSeries.length; i++) {
+            if (this._stringSeries[i].brand === brand && this._stringSeries[i].type === type) {
+                return this._stringSeries[i];
+            }
+        }
+        return new StringSeries("Undefined", "Guitar String", []);
+    }
+    /**
+     * Gets a default array of StringInfo objects.
+     *
+     * @returns Default StringInfo item array (i.e. default string set).
      */
     getDefaultStringInfoArray() {
         return [
@@ -46,11 +61,10 @@ class StringManager {
         ];
     }
     /**
-     * Get a base set of standard tuning strings.
-     *
-     * Default string set is provided by getDefaultStringInfoArray().
+     * Get a base set of standard tuning strings. Default string set is provided by getDefaultStringInfoArray().
      *
      * @description Base tuning function.
+     * @returns A new StringStateCollection representing the tuning.
      */
     getStandardTuning(strInfoArray = this.getDefaultStringInfoArray()) {
         let stringStates = [];
@@ -60,20 +74,5 @@ class StringManager {
             stringStates.push(new StringState(noteNumbers[i], scaleLength, strInfoArray[i]));
         }
         return new StringStateCollection(stringStates);
-    }
-    /**
-     * Gets a series by guitar string and string type.
-     *
-     * @param {string} brand
-     * @param {string} type
-     * @returns A string series.
-     */
-    getSeriesByBrandAndType(brand, type) {
-        for (let i = 0; i < this._stringSeries.length; i++) {
-            if (this._stringSeries[i].brand === brand && this._stringSeries[i].type === type) {
-                return this._stringSeries[i];
-            }
-        }
-        return new StringSeries("Undefined", "Guitar String", []);
     }
 }
