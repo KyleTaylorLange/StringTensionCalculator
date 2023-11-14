@@ -169,7 +169,7 @@ class StringTable {
 
         // If gauge buttons will have nullify class
         let nullify = this.canModifyGauge === false ? 'nullify' : ''
-        
+
         // Array that will hold our fields/columns
         let fields = []
 
@@ -189,8 +189,8 @@ class StringTable {
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
 
         let buttonContainer = Utilities.createElement('div', 'note-buttons')
-        let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-')
-        let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
+        let buttonPitchDown = Utilities.createElement('button', 'button-pitch down', '-')
+        let buttonPitchUp = Utilities.createElement('button', 'button-pitch up', '+')
         let scaleLengthBox = Utilities.createElement('input', 'scale-length')
 
         scaleLengthBox.type = 'text'

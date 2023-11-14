@@ -208,6 +208,7 @@ button {
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+                padding: 0.5rem;
 
 				button {
 					width: 25px;
@@ -221,10 +222,10 @@ button {
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+                padding: 0.5rem;
 
-				.button-gauge-decrease,
-				.button-gauge-increase {
-					width: 25px;
+				.button-gauge {
+                    width: 25px;
 				}
 			}
 		}

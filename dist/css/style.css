@@ -153,6 +153,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.5rem;
 }
 .str-table-container #str-table .note-name .note-buttons button {
   width: 25px;
@@ -162,9 +163,9 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.5rem;
 }
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-decrease,
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-increase {
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge {
   width: 25px;
 }
 

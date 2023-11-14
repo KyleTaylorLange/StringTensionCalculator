@@ -149,8 +149,8 @@ class StringTable {
         // Pushing the elements that constitute our fields (the columns)
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension);
         let buttonContainer = Utilities.createElement('div', 'note-buttons');
-        let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-');
-        let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+');
+        let buttonPitchDown = Utilities.createElement('button', 'button-pitch down', '-');
+        let buttonPitchUp = Utilities.createElement('button', 'button-pitch up', '+');
         let scaleLengthBox = Utilities.createElement('input', 'scale-length');
         scaleLengthBox.type = 'text';
         scaleLengthBox.value = state.scaleLength.toString() + '"';
