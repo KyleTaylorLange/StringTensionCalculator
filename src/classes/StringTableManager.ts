@@ -8,6 +8,7 @@ export { StringTableManager }
  */
 class StringTableManager  {
     protected _stringTables: StringTable[] = []
+    protected _lastIndex: number = this._stringTables.length - 1
 
 	constructor(jsonData: any) {
 		StringManager.getInstance().appendFromJson(jsonData)
@@ -22,4 +23,12 @@ class StringTableManager  {
 	public set stringTables(value: StringTable[]) {
 		this._stringTables = value
 	}
+    
+    protected get lastIndex(): number {
+        return this._lastIndex
+    }
+
+    protected set lastIndex(value: number) {
+        this._lastIndex = value
+    }
 }

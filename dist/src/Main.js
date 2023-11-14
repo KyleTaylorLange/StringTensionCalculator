@@ -10,7 +10,6 @@ export { Main };
 class Main {
     // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData) {
-        this._stringCustomInfoArray = [];
         this._strTableManager = new StringTableManager(jsonData);
         this._stringCustomInput = new StringCustomInput();
     }
@@ -25,12 +24,6 @@ class Main {
     }
     set stringCustomInput(value) {
         this._stringCustomInput = value;
-    }
-    get stringCustomInfoArray() {
-        return this._stringCustomInfoArray;
-    }
-    set stringCustomInfoArray(value) {
-        this._stringCustomInfoArray = value;
     }
     /**
      * Renders the string custom input. Allows the user to enter a custom string set for use.
@@ -78,6 +71,7 @@ class Main {
         let gaugeArray = [];
         let weightsArray = [];
         let stringObjects = [];
+        let stringCustomInfoArray = [];
         // NOTE: Add logic to validate entries on submission
         for (let gauge of stringGauges) {
             let gaugeValue = gauge.value;
@@ -95,22 +89,25 @@ class Main {
             stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
         }
         for (let i = 0; i < stringObjects.length; i++) {
-            this.stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
+            stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
         }
+        console.log("stringCustomInfoArray after push... " + stringCustomInfoArray);
         // Push a new string table
-        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(this.stringCustomInfoArray)));
+        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)));
         // Set the new string table as the current
-        this.strTableManager.stringTables[1].isCurrent = true;
-        this.strTableManager.stringTables[0].isCurrent = false;
+        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
+            if (i === this.strTableManager.stringTables.length - 1) {
+                this.strTableManager.stringTables[i].isCurrent = true;
+                continue;
+            }
+            this.strTableManager.stringTables[i].isCurrent = false;
+        }
+        console.log("stringTables after new push and isCurrent set on all... " + this.strTableManager.stringTables);
         overlay.classList.replace('show', 'hide');
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 500);
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (this.strTableManager.stringTables[i].isCurrent) {
-                this.renderStringTable('str-table', 'num-strings');
-            }
-        }
+        this.renderStringTable('str-table', 'num-strings');
     }
     /**
      * Run time!
@@ -141,15 +138,18 @@ class Main {
             if (overlay) {
                 overlay.style.display = 'block';
                 overlay.classList.replace('hide', 'show');
-                return;
             }
-            caller.renderStringCustomInput();
+            else {
+                caller.renderStringCustomInput();
+                console.log("renderStringCustomInput() called...");
+            }
             // Watch for click on exit or submit
             const customSubmit = document.getElementsByClassName('submit')[0];
             const customExit = document.getElementsByClassName('exit')[0];
             if (customSubmit) {
                 customSubmit.onclick = function () {
                     caller.submitCustomStringData();
+                    console.log("submitCustomStringData() called...");
                 };
             }
             if (customExit) {
