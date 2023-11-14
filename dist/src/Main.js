@@ -91,7 +91,6 @@ class Main {
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
         }
-        console.log("stringCustomInfoArray after push... " + stringCustomInfoArray);
         // Push a new string table
         this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)));
         // Set the new string table as the current
@@ -102,7 +101,6 @@ class Main {
             }
             this.strTableManager.stringTables[i].isCurrent = false;
         }
-        console.log("stringTables after new push and isCurrent set on all... " + this.strTableManager.stringTables);
         overlay.classList.replace('show', 'hide');
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -135,13 +133,13 @@ class Main {
         };
         buttonAddCustomStrings.onclick = function () {
             const overlay = document.getElementsByClassName('overlay')[0];
+            const gaugeButtons = document.getElementsByClassName('button-gauge');
             if (overlay) {
                 overlay.style.display = 'block';
                 overlay.classList.replace('hide', 'show');
             }
             else {
                 caller.renderStringCustomInput();
-                console.log("renderStringCustomInput() called...");
             }
             // Watch for click on exit or submit
             const customSubmit = document.getElementsByClassName('submit')[0];
@@ -149,7 +147,9 @@ class Main {
             if (customSubmit) {
                 customSubmit.onclick = function () {
                     caller.submitCustomStringData();
-                    console.log("submitCustomStringData() called...");
+                    for (let button of gaugeButtons) {
+                        button.classList.add('nullify');
+                    }
                 };
             }
             if (customExit) {

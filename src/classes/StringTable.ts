@@ -226,8 +226,8 @@ class StringTable {
         scaleLength.appendChild(scaleLengthBox)
 
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons')
-        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge-decrease', '-')
-        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge-increase', '+')
+        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge decrease', '-')
+        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge increase', '+')
 
         stringNum.appendChild(document.createTextNode(num.toString()))
 

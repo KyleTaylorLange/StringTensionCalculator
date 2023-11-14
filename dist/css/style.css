@@ -7,6 +7,11 @@
   transition: opacity 300ms;
 }
 
+.nullify {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .exit {
   position: absolute;
   display: flex;

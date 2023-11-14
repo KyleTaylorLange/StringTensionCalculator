@@ -114,8 +114,6 @@ class Main {
                 new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue
             ))
         }
-
-        console.log("stringCustomInfoArray after push... " + stringCustomInfoArray)
         
         // Push a new string table
         this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)))
@@ -129,8 +127,6 @@ class Main {
 
             this.strTableManager.stringTables[i].isCurrent = false
         }
-
-        console.log("stringTables after new push and isCurrent set on all... " + this.strTableManager.stringTables)
 
         overlay.classList.replace('show', 'hide')
         
@@ -172,6 +168,7 @@ class Main {
 
         buttonAddCustomStrings.onclick = function() {
             const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
+            const gaugeButtons = <HTMLCollectionOf<HTMLInputElement>>document.getElementsByClassName('button-gauge')
 
             if (overlay) {
                 overlay.style.display = 'block'
@@ -179,7 +176,6 @@ class Main {
             }
             else {
                 caller.renderStringCustomInput()
-                console.log("renderStringCustomInput() called...")
             }
 
             // Watch for click on exit or submit
@@ -189,7 +185,10 @@ class Main {
             if (customSubmit) {
                 customSubmit.onclick = function() {
                     caller.submitCustomStringData()
-                    console.log("submitCustomStringData() called...")
+                    
+                    for (let button of gaugeButtons) {
+                        button.classList.add('nullify')
+                    }
                 }
             }
 
@@ -198,7 +197,7 @@ class Main {
                     const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
                     
                     overlay.classList.replace('show', 'hide')
-        
+
                     setTimeout(() => {
                         overlay.style.display = 'none'
                     }, 500);
