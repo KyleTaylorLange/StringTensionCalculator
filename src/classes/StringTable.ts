@@ -12,11 +12,13 @@ export { StringTable }
 class StringTable {
     private _currentStrings: StringStateCollection
     private _stringCache: StringStateCollection
+    private _canModifyGauge: boolean
     private _isCurrent: boolean
 
     constructor(startingStrings: StringStateCollection) {
         this._currentStrings = startingStrings
         this._stringCache = new StringStateCollection()
+        this._canModifyGauge = true
         this._isCurrent = false
     }
 
@@ -34,6 +36,14 @@ class StringTable {
 
     public set stringCache(value: StringStateCollection) {
         this._stringCache = value
+    }
+
+    public get canModifyGauge(): boolean {
+        return this._canModifyGauge
+    }
+
+    public set canModifyGauge(value: boolean) {
+        this._canModifyGauge = value
     }
 
     public get isCurrent(): boolean {
@@ -157,6 +167,9 @@ class StringTable {
         let stateBrand = state.strInfo.brand
         let stateType = state.strInfo.type
 
+        // If gauge buttons will have nullify class
+        let nullify = this.canModifyGauge === false ? 'nullify' : ''
+        
         // Array that will hold our fields/columns
         let fields = []
 
@@ -226,8 +239,8 @@ class StringTable {
         scaleLength.appendChild(scaleLengthBox)
 
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons')
-        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge decrease', '-')
-        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge increase', '+')
+        let buttonGaugeDecrease = Utilities.createElement('button', `button-gauge decrease ${nullify}`, '-')
+        let buttonGaugeIncrease = Utilities.createElement('button', `button-gauge increase ${nullify}`, '+')
 
         stringNum.appendChild(document.createTextNode(num.toString()))
 

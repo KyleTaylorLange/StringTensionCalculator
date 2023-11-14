@@ -10,6 +10,7 @@ class StringTable {
     constructor(startingStrings) {
         this._currentStrings = startingStrings;
         this._stringCache = new StringStateCollection();
+        this._canModifyGauge = true;
         this._isCurrent = false;
     }
     get currentStrings() {
@@ -23,6 +24,12 @@ class StringTable {
     }
     set stringCache(value) {
         this._stringCache = value;
+    }
+    get canModifyGauge() {
+        return this._canModifyGauge;
+    }
+    set canModifyGauge(value) {
+        this._canModifyGauge = value;
     }
     get isCurrent() {
         return this._isCurrent;
@@ -124,6 +131,8 @@ class StringTable {
         // State brand and type
         let stateBrand = state.strInfo.brand;
         let stateType = state.strInfo.type;
+        // If gauge buttons will have nullify class
+        let nullify = this.canModifyGauge === false ? 'nullify' : '';
         // Array that will hold our fields/columns
         let fields = [];
         // Creating our elements with their respective class names
@@ -180,8 +189,8 @@ class StringTable {
         };
         scaleLength.appendChild(scaleLengthBox);
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
-        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge decrease', '-');
-        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge increase', '+');
+        let buttonGaugeDecrease = Utilities.createElement('button', `button-gauge decrease ${nullify}`, '-');
+        let buttonGaugeIncrease = Utilities.createElement('button', `button-gauge increase ${nullify}`, '+');
         stringNum.appendChild(document.createTextNode(num.toString()));
         buttonPitchDown.onclick = function () {
             state.shiftPitch(-1);

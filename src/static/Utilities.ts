@@ -15,7 +15,9 @@ class Utilities {
         let classes = classNames.split(' ')
 
         for (let className of classes) {
-            element.classList.add(className)
+            if (className) {
+                element.classList.add(className)
+            }
         }
 
         if (textContent !== null) {

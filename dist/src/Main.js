@@ -96,6 +96,7 @@ class Main {
         // Set the new string table as the current
         for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
             if (i === this.strTableManager.stringTables.length - 1) {
+                this.strTableManager.stringTables[i].canModifyGauge = false;
                 this.strTableManager.stringTables[i].isCurrent = true;
                 continue;
             }
@@ -133,7 +134,6 @@ class Main {
         };
         buttonAddCustomStrings.onclick = function () {
             const overlay = document.getElementsByClassName('overlay')[0];
-            const gaugeButtons = document.getElementsByClassName('button-gauge');
             if (overlay) {
                 overlay.style.display = 'block';
                 overlay.classList.replace('hide', 'show');
@@ -147,9 +147,6 @@ class Main {
             if (customSubmit) {
                 customSubmit.onclick = function () {
                     caller.submitCustomStringData();
-                    for (let button of gaugeButtons) {
-                        button.classList.add('nullify');
-                    }
                 };
             }
             if (customExit) {

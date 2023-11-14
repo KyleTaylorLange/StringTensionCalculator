@@ -13,7 +13,9 @@ class Utilities {
         let element = document.createElement(elementType);
         let classes = classNames.split(' ');
         for (let className of classes) {
-            element.classList.add(className);
+            if (className) {
+                element.classList.add(className);
+            }
         }
         if (textContent !== null) {
             element.textContent = textContent;
