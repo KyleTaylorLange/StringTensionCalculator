@@ -5,7 +5,7 @@ class StringCustomInput {
         this._customStringUI = Utilities.createElement('div', 'overlay show');
         const card = Utilities.createElement('div', 'card');
         const content = Utilities.createElement('div', 'content');
-        const openingMessage = Utilities.createElement('div', 'opening-message', 'Please provide values for up to eight strings. You must enter a brand name, type name, and at least one full row of string data. Any rows that have no data will not be used.');
+        const openingMessage = Utilities.createElement('div', 'opening-message', 'Please provide values for up to eight strings. You must enter a brand name, a type name, and at least one full row of string data. Incomplete rows will not be used.');
         const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand');
         const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type');
         const stringBrand = Utilities.createElement('input', 'custom-string-brand');
