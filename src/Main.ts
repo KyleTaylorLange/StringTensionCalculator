@@ -111,6 +111,11 @@ class Main {
             }
         }
 
+        // If no valid strings have been entered, return early
+        if (!stringBrandValue || !stringTypeValue || stringObjects.length === 0) {
+            return
+        }
+
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(
                 new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue
