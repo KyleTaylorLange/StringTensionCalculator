@@ -86,7 +86,9 @@ class Main {
             }
         }
         for (let i = 0; i < gaugeArray.length; ++i) {
-            stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
+            if (gaugeArray[i] && weightsArray[i]) {
+                stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
+            }
         }
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));

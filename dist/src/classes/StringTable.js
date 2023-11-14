@@ -63,10 +63,10 @@ class StringTable {
         if (numStrings < 1) {
             return;
         }
-        while (numStrings > this.currentStrings.states.length) {
+        while (numStrings > this.currentStrings.states.length && this.stringCache.states.length > 0) {
             this.currentStrings.states.push(this.stringCache.states.pop());
         }
-        while (numStrings < this.currentStrings.states.length) {
+        while (numStrings < this.currentStrings.states.length && this.currentStrings.states.length > 0) {
             this.stringCache.states.push(this.currentStrings.states.pop());
         }
     }
