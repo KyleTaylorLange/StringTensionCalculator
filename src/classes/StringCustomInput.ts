@@ -4,75 +4,77 @@ import { StringInfo } from './StringInfo.js'
 export { StringCustomInput }
 
 class StringCustomInput {
-	private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay show')
+    private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay show')
 
-	constructor() {
-		const card = Utilities.createElement('div', 'card')
-		const content = Utilities.createElement('div', 'content')
-		const openingMessage = Utilities.createElement('div', 'opening-message', 'Please provide values for up to eight strings. You must enter a brand name, a type name, and at least one full row of string data. Incomplete rows will not be used.')
-		const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand')
-		const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type')
-		const stringBrand = Utilities.createElement('input', 'custom-string-brand')
-		const stringType = Utilities.createElement('input', 'custom-string-type')
-		const rowTop = Utilities.createElement('div', 'row-top')
-		const submit = Utilities.createElement('button', 'submit', 'Submit')
-		const exit = Utilities.createElement('div', 'exit', 'X')
+    constructor() {
+        const card = Utilities.createElement('div', 'card')
+        const content = Utilities.createElement('div', 'content')
+        const openingMessage = Utilities.createElement('div', 'opening-message', 'Please provide values for up to eight strings. You must enter a brand name, a type name, and at least one full row of string data. Incomplete rows will not be used.')
+        const stringBrandLabel = Utilities.createElement('label', 'string-brand-label', 'String Brand')
+        const stringTypeLabel = Utilities.createElement('label', 'string-type-label', 'String Type')
+        const stringBrand = Utilities.createElement('input', 'custom-string-brand')
+        const stringType = Utilities.createElement('input', 'custom-string-type')
+        const rowTop = Utilities.createElement('div', 'row-top')
+        const submit = Utilities.createElement('button', 'submit', 'Submit')
+        const exit = Utilities.createElement('div', 'exit', 'X')
 
-		// TODO: Allow user to define the count
-		let count = 8;
-		let stringLabels = []
-		let stringGauges = []
-		let stringWeights = []
+        // TODO: Allow user to define the count
+        let count = 8;
+        let stringLabels = []
+        let stringGauges = []
+        let stringWeights = []
 
-		for (let i = 0; i < count; ++i) {
-			stringLabels.push(Utilities.createElement('label', 'string-label', `String`))
-			stringGauges.push(Utilities.createElement('input', 'custom-string-gauge'))
-			stringWeights.push(Utilities.createElement('input', 'custom-string-weight'))
-		}
+        for (let i = 0; i < count; ++i) {
+            stringLabels.push(Utilities.createElement('label', 'string-label', `String`))
+            stringGauges.push(Utilities.createElement('input', 'custom-string-gauge'))
+            stringWeights.push(Utilities.createElement('input', 'custom-string-weight'))
+        }
 
-		card.appendChild(content)
-		content.appendChild(openingMessage)
-		content.appendChild(rowTop)
-		rowTop.appendChild(stringBrandLabel)
-		rowTop.appendChild(stringBrand)
-		rowTop.appendChild(stringTypeLabel)
-		rowTop.appendChild(stringType)
+        card.appendChild(content)
+        content.appendChild(openingMessage)
+        content.appendChild(rowTop)
+        rowTop.appendChild(stringBrandLabel)
+        rowTop.appendChild(stringBrand)
+        rowTop.appendChild(stringTypeLabel)
+        rowTop.appendChild(stringType)
 
-		for (let i = 0; i < count + 1; ++i) {
+        for (let i = 0; i < count + 1; ++i) {
 
-			if (i === 0) {
-				const row = Utilities.createElement('div', 'row-string-top')
-				content.appendChild(row)
-				row.appendChild(Utilities.createElement('div', 'gauge', 'Gauge'))
-				row.appendChild(Utilities.createElement('div', 'weight', 'Weight'))
-				
-				continue;
-			}
+            if (i === 0) {
+                const row = Utilities.createElement('div', 'row-string-top')
 
-			const row = Utilities.createElement('div', 'row')
-			content.appendChild(row)
-			row.appendChild(stringGauges[i - 1])
-			row.appendChild(stringWeights[i - 1])
-		}
+                content.appendChild(row)
+                row.appendChild(Utilities.createElement('div', 'gauge', 'Gauge'))
+                row.appendChild(Utilities.createElement('div', 'weight', 'Weight'))
 
-		card.appendChild(submit)
-		card.appendChild(exit)
-		this.customStringUI.appendChild(card)
-	}
+                continue;
+            }
 
-	public get customStringUI(): any {
-		return this._customStringUI
-	}
+            const row = Utilities.createElement('div', 'row')
+            
+            content.appendChild(row)
+            row.appendChild(stringGauges[i - 1])
+            row.appendChild(stringWeights[i - 1])
+        }
 
-	public set customStringUI(value: any) {
-		this._customStringUI = value
-	}
-	
-	/**
-	 * Renders the custom string user interface.
-	 */
-	public render() {
-		const mainContainer = document.getElementsByClassName("main-container")[0]
+        card.appendChild(submit)
+        card.appendChild(exit)
+        this.customStringUI.appendChild(card)
+    }
+
+    public get customStringUI(): any {
+        return this._customStringUI
+    }
+
+    public set customStringUI(value: any) {
+        this._customStringUI = value
+    }
+
+    /**
+     * Renders the custom string user interface.
+     */
+    public render() {
+        const mainContainer = document.getElementsByClassName("main-container")[0]
         mainContainer.appendChild(this.customStringUI)
-	}
+    }
 }
