@@ -101,7 +101,7 @@ class StringTable {
         tableHeaderCells[0].innerText = 'String';
         tableHeaderCells[1].innerText = 'Note';
         tableHeaderCells[2].innerText = 'Scale';
-        tableHeaderCells[3].innerText = 'String Type';
+        tableHeaderCells[3].innerText = 'Name';
         tableHeaderCells[4].innerText = 'Gauge';
         tableHeaderCells[5].innerText = 'Tension';
         for (let headerCell of tableHeaderCells) {
