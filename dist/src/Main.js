@@ -68,6 +68,7 @@ class Main {
         const stringTypeValue = document.getElementsByClassName('custom-string-type')[0].value;
         const stringGauges = document.getElementsByClassName('custom-string-gauge');
         const stringWeights = document.getElementsByClassName('custom-string-weight');
+        let stringMin, stringMax, stringDefault;
         let gaugeArray = [];
         let weightsArray = [];
         let stringObjects = [];
@@ -90,10 +91,14 @@ class Main {
                 stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] });
             }
         }
-        // If no valid strings have been entered, return early
+        // If no brand name, type name, or valid strings have been entered, return early
         if (!stringBrandValue || !stringTypeValue || stringObjects.length === 0) {
             return;
         }
+        // Assign our variables for the input of type 'number'
+        stringMax = stringObjects.length;
+        stringMin = 1;
+        stringDefault = stringMax > 6 ? 6 : stringMax;
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
         }
@@ -112,15 +117,31 @@ class Main {
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 500);
+        this.strTableManager.renderNumberInput(stringMin, stringMax, stringDefault);
         this.renderStringTable('str-table', 'num-strings');
+        // TODO: Works, but is pretty ugly and should be refactored. This is a repetition of an onchange event handler that
+        //       is used in runTime(), which itself no longer points to the original element after it is removed from the DOM.
+        const numStrings = document.getElementById('num-strings');
+        const caller = this;
+        numStrings.onchange = function () {
+            for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
+                if (caller.strTableManager.stringTables[i].isCurrent) {
+                    caller.renderStringTable('str-table', 'num-strings');
+                }
+            }
+        };
     }
     /**
      * Run time!
      */
     runTime() {
         const caller = this;
+        // Render our input (type 'number') first
+        if (!document.getElementsByClassName('number-of-strings')[0]) {
+            caller.strTableManager.renderNumberInput();
+        }
         // Some of our elements to be used
-        const numberOfStringsInput = document.getElementsByClassName('number-of-strings')[0];
+        const numberOfStringsInput = document.getElementById('num-strings');
         const buttonAddCustomStrings = document.getElementsByClassName('add-custom-strings')[0];
         const buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
         const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];

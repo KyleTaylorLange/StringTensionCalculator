@@ -83,6 +83,8 @@ class Main {
 		const stringGauges = <HTMLCollectionOf<Element>>document.getElementsByClassName('custom-string-gauge')
 		const stringWeights = <HTMLCollectionOf<Element>>document.getElementsByClassName('custom-string-weight')
 
+        let stringMin, stringMax, stringDefault
+        
         let gaugeArray = []
         let weightsArray = []
         let stringObjects = []
@@ -111,10 +113,15 @@ class Main {
             }
         }
 
-        // If no valid strings have been entered, return early
+        // If no brand name, type name, or valid strings have been entered, return early
         if (!stringBrandValue || !stringTypeValue || stringObjects.length === 0) {
             return
         }
+        
+        // Assign our variables for the input of type 'number'
+        stringMax = stringObjects.length
+        stringMin = 1
+        stringDefault = stringMax > 6 ? 6 : stringMax
 
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(
@@ -136,15 +143,27 @@ class Main {
             this.strTableManager.stringTables[i].isCurrent = false
         }
 
-        
-
         overlay.classList.replace('show', 'hide')
         
         setTimeout(() => {
             overlay.style.display = 'none'
         }, 500);
 
+        this.strTableManager.renderNumberInput(stringMin, stringMax, stringDefault)
         this.renderStringTable('str-table', 'num-strings')
+
+        // TODO: Works, but is pretty ugly and should be refactored. This is a repetition of an onchange event handler that
+        //       is used in runTime(), which itself no longer points to the original element after it is removed from the DOM.
+        const numStrings = <HTMLInputElement>document.getElementById('num-strings')
+        const caller = this
+
+        numStrings.onchange = function() {
+            for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
+                if (caller.strTableManager.stringTables[i].isCurrent) {
+                    caller.renderStringTable('str-table', 'num-strings');
+                }
+            }
+        }
 	}
 
     /**
@@ -153,8 +172,13 @@ class Main {
     public runTime() {
         const caller = this
         
+        // Render our input (type 'number') first
+        if (!document.getElementsByClassName('number-of-strings')[0]) {
+            caller.strTableManager.renderNumberInput()
+        }
+  
         // Some of our elements to be used
-        const numberOfStringsInput = <HTMLInputElement>document.getElementsByClassName('number-of-strings')[0]
+        const numberOfStringsInput = <HTMLInputElement>document.getElementById('num-strings')
         const buttonAddCustomStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
         const buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
         const buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
@@ -168,11 +192,11 @@ class Main {
             }
         }
 
-        buttonPitchDown.onclick = function () {
+        buttonPitchDown.onclick = function() {
             caller.renderPitchShifts(-1)
         }
 
-        buttonPitchUp.onclick = function () {
+        buttonPitchUp.onclick = function() {
             caller.renderPitchShifts(1)
         }
 

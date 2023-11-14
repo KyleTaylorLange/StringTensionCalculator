@@ -52,7 +52,6 @@ class StringState {
     /**
      * Calculates the tension of the string.
      *
-     * @param {StringState} string
      * @returns {string} The calculated tension of the string (as a string type).
      */
     calculateStringTension(): string {

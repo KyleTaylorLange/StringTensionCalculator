@@ -1,3 +1,4 @@
+import { Utilities } from '../static/Utilities.js'
 import { StringManager } from './StringManager.js'
 import { StringTable } from './StringTable.js'
 
@@ -8,7 +9,6 @@ export { StringTableManager }
  */
 class StringTableManager  {
     protected _stringTables: StringTable[] = []
-    protected _lastIndex: number = this._stringTables.length - 1
 
 	constructor(jsonData: any) {
 		StringManager.getInstance().appendFromJson(jsonData)
@@ -23,12 +23,29 @@ class StringTableManager  {
 	public set stringTables(value: StringTable[]) {
 		this._stringTables = value
 	}
-    
-    protected get lastIndex(): number {
-        return this._lastIndex
-    }
 
-    protected set lastIndex(value: number) {
-        this._lastIndex = value
+    /**
+     * Render the number input element to increase or decrease the string count.
+     * 
+     * @param minVal {number} The minimum number of strings that can be displayed.
+     * @param maxVal {number} The maximum number of strings that can be displayed.
+     * @param defaultVal {number} The default value displayed.
+     */
+    public renderNumberInput(minVal: number = 4, maxVal: number = 8, defaultVal: number = 6) {
+        const inputContainer = <HTMLInputElement>document.getElementsByClassName('number-of-strings-container')[0]
+        const input = Utilities.createElement('input', 'number-of-strings')
+
+        input.setAttribute('type', 'number')
+        input.setAttribute('id', 'num-strings')
+        input.setAttribute('name', 'num-strings')
+        input.setAttribute('min', minVal)
+        input.setAttribute('max', maxVal)
+        input.setAttribute('value', defaultVal)
+
+        if (document.getElementsByClassName('number-of-strings')[0]) {
+            document.getElementsByClassName('number-of-strings')[0].remove()
+        }
+        
+        inputContainer.appendChild(input)
     }
 }
