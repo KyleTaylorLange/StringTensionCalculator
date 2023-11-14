@@ -25,7 +25,7 @@ class StringTableManager {
      * @param maxVal {number} The maximum number of strings that can be displayed.
      * @param defaultVal {number} The default value displayed.
      */
-    renderNumberInput(minVal = 4, maxVal = 8, defaultVal = 6) {
+    renderNumberInput(minVal = 1, maxVal = 8, defaultVal = 6) {
         const inputContainer = document.getElementsByClassName('number-of-strings-container')[0];
         const input = Utilities.createElement('input', 'number-of-strings');
         input.setAttribute('type', 'number');
