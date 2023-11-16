@@ -9,6 +9,6 @@ let jsonResult = Utilities.getJson('DAddario')
 window.onload = function() {
 	jsonResult
 		.then((res) => {
-			new Main(res).runTime()
+			new Main(res).run()
 		})
 }

@@ -119,73 +119,98 @@ class Main {
         }, 500);
         this.strTableManager.renderNumberInput(stringMin, stringMax, stringDefault);
         this.renderStringTable('str-table', 'num-strings');
-        // TODO: Works, but is pretty ugly and should be refactored. This is a repetition of an onchange event handler that
-        //       is used in runTime(), which itself no longer points to the original element after it is removed from the DOM.
-        const numStrings = document.getElementById('num-strings');
-        const caller = this;
-        numStrings.onchange = function () {
-            for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
-                if (caller.strTableManager.stringTables[i].isCurrent) {
-                    caller.renderStringTable('str-table', 'num-strings');
-                }
-            }
-        };
+        this.handleNumberOfStringsInputOnChange();
     }
     /**
-     * Run time!
+     * Handle change in the input that modifies the number of strings displayed.
      */
-    runTime() {
-        const caller = this;
-        // Render our input (type 'number') first
-        if (!document.getElementsByClassName('number-of-strings')[0]) {
-            caller.strTableManager.renderNumberInput();
-        }
-        // Some of our elements to be used
+    handleNumberOfStringsInputOnChange() {
         const numberOfStringsInput = document.getElementById('num-strings');
-        const buttonAddCustomStrings = document.getElementsByClassName('add-custom-strings')[0];
-        const buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
-        const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
-        // Events
-        numberOfStringsInput.onchange = function () {
-            for (let i = 0; i < caller.strTableManager.stringTables.length; i++) {
-                if (caller.strTableManager.stringTables[i].isCurrent) {
-                    caller.renderStringTable('str-table', 'num-strings');
+        numberOfStringsInput.onchange = (() => {
+            for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
+                if (this.strTableManager.stringTables[i].isCurrent) {
+                    this.renderStringTable('str-table', 'num-strings');
                 }
             }
-        };
-        buttonPitchDown.onclick = function () {
-            caller.renderPitchShifts(-1);
-        };
-        buttonPitchUp.onclick = function () {
-            caller.renderPitchShifts(1);
-        };
-        buttonAddCustomStrings.onclick = function () {
+        }).bind(this);
+    }
+    /**
+     * Handle click on the button to pitch down.
+     */
+    handlePitchDownButtonOnClick() {
+        const buttonPitchDown = document.getElementsByClassName('button-pitches-decrease')[0];
+        buttonPitchDown.onclick = (() => {
+            this.renderPitchShifts(-1);
+        }).bind(this);
+    }
+    /**
+     * Handle click on the button to pitch up.
+     */
+    handlePitchUpButtonOnClick() {
+        const buttonPitchUp = document.getElementsByClassName('button-pitches-increase')[0];
+        buttonPitchUp.onclick = (() => {
+            this.renderPitchShifts(1);
+        }).bind(this);
+    }
+    /**
+     * Handle click for the custom instrument string submission.
+     */
+    handleCustomStringSubmit() {
+        const customSubmit = document.getElementsByClassName('submit')[0];
+        if (customSubmit) {
+            customSubmit.onclick = (() => {
+                this.submitCustomStringData();
+            }).bind(this);
+        }
+    }
+    /**
+     * Handle click for the custom instrument string interface exit.
+     */
+    handleCustomStringExit() {
+        const customExit = document.getElementsByClassName('exit')[0];
+        if (customExit) {
+            customExit.onclick = (() => {
+                const overlay = document.getElementsByClassName('overlay')[0];
+                overlay.classList.replace('show', 'hide');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+            });
+        }
+    }
+    /**
+     * Handle click on the button to add custom user-defined instrument strings.
+     */
+    handleAddCustomStringsButtonOnClick() {
+        const buttonAddCustomStrings = document.getElementsByClassName('add-custom-strings')[0];
+        buttonAddCustomStrings.onclick = (() => {
             const overlay = document.getElementsByClassName('overlay')[0];
             if (overlay) {
                 overlay.style.display = 'block';
                 overlay.classList.replace('hide', 'show');
             }
             else {
-                caller.renderStringCustomInput();
+                this.renderStringCustomInput();
             }
-            // Watch for click on exit or submit
-            const customSubmit = document.getElementsByClassName('submit')[0];
-            const customExit = document.getElementsByClassName('exit')[0];
-            if (customSubmit) {
-                customSubmit.onclick = function () {
-                    caller.submitCustomStringData();
-                };
-            }
-            if (customExit) {
-                customExit.onclick = function () {
-                    const overlay = document.getElementsByClassName('overlay')[0];
-                    overlay.classList.replace('show', 'hide');
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                    }, 500);
-                };
-            }
-        };
-        caller.renderStringTable('str-table', 'num-strings');
+            // Handle clicks on submit or exit
+            this.handleCustomStringSubmit();
+            this.handleCustomStringExit();
+        }).bind(this);
+    }
+    /**
+     * Run time!
+     */
+    run() {
+        // Render our input of type number first
+        if (!document.getElementsByClassName('number-of-strings')[0]) {
+            this.strTableManager.renderNumberInput();
+        }
+        // Event handlers
+        this.handleNumberOfStringsInputOnChange();
+        this.handlePitchDownButtonOnClick();
+        this.handlePitchUpButtonOnClick();
+        this.handleAddCustomStringsButtonOnClick();
+        // Table render
+        this.renderStringTable('str-table', 'num-strings');
     }
 }
