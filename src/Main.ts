@@ -48,12 +48,14 @@ class Main {
      * @param {number} semitones A semitone count.
      */
     public renderPitchShifts(semitones: number) {
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (this.strTableManager.stringTables[i].isCurrent) {
-                this.strTableManager.stringTables[i].shiftPitches(semitones)
-                this.strTableManager.stringTables[i].render('str-table')
+        const tables = this.strTableManager.stringTables
+
+        tables.forEach((table, i) => {
+            if (table.isCurrent) {
+                tables[i].shiftPitches(semitones)
+                tables[i].render('str-table')
             }
-        }
+        })
     }
 
     /**
@@ -63,20 +65,22 @@ class Main {
      * @param {string} numberId The id for the `Number of Strings` input element.
      */
     public renderStringTable(tableId: string, numberId: string) {
-        let numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
+        const tables = this.strTableManager.stringTables
+        const numStrings = (<HTMLInputElement>document.getElementById(numberId)).value!
 
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (this.strTableManager.stringTables[i].isCurrent) {
-                this.strTableManager.stringTables[i].setNumStrings(Number(numStrings))
-                this.strTableManager.stringTables[i].render(tableId)
+        tables.forEach((table, i) => {
+            if (table.isCurrent) {
+                tables[i].setNumStrings(Number(numStrings))
+                tables[i].render(tableId)
             }
-        }
+        })
     }
 
     /**
      * Submit function for the custom string data.
      */
     public submitCustomStringData() {
+        const tables = this.strTableManager.stringTables
         const overlay = <HTMLInputElement>document.getElementsByClassName('overlay')[0]
         const stringBrandValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-brand')[0]).value
         const stringTypeValue = (<HTMLInputElement>document.getElementsByClassName('custom-string-type')[0]).value
@@ -89,7 +93,7 @@ class Main {
         let weightsArray = []
         let stringObjects = []
         let stringCustomInfoArray = []
-
+        
         // NOTE: Add logic to validate entries on submission
         for (let gauge of stringGauges) {
             let gaugeValue = (gauge as HTMLInputElement).value
@@ -130,17 +134,17 @@ class Main {
         }
 
         // Push a new string table
-        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)))
+        tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)))
 
         // Set the new string table as the current
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (i === this.strTableManager.stringTables.length - 1) {
-                this.strTableManager.stringTables[i].canModifyGauge = false
-                this.strTableManager.stringTables[i].isCurrent = true
+        for (let i = 0; i < tables.length; i++) {
+            if (i === tables.length - 1) {
+                tables[i].canModifyGauge = false
+                tables[i].isCurrent = true
                 continue
             }
 
-            this.strTableManager.stringTables[i].isCurrent = false
+            tables[i].isCurrent = false
         }
 
         overlay.classList.replace('show', 'hide')
@@ -158,11 +162,12 @@ class Main {
      * Handle change in the input that modifies the number of strings displayed.
      */
     public handleNumberOfStringsInputOnChange() {
+        const tables = this.strTableManager.stringTables
         const numberOfStringsInput = <HTMLInputElement>document.getElementById('num-strings')
 
         numberOfStringsInput.onchange = (() => {
-            for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-                if (this.strTableManager.stringTables[i].isCurrent) {
+            for (let i = 0; i < tables.length; i++) {
+                if (tables[i].isCurrent) {
                     this.renderStringTable('str-table', 'num-strings');
                 }
             }

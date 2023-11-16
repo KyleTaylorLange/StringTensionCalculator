@@ -37,12 +37,13 @@ class Main {
      * @param {number} semitones A semitone count.
      */
     renderPitchShifts(semitones) {
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (this.strTableManager.stringTables[i].isCurrent) {
-                this.strTableManager.stringTables[i].shiftPitches(semitones);
-                this.strTableManager.stringTables[i].render('str-table');
+        const tables = this.strTableManager.stringTables;
+        tables.forEach((table, i) => {
+            if (table.isCurrent) {
+                tables[i].shiftPitches(semitones);
+                tables[i].render('str-table');
             }
-        }
+        });
     }
     /**
      * Clears the old table and re-renders a new one.
@@ -51,18 +52,20 @@ class Main {
      * @param {string} numberId The id for the `Number of Strings` input element.
      */
     renderStringTable(tableId, numberId) {
-        let numStrings = document.getElementById(numberId).value;
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (this.strTableManager.stringTables[i].isCurrent) {
-                this.strTableManager.stringTables[i].setNumStrings(Number(numStrings));
-                this.strTableManager.stringTables[i].render(tableId);
+        const tables = this.strTableManager.stringTables;
+        const numStrings = document.getElementById(numberId).value;
+        tables.forEach((table, i) => {
+            if (table.isCurrent) {
+                tables[i].setNumStrings(Number(numStrings));
+                tables[i].render(tableId);
             }
-        }
+        });
     }
     /**
      * Submit function for the custom string data.
      */
     submitCustomStringData() {
+        const tables = this.strTableManager.stringTables;
         const overlay = document.getElementsByClassName('overlay')[0];
         const stringBrandValue = document.getElementsByClassName('custom-string-brand')[0].value;
         const stringTypeValue = document.getElementsByClassName('custom-string-type')[0].value;
@@ -103,15 +106,15 @@ class Main {
             stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
         }
         // Push a new string table
-        this.strTableManager.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)));
+        tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)));
         // Set the new string table as the current
-        for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-            if (i === this.strTableManager.stringTables.length - 1) {
-                this.strTableManager.stringTables[i].canModifyGauge = false;
-                this.strTableManager.stringTables[i].isCurrent = true;
+        for (let i = 0; i < tables.length; i++) {
+            if (i === tables.length - 1) {
+                tables[i].canModifyGauge = false;
+                tables[i].isCurrent = true;
                 continue;
             }
-            this.strTableManager.stringTables[i].isCurrent = false;
+            tables[i].isCurrent = false;
         }
         overlay.classList.replace('show', 'hide');
         setTimeout(() => {
@@ -125,10 +128,11 @@ class Main {
      * Handle change in the input that modifies the number of strings displayed.
      */
     handleNumberOfStringsInputOnChange() {
+        const tables = this.strTableManager.stringTables;
         const numberOfStringsInput = document.getElementById('num-strings');
         numberOfStringsInput.onchange = (() => {
-            for (let i = 0; i < this.strTableManager.stringTables.length; i++) {
-                if (this.strTableManager.stringTables[i].isCurrent) {
+            for (let i = 0; i < tables.length; i++) {
+                if (tables[i].isCurrent) {
                     this.renderStringTable('str-table', 'num-strings');
                 }
             }
