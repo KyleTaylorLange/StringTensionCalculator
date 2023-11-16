@@ -111,7 +111,7 @@ class Main {
             }
         }
 
-        for (let i = 0; i < gaugeArray.length; ++i) {
+        for (let i = 0; i < weightsArray.length; ++i) {
             if (gaugeArray[i] && weightsArray[i]) {
                 stringObjects.push({ "gauge": gaugeArray[i], "unitWeight": weightsArray[i] })
             }
@@ -127,6 +127,7 @@ class Main {
         stringMin = 1
         stringDefault = stringMax > 6 ? 6 : stringMax
 
+        // Push each new StringInfo object
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(
                 new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue
@@ -155,13 +156,13 @@ class Main {
 
         this.strTableManager.renderNumberInput(stringMin, stringMax, stringDefault)
         this.renderStringTable('str-table', 'num-strings')
-        this.handleNumberOfStringsInputOnChange()
+        this.onChangeInputNumberOfStrings()
     }
 
     /**
-     * Handle change in the input that modifies the number of strings displayed.
+     * Handles change that modifies the number of strings displayed.
      */
-    public handleNumberOfStringsInputOnChange() {
+    public onChangeInputNumberOfStrings() {
         const tables = this.strTableManager.stringTables
         const numberOfStringsInput = <HTMLInputElement>document.getElementById('num-strings')
 
@@ -175,31 +176,31 @@ class Main {
     }
 
     /**
-     * Handle click on the button to pitch down.
+     * Handles click to pitch all strings down.
      */
-    public handlePitchDownButtonOnClick() {
-        const buttonPitchDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
+    public onClickButtonPitchesDown() {
+        const buttonPitchesDown = <HTMLInputElement>document.getElementsByClassName('button-pitches-decrease')[0]
 
-        buttonPitchDown.onclick = (() => {
+        buttonPitchesDown.onclick = (() => {
             this.renderPitchShifts(-1)
         }).bind(this)
     }
 
     /**
-     * Handle click on the button to pitch up.
+     * Handles click to pitch all strings up.
      */
-    public handlePitchUpButtonOnClick() {
-        const buttonPitchUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
+    public onClickButtonPitchesUp() {
+        const buttonPitchesUp = <HTMLInputElement>document.getElementsByClassName('button-pitches-increase')[0]
 
-        buttonPitchUp.onclick = (() => {
+        buttonPitchesUp.onclick = (() => {
             this.renderPitchShifts(1)
         }).bind(this)
     }
 
     /**
-     * Handle click for the custom instrument string submission.
+     * Handles click for the custom instrument string submission.
      */
-    public handleCustomStringSubmit() {
+    public onClickSubmitCustomString() {
         const customSubmit = <HTMLInputElement>document.getElementsByClassName('submit')[0]
 
         if (customSubmit) {
@@ -210,9 +211,9 @@ class Main {
     }
 
     /**
-     * Handle click for the custom instrument string interface exit.
+     * Handles click for the custom instrument string interface exit.
      */
-    public handleCustomStringExit() {
+    public onClickExitCustomString() {
         const customExit = <HTMLInputElement>document.getElementsByClassName('exit')[0]
 
         if (customExit) {
@@ -229,9 +230,9 @@ class Main {
     }
 
     /**
-     * Handle click on the button to add custom user-defined instrument strings.
+     * Handles button click to add custom user-defined instrument strings.
      */
-    public handleAddCustomStringsButtonOnClick() {
+    public onClickButtonAddCustomStrings() {
         const buttonAddCustomStrings = <HTMLInputElement>document.getElementsByClassName('add-custom-strings')[0]
 
         buttonAddCustomStrings.onclick = (() => {
@@ -246,8 +247,8 @@ class Main {
             }
 
             // Handle clicks on submit or exit
-            this.handleCustomStringSubmit()
-            this.handleCustomStringExit()
+            this.onClickSubmitCustomString()
+            this.onClickExitCustomString()
 
         }).bind(this)
     }
@@ -262,10 +263,10 @@ class Main {
         }
 
         // Event handlers
-        this.handleNumberOfStringsInputOnChange()
-        this.handlePitchDownButtonOnClick()
-        this.handlePitchUpButtonOnClick()
-        this.handleAddCustomStringsButtonOnClick()
+        this.onChangeInputNumberOfStrings()
+        this.onClickButtonPitchesDown()
+        this.onClickButtonPitchesUp()
+        this.onClickButtonAddCustomStrings()
 
         // Table render
         this.renderStringTable('str-table', 'num-strings')
