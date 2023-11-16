@@ -126,8 +126,6 @@ class StringTable {
      * @returns {any} A string table row (tr).
      */
     makeStringRow(num, state, strTable) {
-        // The calling object
-        let caller = this;
         // State brand and type
         let stateBrand = state.strInfo.brand;
         let stateType = state.strInfo.type;
@@ -155,7 +153,7 @@ class StringTable {
         scaleLengthBox.type = 'text';
         scaleLengthBox.value = state.scaleLength.toString() + '"';
         // TODO: Make more efficient and eventually split into smaller functions.
-        scaleLengthBox.onchange = function () {
+        scaleLengthBox.onchange = (() => {
             let inputScale = scaleLengthBox.value.trim();
             // Temp: convert from mm to inches.
             let convertFromMillimeters = inputScale.substring(inputScale.length - 2) == 'mm';
@@ -180,38 +178,38 @@ class StringTable {
                     inputScale /= 25.4;
                 }
                 state.scaleLength = inputScale;
-                caller.render('str-table');
+                this.render('str-table');
             }
             // If it is not a number, just return the original value.
             else {
                 scaleLengthBox.value = state.scaleLength + '"';
             }
-        };
+        }).bind(this);
         scaleLength.appendChild(scaleLengthBox);
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
         let buttonGaugeDecrease = Utilities.createElement('button', `button-gauge decrease ${nullify}`, '-');
         let buttonGaugeIncrease = Utilities.createElement('button', `button-gauge increase ${nullify}`, '+');
         stringNum.appendChild(document.createTextNode(num.toString()));
-        buttonPitchDown.onclick = function () {
+        buttonPitchDown.onclick = (() => {
             state.shiftPitch(-1);
-            caller.render('str-table');
-        };
-        buttonPitchUp.onclick = function () {
+            this.render('str-table');
+        }).bind(this);
+        buttonPitchUp.onclick = (() => {
             state.shiftPitch(1);
-            caller.render('str-table');
-        };
+            this.render('str-table');
+        }).bind(this);
         // Increase gauge
-        buttonGaugeDecrease.onclick = function () {
+        buttonGaugeDecrease.onclick = (() => {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getPreviousString(state.strInfo);
-            caller.render('str-table');
-        };
+            this.render('str-table');
+        }).bind(this);
         // Decrease gauge
-        buttonGaugeIncrease.onclick = function () {
+        buttonGaugeIncrease.onclick = (() => {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType);
             state.strInfo = currentSeries.getNextString(state.strInfo);
-            caller.render('str-table');
-        };
+            this.render('str-table');
+        }).bind(this);
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field
         for (let field of fields) {
             if (field.classList.contains('note-name')) {

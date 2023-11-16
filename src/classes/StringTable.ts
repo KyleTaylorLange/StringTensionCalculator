@@ -160,9 +160,6 @@ class StringTable {
      * @returns {any} A string table row (tr).
      */
     public makeStringRow(num: number, state: StringState, strTable: StringTable): any {
-        // The calling object
-        let caller = this
-
         // State brand and type
         let stateBrand = state.strInfo.brand
         let stateType = state.strInfo.type
@@ -197,7 +194,7 @@ class StringTable {
         scaleLengthBox.value = state.scaleLength.toString() + '"'
 
         // TODO: Make more efficient and eventually split into smaller functions.
-        scaleLengthBox.onchange = function () {
+        scaleLengthBox.onchange = (() => {
             let inputScale = scaleLengthBox.value.trim()
 
             // Temp: convert from mm to inches.
@@ -228,13 +225,13 @@ class StringTable {
                 }
 
                 state.scaleLength = inputScale
-                caller.render('str-table')
+                this.render('str-table')
             }
             // If it is not a number, just return the original value.
             else {
                 scaleLengthBox.value = state.scaleLength + '"'
             }
-        }
+        }).bind(this)
 
         scaleLength.appendChild(scaleLengthBox)
 
@@ -244,33 +241,33 @@ class StringTable {
 
         stringNum.appendChild(document.createTextNode(num.toString()))
 
-        buttonPitchDown.onclick = function () {
+        buttonPitchDown.onclick = (() => {
             state.shiftPitch(-1)
-            caller.render('str-table')
-        }
+            this.render('str-table')
+        }).bind(this)
 
-        buttonPitchUp.onclick = function () {
+        buttonPitchUp.onclick = (() => {
             state.shiftPitch(1)
-            caller.render('str-table')
-        }
+            this.render('str-table')
+        }).bind(this)
 
         // Increase gauge
-        buttonGaugeDecrease.onclick = function () {
+        buttonGaugeDecrease.onclick = (() => {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getPreviousString(state.strInfo)
 
-            caller.render('str-table')
-        }
+            this.render('str-table')
+        }).bind(this)
 
         // Decrease gauge
-        buttonGaugeIncrease.onclick = function () {
+        buttonGaugeIncrease.onclick = (() => {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(stateBrand, stateType)
 
             state.strInfo = currentSeries.getNextString(state.strInfo)
 
-            caller.render('str-table')
-        }
+            this.render('str-table')
+        }).bind(this)
 
         // Adding each field to the row, as well as the `note-inner` element to the 'Note' field
         for (let field of fields) {
