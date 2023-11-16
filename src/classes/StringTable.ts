@@ -12,10 +12,14 @@ export { StringTable }
 class StringTable {
     private _currentStrings: StringStateCollection
     private _stringCache: StringStateCollection
+    private _canModifyGauge: boolean
+    private _isCurrent: boolean
 
     constructor(startingStrings: StringStateCollection) {
         this._currentStrings = startingStrings
         this._stringCache = new StringStateCollection()
+        this._canModifyGauge = true
+        this._isCurrent = false
     }
 
     public get currentStrings(): StringStateCollection {
@@ -32,6 +36,22 @@ class StringTable {
 
     public set stringCache(value: StringStateCollection) {
         this._stringCache = value
+    }
+
+    public get canModifyGauge(): boolean {
+        return this._canModifyGauge
+    }
+
+    public set canModifyGauge(value: boolean) {
+        this._canModifyGauge = value
+    }
+
+    public get isCurrent(): boolean {
+        return this._isCurrent
+    }
+
+    public set isCurrent(value: boolean) {
+        this._isCurrent = value
     }
 
     /**
@@ -63,11 +83,11 @@ class StringTable {
             return
         }
 
-        while (numStrings > this.currentStrings.states.length) {
+        while (numStrings > this.currentStrings.states.length && this.stringCache.states.length > 0) {
             this.currentStrings.states.push(this.stringCache.states.pop()!)
         }
 
-        while (numStrings < this.currentStrings.states.length) {
+        while (numStrings < this.currentStrings.states.length && this.currentStrings.states.length > 0) {
             this.stringCache.states.push(this.currentStrings.states.pop()!)
         }
     }
@@ -107,7 +127,7 @@ class StringTable {
         tableHeaderCells[0].innerText = 'String'
         tableHeaderCells[1].innerText = 'Note'
         tableHeaderCells[2].innerText = 'Scale'
-        tableHeaderCells[3].innerText = 'String Type'
+        tableHeaderCells[3].innerText = 'Name'
         tableHeaderCells[4].innerText = 'Gauge'
         tableHeaderCells[5].innerText = 'Tension'
 
@@ -147,6 +167,9 @@ class StringTable {
         let stateBrand = state.strInfo.brand
         let stateType = state.strInfo.type
 
+        // If gauge buttons will have nullify class
+        let nullify = this.canModifyGauge === false ? 'nullify' : ''
+
         // Array that will hold our fields/columns
         let fields = []
 
@@ -166,8 +189,8 @@ class StringTable {
         fields.push(stringNum, noteName, scaleLength, stringType, gauge, tension)
 
         let buttonContainer = Utilities.createElement('div', 'note-buttons')
-        let buttonPitchDown = Utilities.createElement('button', 'button-pitch-down', '-')
-        let buttonPitchUp = Utilities.createElement('button', 'button-pitch-up', '+')
+        let buttonPitchDown = Utilities.createElement('button', 'button-pitch down', '-')
+        let buttonPitchUp = Utilities.createElement('button', 'button-pitch up', '+')
         let scaleLengthBox = Utilities.createElement('input', 'scale-length')
 
         scaleLengthBox.type = 'text'
@@ -216,8 +239,8 @@ class StringTable {
         scaleLength.appendChild(scaleLengthBox)
 
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons')
-        let buttonGaugeDecrease = Utilities.createElement('button', 'button-gauge-decrease', '-')
-        let buttonGaugeIncrease = Utilities.createElement('button', 'button-gauge-increase', '+')
+        let buttonGaugeDecrease = Utilities.createElement('button', `button-gauge decrease ${nullify}`, '-')
+        let buttonGaugeIncrease = Utilities.createElement('button', `button-gauge increase ${nullify}`, '+')
 
         stringNum.appendChild(document.createTextNode(num.toString()))
 

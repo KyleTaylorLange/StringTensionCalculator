@@ -1,3 +1,39 @@
+.show {
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.nullify {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.exit {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 1.25rem;
+  right: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-top: 0.15rem;
+  background: #c29861;
+  border: 1px solid #4f7771;
+  border-radius: 50%;
+  color: #4f7771;
+  font-weight: 900;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+.exit:hover {
+  filter: brightness(90%);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -70,6 +106,10 @@ button:hover {
   font-size: 1.6rem;
 }
 
+.add-custom-strings {
+  padding: 0.25rem 0.75rem;
+}
+
 .str-table-container {
   display: flex;
   flex-direction: column;
@@ -113,6 +153,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.5rem;
 }
 .str-table-container #str-table .note-name .note-buttons button {
   width: 25px;
@@ -122,9 +163,9 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.5rem;
 }
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-decrease,
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-increase {
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge {
   width: 25px;
 }
 
@@ -135,6 +176,89 @@ button:hover {
 .button-pitches-container .button-pitches-increase {
   width: 100px;
   height: 30px;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 50rem;
+  transform: translate(-50%, -50%);
+  padding: 5rem;
+  background-color: #255d55;
+  border: 1px solid #f0d19d;
+}
+.card .content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.card .content *:not(input) {
+  color: #ffffff;
+}
+.card .content label,
+.card .content input {
+  margin-bottom: 1rem;
+}
+.card .content .opening-message {
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+}
+.card .content .row-top {
+  display: flex;
+  flex-direction: column;
+}
+.card .content .row-top .string-brand-label,
+.card .content .row-top .string-type-label {
+  text-align: center;
+  font-weight: 600;
+}
+.card .content .row-string-top {
+  display: flex;
+  flex-direction: row;
+}
+.card .content .row-string-top .gauge,
+.card .content .row-string-top .weight {
+  text-align: center;
+  flex-basis: 50%;
+  min-width: 50%;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+.card .content .row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+.card .content .row .string-label {
+  flex-shrink: 0;
+}
+.card .content .row .custom-string-weight,
+.card .content .row .custom-string-gauge {
+  flex-basis: 50%;
+}
+.card .submit {
+  width: 15rem;
+  height: 2.5rem;
+  margin: 1rem 2.5rem 0 2.5rem;
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=style.css.map */

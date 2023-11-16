@@ -3,11 +3,11 @@ export { StringInfo };
  * Represents a guitar string's inalienable characteristics.
  */
 class StringInfo {
-    constructor(gauge, unitWeight) {
-        this._brand = "";
-        this._type = "";
+    constructor(gauge, unitWeight, brand = '', type = '') {
         this._gauge = gauge;
         this._unitWeight = unitWeight;
+        this._brand = brand;
+        this._type = type;
     }
     get brand() {
         return this._brand;

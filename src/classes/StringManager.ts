@@ -1,3 +1,4 @@
+import { StringInfo } from './StringInfo.js'
 import { StringSeries } from './StringSeries.js'
 import { StringState } from './StringState.js'
 import { StringStateCollection } from './StringStateCollection.js'
@@ -15,77 +16,44 @@ class StringManager {
         this._stringSeries = []
     }
 
+    public static get instance(): StringManager {
+        return StringManager._instance
+    }
+
+    public static set instance(value: StringManager) {
+        StringManager._instance = value
+    }
+
+    public get stringSeries(): StringSeries[] {
+        return this._stringSeries
+    }
+
+    public set stringSeries(value: StringSeries[]) {
+        this._stringSeries = value
+    }
+
     /**
      * Gets the StringManager instance. Creates it if it is not already created.
      * 
      * @returns The singleton StringManager instance.
      */
     public static getInstance(): StringManager {
-        if (!StringManager._instance) {
-            StringManager._instance = new StringManager()
+        if (!StringManager.instance) {
+            StringManager.instance = new StringManager()
         }
 
-        return StringManager._instance
+        return StringManager.instance
     }
 
     /**
      * Creates new StringSeries objects from JSON and appends them to the current array of StringSeries objects.
+     * 
      * @param jsonData The JSON source of the new StringSeries objects.
      */
     public appendFromJson(jsonData: any) {
-        this._stringSeries = this._stringSeries.concat(StringSeries.createFromJson(jsonData))
+        this.stringSeries = this.stringSeries.concat(StringSeries.createFromJson(jsonData))
     }
-
-    /** 
-     * Get a base set of standard tuning strings.
-     * 
-     * @description Standard tuning.
-     */
-    public getStandardTuning(): StringStateCollection {
-        return new StringStateCollection([
-            new StringState(
-                64,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.01)
-            ),
-            new StringState(
-                59,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.013)
-            ),
-            new StringState(
-                55,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.017)
-            ),
-            new StringState(
-                50,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.026)
-            ),
-            new StringState(
-                45,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.036)
-            ),
-            new StringState(
-                40,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.046)
-            ),
-            new StringState(
-                35,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.059)
-            ),
-            new StringState(
-                30,
-                25.5,
-                this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.074)
-            )
-        ])
-    }
-    
+        
     /**
      * Gets a series by guitar string and string type.
      * 
@@ -94,12 +62,52 @@ class StringManager {
      * @returns A string series.
      */
     public getSeriesByBrandAndType(brand: string, type: string): StringSeries {
-        for (let i = 0; i < this._stringSeries.length; i++) {
-            if (this._stringSeries[i].brand === brand && this._stringSeries[i].type === type) {
-                return this._stringSeries[i]
+        for (let i = 0; i < this.stringSeries.length; i++) {
+            if (this.stringSeries[i].brand === brand && this.stringSeries[i].type === type) {
+                return this.stringSeries[i]
             }
         }
 
         return new StringSeries("Undefined", "Guitar String", [])
+    }
+
+    /**
+     * Gets a default array of StringInfo objects.
+     * 
+     * @returns Default StringInfo item array (i.e. default string set).
+     */
+    public getDefaultStringInfoArray() {
+        return [
+            this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.01),
+            this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.013),
+            this.getSeriesByBrandAndType("D'Addario", "Plain Steel").getStringByGauge(0.017),
+            this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.026),
+            this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.036),
+            this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.046),
+            this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.059),
+            this.getSeriesByBrandAndType("D'Addario", "XL Nickel Wound").getStringByGauge(0.074)
+        ]
+    }
+
+    /** 
+     * Get a base set of standard tuning strings. Default string set is provided by getDefaultStringInfoArray().
+     * 
+     * @description Base tuning function.
+     * @returns A new StringStateCollection representing the tuning.
+     */
+    public getStandardTuning(strInfoArray: StringInfo[] = this.getDefaultStringInfoArray()): StringStateCollection {
+        let stringStates = []
+        let noteNumbers = [64, 59, 55, 50, 45, 40, 35, 30]
+        let scaleLength = 25.5
+
+        for (let i = 0; i < strInfoArray.length; i++) {
+            stringStates.push(new StringState(
+                noteNumbers[i],
+                scaleLength,
+                strInfoArray[i]
+            ))
+        }
+
+        return new StringStateCollection(stringStates)
     }
 }

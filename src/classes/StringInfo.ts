@@ -11,11 +11,11 @@ class StringInfo implements StringMake {
     private _gauge: number
     private _unitWeight: number
 
-    constructor(gauge: number, unitWeight: number) {
-        this._brand = ""
-        this._type = ""
+    constructor(gauge: number, unitWeight: number, brand: string = '', type: string = '') {
         this._gauge = gauge
         this._unitWeight = unitWeight
+        this._brand = brand
+        this._type = type
     }
 
     public get brand(): string {

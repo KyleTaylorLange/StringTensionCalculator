@@ -35,6 +35,47 @@ $black: #000000;
 	padding-bottom: 1rem;
 }
 
+// Utilities
+.show {
+	opacity: 1;
+}
+
+.hide {
+	opacity: 0;
+	transition: opacity 300ms;
+}
+
+.nullify {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.exit {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	top: 1.25rem;
+	right: 1.5rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	padding-top: 0.15rem;
+
+	background: $yellow-hover;
+	border: 1px solid $green-primary;
+	border-radius: 50%;
+
+	color: $green-primary;
+	font-weight: 900;
+	font-size: 1.75rem;
+	cursor: pointer;
+
+		&:hover {
+			filter: brightness(90%);
+		}
+}
+
 // Main styles
 *, *::before, *::after {
   box-sizing: border-box;
@@ -111,6 +152,10 @@ button {
 	}
 }
 
+.add-custom-strings {
+	padding: 0.25rem 0.75rem;
+}
+
 .str-table-container {
 	display: flex;
 	flex-direction: column;
@@ -163,6 +208,7 @@ button {
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+                padding: 0.5rem;
 
 				button {
 					width: 25px;
@@ -176,10 +222,10 @@ button {
 				justify-content: center;
 				align-items: center;
 				gap: 0.25rem;
+                padding: 0.5rem;
 
-				.button-gauge-decrease,
-				.button-gauge-increase {
-					width: 25px;
+				.button-gauge {
+                    width: 25px;
 				}
 			}
 		}
@@ -193,5 +239,104 @@ button {
 	.button-pitches-increase {
 		width: 100px;
 		height: 30px;
+	}
+}
+
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+// TODO: Reduce some of this code, bit messy
+.card {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 50%;
+	left: 50%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 50rem;
+
+	transform: translate(-50%, -50%);
+	padding: 5rem;
+	background-color: $green-secondary;
+	border: 1px solid $yellow-primary;
+
+	.content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+
+		*:not(input) {
+			color: $white;
+		}
+		
+		label,
+		input {
+			margin-bottom: 1rem;
+		}
+		
+		.opening-message {
+			margin-bottom: 2.5rem;
+			font-weight: 600;
+		}
+
+		.row-top {
+			display: flex;
+			flex-direction: column;
+
+			.string-brand-label,
+			.string-type-label {
+				text-align: center;
+				font-weight: 600;
+			}
+		}
+
+		.row-string-top {
+			display: flex;
+			flex-direction: row;
+
+			.gauge,
+			.weight {
+				text-align: center;
+				flex-basis: 50%;
+				min-width: 50%;
+				margin-bottom: 1rem;
+
+				color: $white;
+				font-weight: 600;
+			}
+		}
+
+		.row {
+			display: flex;
+			flex-direction: row;
+			column-gap: 1rem;
+
+			.string-label {
+				flex-shrink: 0;
+			}
+
+			.custom-string-weight,
+			.custom-string-gauge {
+				flex-basis: 50%;
+			}
+		}
+	}
+
+	.submit {
+		width: 15rem;
+		height: 2.5rem;
+		margin: 1rem 2.5rem 0 2.5rem;
+		font-weight: 600;
 	}
 }
