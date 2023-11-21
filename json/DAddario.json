@@ -2,6 +2,7 @@
     {
         "brand": "D'Addario",
         "type": "Plain Steel",
+        "itemNoPrefix": "PL",
         "strings": [
             {"gauge": 0.007, "unitWeight": 0.00001085},
             {"gauge": 0.008, "unitWeight": 0.00001418},
@@ -30,6 +31,7 @@
     {
         "brand": "D'Addario",
         "type": "XL Nickel Wound",
+        "itemNoPrefix": "NW",
         "strings": [
             {"gauge": 0.017, "unitWeight": 0.00005524},
             {"gauge": 0.018, "unitWeight": 0.00006215},
