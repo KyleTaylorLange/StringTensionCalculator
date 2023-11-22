@@ -48,6 +48,21 @@ class Main {
         });
     }
     /**
+     * Sets the current table.
+     *
+     * @param tables
+     */
+    setCurrentTable(tables) {
+        for (let i = 0; i < tables.length; i++) {
+            if (i === tables.length - 1) {
+                tables[i].canModifyGauge = false;
+                tables[i].isCurrent = true;
+                continue;
+            }
+            tables[i].isCurrent = false;
+        }
+    }
+    /**
      * Clears the old table and re-renders a new one.
      *
      * @param {string} tableId The id for the string table.
@@ -108,17 +123,9 @@ class Main {
         for (let i = 0; i < stringObjects.length; i++) {
             stringCustomInfoArray.push(new StringInfo(stringObjects[i].gauge, stringObjects[i].unitWeight, stringBrandValue, stringTypeValue));
         }
-        // Push a new string table
+        // Add our table and set the current table
         tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringCustomInfoArray)));
-        // Set the new string table as the current
-        for (let i = 0; i < tables.length; i++) {
-            if (i === tables.length - 1) {
-                tables[i].canModifyGauge = false;
-                tables[i].isCurrent = true;
-                continue;
-            }
-            tables[i].isCurrent = false;
-        }
+        this.setCurrentTable(tables);
         overlay.classList.replace('show', 'hide');
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -159,6 +166,8 @@ class Main {
             }
         }).bind(this);
     }
+    // BUG: We need to allow for gauge incrementing/decrementing for the StringSet objects that are effectively
+    //      subsets of the larger data sets/collections as defined in the JSON data
     /**
      * Handles change for the select/option interface for string sets.
      */
@@ -167,16 +176,10 @@ class Main {
         const stringSetSelect = document.getElementById('string-set');
         stringSetSelect.onchange = ((event) => {
             const stringSet = this.getSelectedStringSet(event.target.value);
+            // Add our table and set the current table
             tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringSet)));
-            // TODO: Duplicate code between onChangeSelectStringSet() && submitCustomStringData() -- refactor
-            for (let i = 0; i < tables.length; i++) {
-                if (i === tables.length - 1) {
-                    tables[i].canModifyGauge = false;
-                    tables[i].isCurrent = true;
-                    continue;
-                }
-                tables[i].isCurrent = false;
-            }
+            this.setCurrentTable(tables);
+            // TODO: Make renderNumberInput() dynamically adjust to the size of the current string set
             this.strTableManager.renderNumberInput();
             this.renderStringTable('str-table', 'num-strings');
             this.onChangeInputNumberOfStrings();
