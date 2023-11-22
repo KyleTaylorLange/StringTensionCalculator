@@ -4,6 +4,9 @@ import { StringSet } from "../classes/StringSet.js";
 import { StringTable } from "../classes/StringTable.js";
 import { StringSetEnum } from "../enums/StringSetEnum.js";
 export { MainEvents };
+/**
+ * Handling events for Main.
+ */
 class MainEvents {
     constructor(manager, renders) {
         this._manager = manager;

@@ -1,7 +1,7 @@
-import { StringSeries } from './StringSeries.js';
-import { StringSet } from './StringSet.js';
-import { StringState } from './StringState.js';
-import { StringStateCollection } from './StringStateCollection.js';
+import { StringSeries } from "./StringSeries.js";
+import { StringSet } from "./StringSet.js";
+import { StringState } from "./StringState.js";
+import { StringStateCollection } from "./StringStateCollection.js";
 export { StringManager };
 /**
  * Singleton object that manages strings used throughout the program.

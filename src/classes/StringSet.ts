@@ -1,10 +1,10 @@
-import { StringInfo } from './StringInfo.js'
-import { StringManager } from './StringManager.js'
+import { StringInfo } from "./StringInfo.js"
+import { StringManager } from "./StringManager.js"
 
 export { StringSet }
 
 /**
- * Each method represents set of strings that one would purchase from a manufacturer.
+ * Each method represents set of strings (that one would typically purchase from a manufacturer).
  */
 class StringSet {
     /**

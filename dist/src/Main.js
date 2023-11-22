@@ -1,6 +1,6 @@
-import { MainEvents } from './events/MainEvents.js';
-import { MainRenders } from './renders/MainRenders.js';
-import { StringTableManager } from './classes/StringTableManager.js';
+import { MainEvents } from "./events/MainEvents.js";
+import { MainRenders } from "./renders/MainRenders.js";
+import { StringTableManager } from "./classes/StringTableManager.js";
 export { Main };
 /**
  * Main class. Pass JSON data in through this.

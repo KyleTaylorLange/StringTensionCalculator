@@ -1,7 +1,10 @@
-import { Utilities } from '../static/Utilities.js'
+import { Utilities } from "../static/Utilities.js"
 
 export { StringCustomInput }
 
+/**
+ * Creates the user interface for custom string set submissions.
+ */
 class StringCustomInput {
     private _customStringUI: HTMLElement = Utilities.createElement('div', 'overlay show')
 

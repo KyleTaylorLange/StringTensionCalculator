@@ -1,11 +1,11 @@
 import { StringStateCollection } from "./StringStateCollection.js";
 import { TableRenders } from "../renders/TableRenders.js";
-import { TableHandlers } from "../events/TableEvents.js";
+import { TableEvents } from "../events/TableEvents.js";
 import { Utilities } from "../static/Utilities.js";
 import { Note } from "../static/Note.js";
 export { StringTable };
 /**
- * Manipulates multiple strings at once.
+ * String table class.
  */
 class StringTable {
     constructor(startingStrings) {
@@ -15,7 +15,7 @@ class StringTable {
         this._canModifyGauge = true;
         this._isCurrent = false;
         this._renders = new TableRenders(this);
-        this._handles = new TableHandlers(this.renders);
+        this._handles = new TableEvents(this.renders);
     }
     get currentStrings() {
         return this._currentStrings;

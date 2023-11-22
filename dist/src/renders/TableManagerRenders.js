@@ -1,6 +1,6 @@
 export { TableManagerRenders };
 /**
- * Managing renders used for a StringTable instance.
+ * Managing renders used for a StringTableManager instance.
  */
 class TableManagerRenders {
     constructor(stringTableManager) {

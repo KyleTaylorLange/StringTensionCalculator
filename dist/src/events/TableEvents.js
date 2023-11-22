@@ -1,9 +1,9 @@
 import { StringManager } from "../classes/StringManager.js";
-export { TableHandlers };
+export { TableEvents };
 /**
- * Handlings events for a StringTable instance.
+ * Handling events for a StringTable instance.
  */
-class TableHandlers {
+class TableEvents {
     constructor(renders) {
         this._tableRenders = renders;
     }

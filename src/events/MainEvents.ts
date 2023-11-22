@@ -8,6 +8,9 @@ import { MainRenders } from "../renders/MainRenders.js"
 
 export { MainEvents }
 
+/**
+ * Handling events for Main.
+ */
 class MainEvents {
     private _manager: StringTableManager
     private _mainRenders: MainRenders

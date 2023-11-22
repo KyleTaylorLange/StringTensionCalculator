@@ -2,14 +2,14 @@ import { StringState } from "./StringState.js"
 import { StringStateCollection } from "./StringStateCollection.js"
 import { StringSetEnum } from "../enums/StringSetEnum.js"
 import { TableRenders } from "../renders/TableRenders.js"
-import { TableHandlers } from "../events/TableEvents.js"
+import { TableEvents } from "../events/TableEvents.js"
 import { Utilities } from "../static/Utilities.js"
 import { Note } from "../static/Note.js"
 
 export { StringTable }
 
 /**
- * Manipulates multiple strings at once.
+ * String table class.
  */
 class StringTable {
     private _currentStrings: StringStateCollection
@@ -19,7 +19,7 @@ class StringTable {
     private _isCurrent: boolean
 
     private _renders: TableRenders
-    private _handles: TableHandlers
+    private _handles: TableEvents
 
     constructor(startingStrings: StringStateCollection) {
         this._currentStrings = startingStrings
@@ -28,7 +28,7 @@ class StringTable {
         this._isCurrent = false
 
         this._renders = new TableRenders(this)
-        this._handles = new TableHandlers(this.renders)
+        this._handles = new TableEvents(this.renders)
     }
 
     public get currentStrings(): StringStateCollection {
@@ -79,11 +79,11 @@ class StringTable {
         this._renders = value
     }
 
-    public get handles(): TableHandlers {
+    public get handles(): TableEvents {
         return this._handles
     }
 
-    public set handles(value: TableHandlers) {
+    public set handles(value: TableEvents) {
         this._handles = value
     }
 

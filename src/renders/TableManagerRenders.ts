@@ -3,7 +3,7 @@ import { StringTableManager } from "../classes/StringTableManager.js"
 export { TableManagerRenders }
 
 /**
- * Managing renders used for a StringTable instance.
+ * Managing renders used for a StringTableManager instance.
  */
 class TableManagerRenders {
     private _manager: StringTableManager

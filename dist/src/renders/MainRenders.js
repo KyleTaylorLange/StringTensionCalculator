@@ -3,7 +3,7 @@ import { StringSetEnum } from "../enums/StringSetEnum.js";
 import { Utilities } from "../static/Utilities.js";
 export { MainRenders };
 /**
- * Managing renders uses in Main.
+ * Managing renders used in Main.
  */
 class MainRenders {
     constructor(manager) {

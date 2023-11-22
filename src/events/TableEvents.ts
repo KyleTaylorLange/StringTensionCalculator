@@ -2,12 +2,12 @@ import { StringManager } from "../classes/StringManager.js"
 import { StringState } from "../classes/StringState.js"
 import { TableRenders } from "../renders/TableRenders.js"
 
-export { TableHandlers }
+export { TableEvents }
 
 /**
- * Handlings events for a StringTable instance.
+ * Handling events for a StringTable instance.
  */
-class TableHandlers {
+class TableEvents {
     private _tableRenders: TableRenders
 
     constructor(renders: TableRenders) {

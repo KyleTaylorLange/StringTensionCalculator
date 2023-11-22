@@ -6,7 +6,7 @@ import { Utilities } from "../static/Utilities.js"
 export { MainRenders }
 
 /**
- * Managing renders uses in Main.
+ * Managing renders used in Main.
  */
 class MainRenders {
     private _manager: StringTableManager
