@@ -1,6 +1,7 @@
 import { StringManager } from "./StringManager.js";
 import { StringTable } from "./StringTable.js";
 import { TableManagerRenders } from "../renders/TableManagerRenders.js";
+import { StringSetEnum, StringSetEnumChecker } from "../enums/StringSetEnum.js";
 export { StringTableManager };
 /**
  * A class for managing multiple tables.
@@ -10,6 +11,7 @@ class StringTableManager {
         this._stringTables = [];
         StringManager.getInstance().appendFromJson(jsonData);
         this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()));
+        this.stringTables[0].stringSetName = StringSetEnum.Default;
         this.stringTables[0].isCurrent = true;
         this._renders = new TableManagerRenders(this);
     }
@@ -30,11 +32,14 @@ class StringTableManager {
      *
      * @param tables
      */
-    setCurrentTable() {
+    setCurrentTable(stringSetName = null) {
         let tables = this.stringTables;
         for (let i = 0; i < tables.length; i++) {
             if (i === tables.length - 1) {
-                tables[i].canModifyGauge = false;
+                console.log(stringSetName);
+                console.log(StringSetEnumChecker.isValid(tables[i].stringSetName));
+                tables[i].stringSetName = stringSetName ? stringSetName : null;
+                tables[i].canModifyGauge = StringSetEnumChecker.isValid(tables[i].stringSetName) ? true : false;
                 tables[i].isCurrent = true;
                 continue;
             }
@@ -44,7 +49,7 @@ class StringTableManager {
     /**
      * Get the table set as current.
      *
-     * @returns A string table if found, else throws an error.
+     * @returns A string table if found.
      */
     getCurrentTable() {
         let tables = this.stringTables;
@@ -53,6 +58,6 @@ class StringTableManager {
                 return tables[i];
             }
         }
-        throw Error('No table is set as current.');
+        return tables[tables.length - 1];
     }
 }

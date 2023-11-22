@@ -123,7 +123,7 @@ class MainEvents {
             const stringSet = this.getSelectedStringSet(event.target.value);
             // Add our table and set the current table
             tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringSet)));
-            this.manager.setCurrentTable();
+            this.manager.setCurrentTable(event.target.value ? event.target.value : null);
             this.renders.numberInput(1, stringSet.length, stringSet.length > 6 ? 6 : stringSet.length);
             this.manager.renders.stringTable('str-table', 'num-strings');
             this.onChangeInputNumberOfStrings();
