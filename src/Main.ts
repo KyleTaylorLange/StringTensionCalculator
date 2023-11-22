@@ -18,11 +18,11 @@ class Main {
         this._handles = new MainEvents(this.manager, this.renders)
     }
 
-    get manager(): StringTableManager {
+    public get manager(): StringTableManager {
         return this._manager
     }
 
-    set manager(value: StringTableManager) {
+    public set manager(value: StringTableManager) {
         this._manager = value
     }
 
