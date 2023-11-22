@@ -1,5 +1,4 @@
 import { Utilities } from '../static/Utilities.js'
-import { StringInfo } from './StringInfo.js'
 
 export { StringCustomInput }
 

@@ -29,7 +29,6 @@ class StringTable {
 
         this._renders = new TableRenders(this)
         this._handles = new TableHandlers(this.renders)
-
     }
 
     public get currentStrings(): StringStateCollection {

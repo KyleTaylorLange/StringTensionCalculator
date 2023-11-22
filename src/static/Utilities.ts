@@ -2,7 +2,7 @@ export { Utilities }
 
 class Utilities {
     /**
-     * Create and return an element of a given type, with a given class name. Optional text content may be added.
+     * Creates and return an element of a given type, with a given class name. Optional text content may be added.
      *
      * @param {any} elementType The type of the element.
      * @param {any} classNames The class name(s) assigned to the element. If multiple, separate by spaces.

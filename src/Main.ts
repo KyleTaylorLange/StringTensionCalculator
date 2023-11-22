@@ -11,7 +11,6 @@ class Main {
     private _renders: MainRenders
     private _handles: MainEvents
 
-    // TODO: We need a more uniform way to access the tables (this.stringTables) from StringTableManager.
     constructor(jsonData: any) {
         this._manager = new StringTableManager(jsonData)
         this._renders = new MainRenders(this.manager)
@@ -46,12 +45,12 @@ class Main {
      * Run time!
      */
     public run() {
-        // Render our input of type number first
+        // Renders input of type number first
         if (!document.getElementsByClassName('num-strings')[0]) {
             this.renders.numberInput()
         }
 
-        // Render our string select options
+        // Renders string select options
         if (!document.getElementsByClassName('string-set')[0]) {
             this.renders.stringSelect()
         }

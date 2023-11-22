@@ -41,7 +41,7 @@ class MainRenders {
     }
 
     /**
-     * Shift every string's pitch and render the table.
+     * Shifts every string's pitch and renders the table.
      *
      * @param {number} semitones A semitone count.
      */
@@ -57,7 +57,7 @@ class MainRenders {
     }
 
     /**
-     * Render the number input element to increase or decrease the string count.
+     * Renders the number input element to increase or decrease the string count.
      * 
      * @param minVal {number} The minimum number of strings that can be displayed.
      * @param maxVal {number} The maximum number of strings that can be displayed.

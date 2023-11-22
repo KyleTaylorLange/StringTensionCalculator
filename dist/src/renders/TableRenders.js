@@ -13,7 +13,7 @@ class TableRenders {
         this._stringTable = value;
     }
     /**
-     * Re-renders the guitar string table.
+     * Renders the guitar string table.
      *
      * @param {string} tableId The id for the string table.
      */

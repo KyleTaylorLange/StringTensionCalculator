@@ -13,7 +13,7 @@ class TableManagerRenders {
         this._manager = value;
     }
     /**
-     * Clears the old table and re-renders a new one.
+     * Clears the old table and renders a new one.
      *
      * @param {string} tableId The id for the string table.
      * @param {string} numberId The id for the `Number of Strings` input element.
