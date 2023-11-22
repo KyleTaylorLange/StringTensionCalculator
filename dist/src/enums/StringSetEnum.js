@@ -14,17 +14,12 @@ var StringSetEnum;
  */
 class StringSetEnumChecker {
     static isValid(arg) {
-        switch (arg) {
-            case StringSetEnum.Default:
+        let stringSets = Object.values(StringSetEnum);
+        for (let i = 0; i < stringSets.length; i++) {
+            if (arg === stringSets[i]) {
                 return true;
-            case StringSetEnum.EXL115:
-                return true;
-            case StringSetEnum.EXL120:
-                return true;
-            case StringSetEnum.EXL120Plus:
-                return true;
-            default:
-                return false;
+            }
         }
+        return false;
     }
 }
