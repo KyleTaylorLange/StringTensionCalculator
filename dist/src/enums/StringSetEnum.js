@@ -1,6 +1,6 @@
 export { StringSetEnum };
 /**
- * Defines each of the strings ets.
+ * Defines each of the string sets.
  */
 var StringSetEnum;
 (function (StringSetEnum) {

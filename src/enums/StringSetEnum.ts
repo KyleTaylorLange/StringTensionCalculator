@@ -1,7 +1,7 @@
 export { StringSetEnum }
 
 /**
- * Defines each of the strings ets.
+ * Defines each of the string sets.
  */
 enum StringSetEnum {
     Default = "Default",

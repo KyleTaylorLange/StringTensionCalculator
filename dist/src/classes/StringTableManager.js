@@ -1,7 +1,6 @@
-import { Utilities } from '../static/Utilities.js';
-import { StringManager } from './StringManager.js';
-import { StringTable } from './StringTable.js';
-import { StringSetEnum } from '../enums/StringSetEnum.js';
+import { StringManager } from "./StringManager.js";
+import { StringTable } from "./StringTable.js";
+import { TableManagerRenders } from "../renders/TableManagerRenders.js";
 export { StringTableManager };
 /**
  * A class for managing multiple tables.
@@ -12,6 +11,7 @@ class StringTableManager {
         StringManager.getInstance().appendFromJson(jsonData);
         this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()));
         this.stringTables[0].isCurrent = true;
+        this._renders = new TableManagerRenders(this);
     }
     get stringTables() {
         return this._stringTables;
@@ -19,44 +19,40 @@ class StringTableManager {
     set stringTables(value) {
         this._stringTables = value;
     }
-    /**
-     * Render the number input element to increase or decrease the string count.
-     *
-     * @param minVal {number} The minimum number of strings that can be displayed.
-     * @param maxVal {number} The maximum number of strings that can be displayed.
-     * @param defaultVal {number} The default value displayed.
-     */
-    renderNumberInput(minVal = 1, maxVal = 8, defaultVal = 6) {
-        const inputContainer = document.getElementsByClassName('num-strings-inner')[0];
-        const input = Utilities.createElement('input', 'number-of-strings');
-        input.setAttribute('type', 'number');
-        input.setAttribute('id', 'num-strings');
-        input.setAttribute('name', 'num-strings');
-        input.setAttribute('min', minVal);
-        input.setAttribute('max', maxVal);
-        input.setAttribute('value', defaultVal);
-        if (document.getElementsByClassName('number-of-strings')[0]) {
-            document.getElementsByClassName('number-of-strings')[0].remove();
-        }
-        inputContainer.appendChild(input);
+    get renders() {
+        return this._renders;
+    }
+    set renders(value) {
+        this._renders = value;
     }
     /**
-     * Renders the select/option interface for selecting a string set.
+     * Sets the current table.
+     *
+     * @param tables
      */
-    renderStringSelect() {
-        const inputContainer = document.getElementsByClassName('string-set-inner')[0];
-        const input = Utilities.createElement('select', 'string-set-select');
-        input.setAttribute('id', 'string-set');
-        input.setAttribute('name', 'string-set');
-        for (let name in StringSetEnum) {
-            let option = document.createElement('option');
-            option.text = name;
-            option.value = name;
-            input.appendChild(option);
+    setCurrentTable() {
+        let tables = this.stringTables;
+        for (let i = 0; i < tables.length; i++) {
+            if (i === tables.length - 1) {
+                tables[i].canModifyGauge = false;
+                tables[i].isCurrent = true;
+                continue;
+            }
+            tables[i].isCurrent = false;
         }
-        if (document.getElementsByClassName('string-set-select')[0]) {
-            document.getElementsByClassName('string-set-select')[0].remove();
+    }
+    /**
+     * Get the table set as current.
+     *
+     * @returns A string table if found, else throws an error.
+     */
+    getCurrentTable() {
+        let tables = this.stringTables;
+        for (let i = tables.length - 1; i >= 0; i--) {
+            if (tables[i].isCurrent === true) {
+                return tables[i];
+            }
         }
-        inputContainer.appendChild(input);
+        throw Error('No table is set as current.');
     }
 }
