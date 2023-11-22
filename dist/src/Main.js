@@ -167,9 +167,19 @@ class Main {
         const stringSetSelect = document.getElementById('string-set');
         stringSetSelect.onchange = ((event) => {
             const stringSet = this.getSelectedStringSet(event.target.value);
-            // BUG: Not rendering the table after pushign
             tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringSet)));
+            // TODO: Duplicate code between onChangeSelectStringSet() && submitCustomStringData() -- refactor
+            for (let i = 0; i < tables.length; i++) {
+                if (i === tables.length - 1) {
+                    tables[i].canModifyGauge = false;
+                    tables[i].isCurrent = true;
+                    continue;
+                }
+                tables[i].isCurrent = false;
+            }
+            this.strTableManager.renderNumberInput();
             this.renderStringTable('str-table', 'num-strings');
+            this.onChangeInputNumberOfStrings();
         }).bind(this);
     }
     /**
