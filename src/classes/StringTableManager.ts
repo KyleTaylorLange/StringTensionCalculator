@@ -48,14 +48,10 @@ class StringTableManager {
         
         for (let i = 0; i < tables.length; i++) {
             if (i === tables.length - 1) {
-
-                console.log(stringSetName)
-                console.log(StringSetEnumChecker.isValid(tables[i].stringSetName))
-
                 tables[i].stringSetName = stringSetName ? stringSetName : null
                 tables[i].canModifyGauge = StringSetEnumChecker.isValid(tables[i].stringSetName) ? true : false
                 tables[i].isCurrent = true
-                
+
                 continue
             }
 
