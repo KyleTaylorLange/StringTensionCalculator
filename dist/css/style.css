@@ -91,19 +91,39 @@ button:hover {
   font-size: 1.4rem;
 }
 
-.num-strings-container {
+.options {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.num-strings-container,
+.string-set-container,
+.add-custom-strings-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
   margin-bottom: 2.5rem;
 }
-.num-strings-container label {
+.num-strings-container label,
+.string-set-container label,
+.add-custom-strings-container label {
   color: #effcf9;
   font-size: 1.6rem;
 }
-.num-strings-container input {
+.num-strings-container input,
+.string-set-container input,
+.add-custom-strings-container input {
   font-size: 1.6rem;
+  border-radius: 0.2rem;
+}
+.num-strings-container select,
+.string-set-container select,
+.add-custom-strings-container select {
+  font-size: 1.6rem;
+  border-radius: 0.2rem;
 }
 
 .add-custom-strings {

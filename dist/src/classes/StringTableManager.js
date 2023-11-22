@@ -1,6 +1,7 @@
 import { Utilities } from '../static/Utilities.js';
 import { StringManager } from './StringManager.js';
 import { StringTable } from './StringTable.js';
+import { StringSetEnum } from '../enums/StringSetEnum.js';
 export { StringTableManager };
 /**
  * A class for managing multiple tables.
@@ -26,7 +27,7 @@ class StringTableManager {
      * @param defaultVal {number} The default value displayed.
      */
     renderNumberInput(minVal = 1, maxVal = 8, defaultVal = 6) {
-        const inputContainer = document.getElementsByClassName('number-of-strings-container')[0];
+        const inputContainer = document.getElementsByClassName('num-strings-inner')[0];
         const input = Utilities.createElement('input', 'number-of-strings');
         input.setAttribute('type', 'number');
         input.setAttribute('id', 'num-strings');
@@ -36,6 +37,25 @@ class StringTableManager {
         input.setAttribute('value', defaultVal);
         if (document.getElementsByClassName('number-of-strings')[0]) {
             document.getElementsByClassName('number-of-strings')[0].remove();
+        }
+        inputContainer.appendChild(input);
+    }
+    /**
+     * Renders the select/option interface for selecting a string set.
+     */
+    renderStringSelect() {
+        const inputContainer = document.getElementsByClassName('string-set-inner')[0];
+        const input = Utilities.createElement('select', 'string-set-select');
+        input.setAttribute('id', 'string-set');
+        input.setAttribute('name', 'string-set');
+        for (let name in StringSetEnum) {
+            let option = document.createElement('option');
+            option.text = name;
+            option.value = name;
+            input.appendChild(option);
+        }
+        if (document.getElementsByClassName('string-set-select')[0]) {
+            document.getElementsByClassName('string-set-select')[0].remove();
         }
         inputContainer.appendChild(input);
     }

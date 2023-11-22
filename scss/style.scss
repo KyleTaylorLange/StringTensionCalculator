@@ -134,7 +134,16 @@ button {
 	font-size: 1.4rem;
 }
 
-.num-strings-container {
+.options {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.num-strings-container,
+.string-set-container,
+.add-custom-strings-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -149,7 +158,13 @@ button {
 
 	input {
 		font-size: 1.6rem;
+        border-radius: .2rem;
 	}
+
+    select {
+        font-size: 1.6rem;
+        border-radius: .2rem;
+    }
 }
 
 .add-custom-strings {

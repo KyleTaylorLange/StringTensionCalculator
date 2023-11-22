@@ -3,6 +3,8 @@ import { StringInfo } from './classes/StringInfo.js';
 import { StringManager } from './classes/StringManager.js';
 import { StringTable } from './classes/StringTable.js';
 import { StringTableManager } from './classes/StringTableManager.js';
+import { StringSet } from './classes/StringSet.js';
+import { StringSetEnum } from './enums/StringSetEnum.js';
 export { Main };
 /**
  * Main class. Pass JSON data in through this.
@@ -126,6 +128,24 @@ class Main {
         this.onChangeInputNumberOfStrings();
     }
     /**
+     * Gets a string set as selected from the select/option user interface.
+     *
+     * @param {StringSetEnum} stringDef The name of the string set to retrieve.
+     * @returns {StringInfo[]} An array of StringInfo objects.
+     */
+    getSelectedStringSet(stringDef) {
+        switch (stringDef) {
+            case StringSetEnum.Default:
+                return StringSet.getDefaultStrings();
+            case StringSetEnum.EXL115:
+                return StringSet.getDAddarioXEL115MediumElectric();
+            case StringSetEnum.EXL120:
+                return StringSet.getDAddarioEXL120SuperLight();
+            case StringSetEnum.EXL120Plus:
+                return StringSet.getDAddarioEXL120SuperLightPlus();
+        }
+    }
+    /**
      * Handles change that modifies the number of strings displayed.
      */
     onChangeInputNumberOfStrings() {
@@ -137,6 +157,19 @@ class Main {
                     this.renderStringTable('str-table', 'num-strings');
                 }
             }
+        }).bind(this);
+    }
+    /**
+     * Handles change for the select/option interface for string sets.
+     */
+    onChangeSelectStringSet() {
+        const tables = this.strTableManager.stringTables;
+        const stringSetSelect = document.getElementById('string-set');
+        stringSetSelect.onchange = ((event) => {
+            const stringSet = this.getSelectedStringSet(event.target.value);
+            // BUG: Not rendering the table after pushign
+            tables.push(new StringTable(StringManager.getInstance().getStandardTuning(stringSet)));
+            this.renderStringTable('str-table', 'num-strings');
         }).bind(this);
     }
     /**
@@ -207,11 +240,16 @@ class Main {
      */
     run() {
         // Render our input of type number first
-        if (!document.getElementsByClassName('number-of-strings')[0]) {
+        if (!document.getElementsByClassName('num-strings')[0]) {
             this.strTableManager.renderNumberInput();
+        }
+        // Render our string select options
+        if (!document.getElementsByClassName('string-set')[0]) {
+            this.strTableManager.renderStringSelect();
         }
         // Event handlers
         this.onChangeInputNumberOfStrings();
+        this.onChangeSelectStringSet();
         this.onClickButtonPitchesDown();
         this.onClickButtonPitchesUp();
         this.onClickButtonAddCustomStrings();
