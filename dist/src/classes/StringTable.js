@@ -206,7 +206,7 @@ class StringTable {
     onClickButtonIncreaseGauge(buttonGaugeIncrease, state) {
         buttonGaugeIncrease.onclick = (() => {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(state.strInfo.brand, state.strInfo.type);
-            state.strInfo = currentSeries.getPreviousString(state.strInfo);
+            state.strInfo = currentSeries.getNextString(state.strInfo);
             this.render('str-table');
         }).bind(this);
     }
@@ -240,8 +240,8 @@ class StringTable {
         let buttonPitchUp = Utilities.createElement('button', 'button-pitch up', '+');
         let scaleLengthBox = Utilities.createElement('input', 'scale-length');
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
-        let buttonDecreaseGauge = Utilities.createElement('button', `button-gauge decrease ${nullify}`, '-');
-        let buttonIncreaseGauge = Utilities.createElement('button', `button-gauge increase ${nullify}`, '+');
+        let buttonDecreaseGauge = Utilities.createElement('button', `button-gauge-decrease ${nullify}`, '-');
+        let buttonIncreaseGauge = Utilities.createElement('button', `button-gauge-increase ${nullify}`, '+');
         scaleLength.appendChild(scaleLengthBox);
         stringNum.appendChild(document.createTextNode(num.toString()));
         // Event handlers

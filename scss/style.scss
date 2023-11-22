@@ -136,7 +136,7 @@ button {
 
 .options {
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     justify-content: center;
     align-items: center;
 }
@@ -169,6 +169,7 @@ button {
 
 .add-custom-strings {
 	padding: 0.25rem 0.75rem;
+    font-size: 1.4rem;
 }
 
 .str-table-container {
@@ -239,7 +240,8 @@ button {
 				gap: 0.25rem;
                 padding: 0.5rem;
 
-				.button-gauge {
+				.button-gauge-increase,
+                .button-gauge-decrease {
                     width: 25px;
 				}
 			}

@@ -93,7 +93,7 @@ button:hover {
 
 .options {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center;
   align-items: center;
 }
@@ -128,6 +128,7 @@ button:hover {
 
 .add-custom-strings {
   padding: 0.25rem 0.75rem;
+  font-size: 1.4rem;
 }
 
 .str-table-container {
@@ -185,7 +186,8 @@ button:hover {
   gap: 0.25rem;
   padding: 0.5rem;
 }
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge {
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge-increase,
+.str-table-container #str-table .gauge .gauge-buttons .button-gauge-decrease {
   width: 25px;
 }
 
