@@ -1,5 +1,8 @@
-import { Utilities } from '../static/Utilities.js';
+import { Utilities } from "../static/Utilities.js";
 export { StringCustomInput };
+/**
+ * Creates the user interface for custom string set submissions.
+ */
 class StringCustomInput {
     constructor() {
         this._customStringUI = Utilities.createElement('div', 'overlay show');

@@ -1,6 +1,7 @@
-import { Utilities } from '../static/Utilities.js';
-import { StringManager } from './StringManager.js';
-import { StringTable } from './StringTable.js';
+import { StringManager } from "./StringManager.js";
+import { StringTable } from "./StringTable.js";
+import { TableManagerRenders } from "../renders/TableManagerRenders.js";
+import { StringSetEnum, StringSetEnumChecker } from "../enums/StringSetEnum.js";
 export { StringTableManager };
 /**
  * A class for managing multiple tables.
@@ -10,7 +11,9 @@ class StringTableManager {
         this._stringTables = [];
         StringManager.getInstance().appendFromJson(jsonData);
         this.stringTables.push(new StringTable(StringManager.getInstance().getStandardTuning()));
+        this.stringTables[0].stringSetName = StringSetEnum.Default;
         this.stringTables[0].isCurrent = true;
+        this._renders = new TableManagerRenders(this);
     }
     get stringTables() {
         return this._stringTables;
@@ -18,25 +21,41 @@ class StringTableManager {
     set stringTables(value) {
         this._stringTables = value;
     }
+    get renders() {
+        return this._renders;
+    }
+    set renders(value) {
+        this._renders = value;
+    }
     /**
-     * Render the number input element to increase or decrease the string count.
+     * Sets the current table.
      *
-     * @param minVal {number} The minimum number of strings that can be displayed.
-     * @param maxVal {number} The maximum number of strings that can be displayed.
-     * @param defaultVal {number} The default value displayed.
+     * @param tables
      */
-    renderNumberInput(minVal = 1, maxVal = 8, defaultVal = 6) {
-        const inputContainer = document.getElementsByClassName('number-of-strings-container')[0];
-        const input = Utilities.createElement('input', 'number-of-strings');
-        input.setAttribute('type', 'number');
-        input.setAttribute('id', 'num-strings');
-        input.setAttribute('name', 'num-strings');
-        input.setAttribute('min', minVal);
-        input.setAttribute('max', maxVal);
-        input.setAttribute('value', defaultVal);
-        if (document.getElementsByClassName('number-of-strings')[0]) {
-            document.getElementsByClassName('number-of-strings')[0].remove();
+    setCurrentTable(stringSetName = null) {
+        let tables = this.stringTables;
+        for (let i = 0; i < tables.length; i++) {
+            if (i === tables.length - 1) {
+                tables[i].stringSetName = stringSetName ? stringSetName : null;
+                tables[i].canModifyGauge = StringSetEnumChecker.isValid(tables[i].stringSetName) ? true : false;
+                tables[i].isCurrent = true;
+                continue;
+            }
+            tables[i].isCurrent = false;
         }
-        inputContainer.appendChild(input);
+    }
+    /**
+     * Get the table set as current.
+     *
+     * @returns A string table if found.
+     */
+    getCurrentTable() {
+        let tables = this.stringTables;
+        for (let i = tables.length - 1; i >= 0; i--) {
+            if (tables[i].isCurrent === true) {
+                return tables[i];
+            }
+        }
+        return tables[tables.length - 1];
     }
 }

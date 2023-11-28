@@ -1,5 +1,5 @@
-import { Utilities } from './dist/src/static/Utilities.js'
-import { Main } from './dist/src/Main.js'
+import { Utilities } from "./dist/src/static/Utilities.js"
+import { Main } from "./dist/src/Main.js"
 
 let jsonResult = Utilities.getJson('DAddario')
 
