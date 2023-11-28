@@ -93,43 +93,6 @@
                 color: $grey-primary;
                 font-weight: 600;
             }
-
-            .note-buttons {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 0.25rem;
-                padding: 0.5rem;
-
-                button {
-                    width: 25px;
-                }
-            }
         }
-
-        .gauge {
-            .gauge-buttons {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 0.25rem;
-                padding: 0.5rem;
-
-                .button-gauge-increase,
-                .button-gauge-decrease {
-                    width: 25px;
-                }
-            }
-        }
-    }
-}
-
-.button-pitches-container {
-    @include mb-2-5();
-
-    .button-pitches-decrease,
-    .button-pitches-increase {
-        width: 100px;
-        height: 30px;
     }
 }
