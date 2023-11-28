@@ -1,0 +1,26 @@
+// Mixins
+@mixin mt-1 {
+    margin-top: 1rem;
+}
+
+@mixin mt-2-5 {
+    margin-top: 2.5rem;
+}
+
+@mixin mb-1 {
+    margin-bottom: 1rem;
+}
+
+@mixin mb-2-5 {
+    margin-bottom: 2.5rem;
+}
+
+@mixin mtb-2-5 {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+@mixin ptb-1 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

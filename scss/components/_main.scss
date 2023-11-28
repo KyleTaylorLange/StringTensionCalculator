@@ -1,0 +1,135 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.options {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.num-strings-container,
+.string-set-container,
+.add-custom-strings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+
+    @include mb-2-5();
+
+    label {
+        color: $grey-primary;
+        font-size: 1.6rem;
+    }
+
+    input {
+        font-size: 1.6rem;
+        border-radius: .2rem;
+    }
+
+    select {
+        font-size: 1.6rem;
+        border-radius: .2rem;
+    }
+}
+
+.add-custom-strings {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.4rem;
+}
+
+.str-table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    #str-table {
+        width: 100%;
+        border-spacing: 0.7rem;
+
+        @include mb-2-5();
+
+        .row-top {
+            th {
+                text-align: center;
+                text-justify: center;
+                color: $grey-primary;
+                font-size: 1.6rem;
+            }
+
+        }
+
+        .row {
+            th {
+                text-align: center;
+                text-justify: center;
+                color: $grey-primary;
+            }
+
+            td {
+                text-align: center;
+                text-justify: center;
+                background-color: $green-secondary;
+                color: $grey-primary;
+                border: 1px solid $yellow-primary;
+            }
+        }
+
+        .note-name {
+            @include ptb-1();
+
+            .note-inner {
+                color: $grey-primary;
+                font-weight: 600;
+            }
+
+            .note-buttons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.25rem;
+                padding: 0.5rem;
+
+                button {
+                    width: 25px;
+                }
+            }
+        }
+
+        .gauge {
+            .gauge-buttons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.25rem;
+                padding: 0.5rem;
+
+                .button-gauge-increase,
+                .button-gauge-decrease {
+                    width: 25px;
+                }
+            }
+        }
+    }
+}
+
+.button-pitches-container {
+    @include mb-2-5();
+
+    .button-pitches-decrease,
+    .button-pitches-increase {
+        width: 100px;
+        height: 30px;
+    }
+}

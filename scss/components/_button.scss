@@ -1,0 +1,15 @@
+@use '../abstracts/variables' as *;
+
+button {
+    cursor: pointer;
+    background-color: $yellow-primary;
+    border: 1px solid $green-primary;
+    font-family: 'Exo', sans-serif;
+    color: $green-secondary;
+    box-shadow: 0em 0em 0.5em $green-secondary;
+
+    &:hover {
+        background-color: $yellow-hover;
+        filter: brightness(1.1)
+    }
+}

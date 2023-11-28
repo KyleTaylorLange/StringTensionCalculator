@@ -34,7 +34,20 @@
   filter: brightness(90%);
 }
 
-*, *::before, *::after {
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -57,19 +70,6 @@ body {
   }
 }
 
-button {
-  cursor: pointer;
-  background-color: #f0d19d;
-  border: 1px solid #4f7771;
-  font-family: "Exo", sans-serif;
-  color: #255d55;
-  box-shadow: 0em 0em 0.5em #255d55;
-}
-button:hover {
-  background-color: #c29861;
-  filter: brightness(1.1);
-}
-
 .header {
   display: flex;
   flex-direction: column;
@@ -81,6 +81,19 @@ button:hover {
   background-color: #255d55;
   color: #effcf9;
   border: 1px solid #f0d19d;
+}
+
+button {
+  cursor: pointer;
+  background-color: #f0d19d;
+  border: 1px solid #4f7771;
+  font-family: "Exo", sans-serif;
+  color: #255d55;
+  box-shadow: 0em 0em 0.5em #255d55;
+}
+button:hover {
+  background-color: #c29861;
+  filter: brightness(1.1);
 }
 
 .main-container {
@@ -198,17 +211,6 @@ button:hover {
 .button-pitches-container .button-pitches-increase {
   width: 100px;
   height: 30px;
-}
-
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .card {
