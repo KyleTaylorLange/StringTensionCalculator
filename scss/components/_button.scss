@@ -1,0 +1,51 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+button {
+    cursor: pointer;
+    background-color: $yellow-primary;
+    border: 1px solid $green-primary;
+    font-family: 'Exo', sans-serif;
+    color: $green-secondary;
+    box-shadow: 0em 0em 0.5em $green-secondary;
+
+    &:hover {
+        background-color: $yellow-hover;
+        filter: brightness(1.1)
+    }
+}
+
+.button-pitches-container {
+    @include mb-2-5();
+
+    .button-pitches-decrease,
+    .button-pitches-increase {
+        width: 100px;
+        height: 30px;
+    }
+}
+
+.gauge-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+
+    .button-gauge-increase,
+    .button-gauge-decrease {
+        width: 25px;
+    }
+}
+
+.note-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+
+    button {
+        width: 25px;
+    }
+}

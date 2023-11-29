@@ -34,7 +34,20 @@
   filter: brightness(90%);
 }
 
-*, *::before, *::after {
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -57,6 +70,19 @@ body {
   }
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-family: "Rubik Mono One", sans-serif;
+  background-color: #255d55;
+  color: #effcf9;
+  border: 1px solid #f0d19d;
+}
+
 button {
   cursor: pointer;
   background-color: #f0d19d;
@@ -70,17 +96,36 @@ button:hover {
   filter: brightness(1.1);
 }
 
-.header {
+.button-pitches-container {
+  margin-bottom: 2.5rem;
+}
+.button-pitches-container .button-pitches-decrease,
+.button-pitches-container .button-pitches-increase {
+  width: 100px;
+  height: 30px;
+}
+
+.gauge-buttons {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  font-family: "Rubik Mono One", sans-serif;
-  background-color: #255d55;
-  color: #effcf9;
-  border: 1px solid #f0d19d;
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+.gauge-buttons .button-gauge-increase,
+.gauge-buttons .button-gauge-decrease {
+  width: 25px;
+}
+
+.note-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+.note-buttons button {
+  width: 25px;
 }
 
 .main-container {
@@ -168,47 +213,6 @@ button:hover {
 .str-table-container #str-table .note-name .note-inner {
   color: #effcf9;
   font-weight: 600;
-}
-.str-table-container #str-table .note-name .note-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem;
-}
-.str-table-container #str-table .note-name .note-buttons button {
-  width: 25px;
-}
-.str-table-container #str-table .gauge .gauge-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem;
-}
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-increase,
-.str-table-container #str-table .gauge .gauge-buttons .button-gauge-decrease {
-  width: 25px;
-}
-
-.button-pitches-container {
-  margin-bottom: 2.5rem;
-}
-.button-pitches-container .button-pitches-decrease,
-.button-pitches-container .button-pitches-increase {
-  width: 100px;
-  height: 30px;
-}
-
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .card {

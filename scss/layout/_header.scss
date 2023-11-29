@@ -1,0 +1,16 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	@include mtb-2-5();
+
+	font-family: 'Rubik Mono One', sans-serif;
+	background-color: $green-secondary;
+	color: $grey-primary;
+	border: 1px solid $yellow-primary;
+}
