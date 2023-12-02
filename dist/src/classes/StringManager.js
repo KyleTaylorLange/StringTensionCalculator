@@ -71,4 +71,25 @@ class StringManager {
         }
         return new StringSeries("Undefined", "Guitar String", []);
     }
+    /**
+     * Gets the number of series objects we manage.
+     *
+     * @returns The number of series objects we manage.
+     */
+    getNumberOfSeries() {
+        return this._stringSeries.length;
+    }
+    /**
+     * Gets a series by its index.
+     *
+     * @param {number} index The index of the desired string series object.
+     * @returns A string series at the given index if it exists, otherwise undefined.
+     */
+    getSeriesByIndex(index) {
+        // Return undefined if out of bounds.
+        if (index < 0 || index >= this._stringSeries.length) {
+            return undefined;
+        }
+        return this._stringSeries[index];
+    }
 }
