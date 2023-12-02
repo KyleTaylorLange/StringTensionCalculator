@@ -134,7 +134,7 @@ class TableEvents {
     /**
      * Handles changes to the selected string type.
      * 
-     * @param typeSelectBox The select box that
+     * @param typeSelectBox The select box for choosing the string brand/type.
      * @param state The string state to modify.
      */
     public onChangeStringType(typeSelectBox: any, state: StringState) {
@@ -142,7 +142,7 @@ class TableEvents {
             let index = typeSelectBox.selectedIndex
             let option: string[] = typeSelectBox.options[index].value.split(";")
             let series: StringSeries = StringManager.getInstance().getSeriesByBrandAndType(option[0], option[1])
-            console.log("Series:", series)
+console.log("Series:", series)
             state.strInfo = series.getStringByGauge(state.strInfo.gauge)
             this.renders.table('str-table')
         }).bind(this)
