@@ -142,6 +142,7 @@ class TableEvents {
             let index = typeSelectBox.selectedIndex
             let option: string[] = typeSelectBox.options[index].value.split(";")
             let series: StringSeries = StringManager.getInstance().getSeriesByBrandAndType(option[0], option[1])
+
             state.strInfo = series.getStringByGauge(state.strInfo.gauge)
             this.renders.table('str-table')
         }).bind(this)

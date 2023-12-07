@@ -207,27 +207,35 @@ class StringTable {
 
         // Adding select box for the string type.
         let typeSelectBox = Utilities.createElement('select', `string-type-selector ${nullify}`)
-        // Add a dummy box with just one option if we are currently using custom strings.
+
+        /* 
+         * Add a dummy box with just one option if we are currently using custom strings.
+         * Otherwise, add a box with all string series values.
+         */
         if (this.canModifyGauge === false) {
             let optionTest = Utilities.createElement('option', 'string-type', state.strInfo.brand + ' ' + state.strInfo.type)
             typeSelectBox.add(optionTest)
         }
-        // Otherwise, add a box with all string series values.
         else {
             for (let i = 0; i < StringManager.getInstance().getNumberOfSeries(); i++) {
                 let series: StringSeries | undefined = StringManager.getInstance().getSeriesByIndex(i)
+        
                 if (series === undefined) {
                     console.error(`StringSeries at index ${i} is undefined.`)
                     continue
                 }
+
                 let option = Utilities.createElement('option', 'string-type', series.brand + ' ' + series.type)
+
                 option.value = series.brand + ";" + series.type
                 typeSelectBox.add(option)
+
                 if (series.brand === state.strInfo.brand && series.type === state.strInfo.type) {
                     typeSelectBox.selectedIndex = i
                 }
             }
         }
+        
         this.handles.onChangeStringType(typeSelectBox, state)
         stringType.appendChild(typeSelectBox)
 
