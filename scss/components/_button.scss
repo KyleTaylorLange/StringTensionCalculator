@@ -3,14 +3,16 @@
 
 button {
     cursor: pointer;
-    background-color: $yellow-primary;
-    border: 1px solid $green-primary;
-    font-family: 'Exo', sans-serif;
-    color: $green-secondary;
-    box-shadow: 0em 0em 0.5em $green-secondary;
+    background-color: $slate-primary;
+    border: 1px solid $black-primary;
+    font-family: $font-main;
+    color: $blue-primary;
+    box-shadow: 0em 0em 0.5em $blue-primary;
 
     &:hover {
-        background-color: $yellow-hover;
+        background-color: $blue-secondary;
+        border: 1px solid $grey-border;
+        color: $grey-primary;
         filter: brightness(1.1)
     }
 }

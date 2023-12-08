@@ -14,8 +14,8 @@
 
 	transform: translate(-50%, -50%);
 	padding: 5rem;
-	background-color: $green-secondary;
-	border: 1px solid $yellow-primary;
+	background-color: $blue-primary;
+	border: 1px solid $slate-primary;
 
 	.content {
 		position: relative;
@@ -23,7 +23,7 @@
 		flex-direction: column;
 
 		*:not(input) {
-			color: $white;
+			color: $white-primary;
 		}
 		
 		label,
@@ -58,7 +58,7 @@
 				min-width: 50%;
 				margin-bottom: 1rem;
 
-				color: $white;
+				color: $white-primary;
 				font-weight: 600;
 			}
 		}

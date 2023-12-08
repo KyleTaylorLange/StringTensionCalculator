@@ -44,7 +44,7 @@
 
 .add-custom-strings {
     padding: 0.25rem 0.75rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .str-table-container {
@@ -80,9 +80,10 @@
             td {
                 text-align: center;
                 text-justify: center;
-                background-color: $green-secondary;
+                background-color: $blue-primary;
                 color: $grey-primary;
-                border: 1px solid $yellow-primary;
+                border: 1px solid #ABA7CC;
+                box-shadow: 0.5px 1px 3px 0.5px rgba($white-primary, 0.2);
             }
         }
 

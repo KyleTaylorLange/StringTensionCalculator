@@ -22,10 +22,10 @@
   width: 2.5rem;
   height: 2.5rem;
   padding-top: 0.15rem;
-  background: #c29861;
-  border: 1px solid #4f7771;
+  background: #508591;
+  border: 1px solid #1D1C29;
   border-radius: 50%;
-  color: #4f7771;
+  color: #1D1C29;
   font-weight: 900;
   font-size: 1.75rem;
   cursor: pointer;
@@ -53,11 +53,11 @@
 
 html {
   font-size: 10px;
-  font-family: "Exo", sans-serif;
+  font-family: "Karla", sans-serif;
 }
 
 body {
-  background-color: #4f7771;
+  background-color: #1D1C29;
 }
 @media only screen and (min-width: 1024px) {
   body {
@@ -70,6 +70,14 @@ body {
   }
 }
 
+input {
+  background: #F1EDFF;
+}
+
+select {
+  background: #F1EDFF;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -77,22 +85,33 @@ body {
   align-items: center;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
-  font-family: "Rubik Mono One", sans-serif;
-  background-color: #255d55;
-  color: #effcf9;
-  border: 1px solid #f0d19d;
+  background-color: #2F3C4D;
+  border: 1px solid #ABA7CC;
+  box-shadow: 0.5px 1px 3px 0.5px rgba(241, 237, 255, 0.2);
+}
+.header h1 {
+  font-family: "Young Serif", serif;
+  font-size: 3rem;
+  color: #EFFCF9;
+  background: -webkit-linear-gradient(left, #EFFCF9, #E2F1F0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #2F3C4D;
 }
 
 button {
   cursor: pointer;
-  background-color: #f0d19d;
-  border: 1px solid #4f7771;
-  font-family: "Exo", sans-serif;
-  color: #255d55;
-  box-shadow: 0em 0em 0.5em #255d55;
+  background-color: #E2F1F0;
+  border: 1px solid #1D1C29;
+  font-family: "Karla", sans-serif;
+  color: #2F3C4D;
+  box-shadow: 0em 0em 0.5em #2F3C4D;
 }
 button:hover {
-  background-color: #c29861;
+  background-color: #508591;
+  border: 1px solid #ABA7CC;
+  color: #EFFCF9;
   filter: brightness(1.1);
 }
 
@@ -155,7 +174,7 @@ button:hover {
 .num-strings-container label,
 .string-set-container label,
 .add-custom-strings-container label {
-  color: #effcf9;
+  color: #EFFCF9;
   font-size: 1.6rem;
 }
 .num-strings-container input,
@@ -173,7 +192,7 @@ button:hover {
 
 .add-custom-strings {
   padding: 0.25rem 0.75rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 .str-table-container {
@@ -191,27 +210,28 @@ button:hover {
 .str-table-container #str-table .row-top th {
   text-align: center;
   text-justify: center;
-  color: #effcf9;
+  color: #EFFCF9;
   font-size: 1.6rem;
 }
 .str-table-container #str-table .row th {
   text-align: center;
   text-justify: center;
-  color: #effcf9;
+  color: #EFFCF9;
 }
 .str-table-container #str-table .row td {
   text-align: center;
   text-justify: center;
-  background-color: #255d55;
-  color: #effcf9;
-  border: 1px solid #f0d19d;
+  background-color: #2F3C4D;
+  color: #EFFCF9;
+  border: 1px solid #ABA7CC;
+  box-shadow: 0.5px 1px 3px 0.5px rgba(241, 237, 255, 0.2);
 }
 .str-table-container #str-table .note-name {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 .str-table-container #str-table .note-name .note-inner {
-  color: #effcf9;
+  color: #EFFCF9;
   font-weight: 600;
 }
 
@@ -227,8 +247,8 @@ button:hover {
   max-width: 50rem;
   transform: translate(-50%, -50%);
   padding: 5rem;
-  background-color: #255d55;
-  border: 1px solid #f0d19d;
+  background-color: #2F3C4D;
+  border: 1px solid #E2F1F0;
 }
 .card .content {
   position: relative;
@@ -236,7 +256,7 @@ button:hover {
   flex-direction: column;
 }
 .card .content *:not(input) {
-  color: #ffffff;
+  color: #F1EDFF;
 }
 .card .content label,
 .card .content input {
@@ -265,7 +285,7 @@ button:hover {
   flex-basis: 50%;
   min-width: 50%;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: #F1EDFF;
   font-weight: 600;
 }
 .card .content .row {
