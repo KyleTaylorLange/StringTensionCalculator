@@ -1,5 +1,7 @@
 import { StringManager } from "../classes/StringManager.js"
 import { StringState } from "../classes/StringState.js"
+import { StringTable } from "../classes/StringTable.js"
+import { ScaleLengthInputEnum } from "../enums/ScaleLengthInputEnum.js"
 import { TableRenders } from "../renders/TableRenders.js"
 
 export { TableEvents }
@@ -23,12 +25,29 @@ class TableEvents {
     }
 
     /**
+     * Handles changes to the scale length input type select box.
+     * 
+     * @param table
+     */
+    public onChangeScaleLengthInputType(scaleLengthInputSelect: any, table: StringTable) {
+        scaleLengthInputSelect.onchange = ((event: any) => {
+            console.log("New: ", event.target.value)
+            console.log("Old: ", table.scaleLengthInput)
+            if (table.scaleLengthInput !== event.target.value) {
+                table.scaleLengthInput = event.target.value
+                console.log("Different value!")
+                this.renders.table('str-table')
+            }
+        }).bind(this)
+    }
+
+    /**
      * Handles conversions on change of scale length input.
      * 
      * @param scaleLengthBox 
      * @param state 
      */
-    public onChangeInputScaleLength(scaleLengthBox: any, state: StringState) {
+    public onChangeInputScaleLength(scaleLengthBox: any, state: StringState, table: StringTable) {
         scaleLengthBox.type = 'text'
         scaleLengthBox.value = state.scaleLength.toString() + '"'
 
@@ -65,7 +84,17 @@ class TableEvents {
                     inputScale /= 25.4
                 }
 
-                state.scaleLength = inputScale
+                if (table.scaleLengthInput === ScaleLengthInputEnum.Single) {
+                    table.setScaleLengths(inputScale)
+                }
+                else if (table.scaleLengthInput === ScaleLengthInputEnum.Multi) {
+                    state.scaleLength = inputScale
+                    let lastStringIdx = table.getNumStrings() - 1
+                    table.setScaleLengths(table.currentStrings.states[0].scaleLength, table.currentStrings.states[lastStringIdx].scaleLength)
+                }
+                else {
+                    state.scaleLength = inputScale
+                }
                 this.renders.table('str-table')
             }
             else {

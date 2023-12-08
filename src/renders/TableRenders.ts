@@ -1,4 +1,5 @@
 import { StringTable } from "../classes/StringTable.js"
+import { ScaleLengthInputEnum } from "../enums/ScaleLengthInputEnum.js"
 
 export { TableRenders }
 
@@ -27,6 +28,7 @@ class TableRenders {
      */
     public table(tableId: string) {
         let strTable = document.createElement('table')
+
         let tr = document.createElement('tr')
 
         let tableHeaderCells = [
@@ -43,7 +45,7 @@ class TableRenders {
 
         tableHeaderCells[0].innerText = 'String'
         tableHeaderCells[1].innerText = 'Note'
-        tableHeaderCells[2].innerText = 'Scale'
+        tableHeaderCells[2].innerText = 'Scale Length: '
         tableHeaderCells[3].innerText = 'Name'
         tableHeaderCells[4].innerText = 'Gauge'
         tableHeaderCells[5].innerText = 'Tension'
@@ -53,6 +55,25 @@ class TableRenders {
         }
 
         strTable.appendChild(tr)
+
+        // Add select box for scale length entry
+        let scaleLengthInputSelect = document.createElement('select')
+        scaleLengthInputSelect.classList.add('scale-length-input-select')
+        let idx = 0
+        for (let input in ScaleLengthInputEnum) {
+            let option = document.createElement('option')
+            option.text = input
+            option.value = input
+            scaleLengthInputSelect.appendChild(option)
+            if (this.stringTable.scaleLengthInput === input) {
+                scaleLengthInputSelect.selectedIndex = idx
+            }
+            idx++
+        }
+        tableHeaderCells[2].appendChild(scaleLengthInputSelect)
+
+        // TODO: put this in a better location
+        this.stringTable.handles.onChangeScaleLengthInputType(scaleLengthInputSelect, this.stringTable)
 
         // Add string rows.
         for (let i = 0; i < this.stringTable.getNumStrings(); i++) {

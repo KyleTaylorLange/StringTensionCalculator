@@ -1,4 +1,5 @@
 import { StringManager } from "../classes/StringManager.js";
+import { ScaleLengthInputEnum } from "../enums/ScaleLengthInputEnum.js";
 export { TableEvents };
 /**
  * Handling events for a StringTable instance.
@@ -14,12 +15,28 @@ class TableEvents {
         this._tableRenders = value;
     }
     /**
+     * Handles changes to the scale length input type select box.
+     *
+     * @param table
+     */
+    onChangeScaleLengthInputType(scaleLengthInputSelect, table) {
+        scaleLengthInputSelect.onchange = ((event) => {
+            console.log("New: ", event.target.value);
+            console.log("Old: ", table.scaleLengthInput);
+            if (table.scaleLengthInput !== event.target.value) {
+                table.scaleLengthInput = event.target.value;
+                console.log("Different value!");
+                this.renders.table('str-table');
+            }
+        }).bind(this);
+    }
+    /**
      * Handles conversions on change of scale length input.
      *
      * @param scaleLengthBox
      * @param state
      */
-    onChangeInputScaleLength(scaleLengthBox, state) {
+    onChangeInputScaleLength(scaleLengthBox, state, table) {
         scaleLengthBox.type = 'text';
         scaleLengthBox.value = state.scaleLength.toString() + '"';
         scaleLengthBox.onchange = (() => {
@@ -49,7 +66,17 @@ class TableEvents {
                     // TODO: A smart rounding system? (i.e. only if the value is very close to a certain fraction of an inch (e.g., 1/4th, 1/8th))
                     inputScale /= 25.4;
                 }
-                state.scaleLength = inputScale;
+                if (table.scaleLengthInput === ScaleLengthInputEnum.Single) {
+                    table.setScaleLengths(inputScale);
+                }
+                else if (table.scaleLengthInput === ScaleLengthInputEnum.Multi) {
+                    state.scaleLength = inputScale;
+                    let lastStringIdx = table.getNumStrings() - 1;
+                    table.setScaleLengths(table.currentStrings.states[0].scaleLength, table.currentStrings.states[lastStringIdx].scaleLength);
+                }
+                else {
+                    state.scaleLength = inputScale;
+                }
                 this.renders.table('str-table');
             }
             else {

@@ -1,4 +1,5 @@
 import { StringStateCollection } from "./StringStateCollection.js";
+import { ScaleLengthInputEnum } from "../enums/ScaleLengthInputEnum.js";
 import { TableRenders } from "../renders/TableRenders.js";
 import { TableEvents } from "../events/TableEvents.js";
 import { Utilities } from "../static/Utilities.js";
@@ -14,6 +15,7 @@ class StringTable {
         this._stringCache = new StringStateCollection();
         this._canModifyGauge = true;
         this._isCurrent = false;
+        this._scaleLengthInput = ScaleLengthInputEnum.Single;
         this._renders = new TableRenders(this);
         this._handles = new TableEvents(this.renders);
     }
@@ -46,6 +48,12 @@ class StringTable {
     }
     set isCurrent(value) {
         this._isCurrent = value;
+    }
+    get scaleLengthInput() {
+        return this._scaleLengthInput;
+    }
+    set scaleLengthInput(value) {
+        this._scaleLengthInput = value;
     }
     get renders() {
         return this._renders;
@@ -103,6 +111,34 @@ class StringTable {
         }
     }
     /**
+     * Sets the scale length for every string in this table.
+     * Entering just firstScale assigns it to every string.
+     * Entering both scale lengths calculates the scales of the intermediate strings.
+     * No calculation occurs if both values are <= 0.
+     *
+     * @param firstScale The scale length of the high string (and all strings if only value).
+     * @param secondScale The scale length of the low string.
+     */
+    setScaleLengths(firstScale, secondScale = 0) {
+        if (firstScale <= 0) {
+            return;
+        }
+        // Single scale length: assign it to all strings.
+        if (secondScale <= 0) {
+            for (let i = 0; i < this.getNumStrings(); i++) {
+                this.getString(i).scaleLength = firstScale;
+            }
+        }
+        // Handle multiscale calculations.
+        else {
+            let difference = secondScale - firstScale;
+            let numStrings = this.getNumStrings();
+            for (let i = 0; i < numStrings; i++) {
+                this.getString(i).scaleLength = firstScale + (difference * (i / (numStrings - 1)));
+            }
+        }
+    }
+    /**
      * Makes a row for a guitar string.
      *
      * @param {number} num The string number.
@@ -112,6 +148,16 @@ class StringTable {
     makeStringRow(num, state, strTable) {
         // If gauge buttons will have nullify class
         let nullify = this.canModifyGauge === false ? 'nullify' : '';
+        let nullifyScaleLength = '';
+        if (this.scaleLengthInput === ScaleLengthInputEnum.Single && num !== 1) {
+            nullifyScaleLength = 'nullify';
+            console.log("Single Num", num);
+        }
+        if (this.scaleLengthInput === ScaleLengthInputEnum.Multi && num !== 1 && num !== (this.getNumStrings())) {
+            nullifyScaleLength = 'nullify';
+            console.log("Multi Num", num);
+        }
+        console.log("Num", num, "Null", nullifyScaleLength, "Type", this.scaleLengthInput);
         // Array that will hold our fields/columns
         let fields = [];
         // Creating our elements with their respective class names
@@ -130,14 +176,14 @@ class StringTable {
         let buttonContainer = Utilities.createElement('div', 'note-buttons');
         let buttonPitchDown = Utilities.createElement('button', 'button-pitch down', '-');
         let buttonPitchUp = Utilities.createElement('button', 'button-pitch up', '+');
-        let scaleLengthBox = Utilities.createElement('input', 'scale-length');
+        let scaleLengthBox = Utilities.createElement('input', `scale-length ${nullifyScaleLength}`);
         let gaugeContainer = Utilities.createElement('div', 'gauge-buttons');
         let buttonDecreaseGauge = Utilities.createElement('button', `button-gauge-decrease ${nullify}`, '-');
         let buttonIncreaseGauge = Utilities.createElement('button', `button-gauge-increase ${nullify}`, '+');
         scaleLength.appendChild(scaleLengthBox);
         stringNum.appendChild(document.createTextNode(num.toString()));
         // Event handlers
-        this.handles.onChangeInputScaleLength(scaleLengthBox, state);
+        this.handles.onChangeInputScaleLength(scaleLengthBox, state, this);
         this.handles.onClickButtonPitchDown(buttonPitchDown, state);
         this.handles.onClickButtonPitchUp(buttonPitchUp, state);
         this.handles.onClickButtonDecreaseGauge(buttonDecreaseGauge, state);
