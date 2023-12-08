@@ -43,12 +43,12 @@ class StringSeries {
      * Returns the string matching or nearest to the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {StringInfo} A string matching that gauge or the nearest gauge (default for nearest: middle gauge).
+     * @returns {StringInfo} A string matching that gauge or the nearest gauge.
      */
     getStringByGauge(gauge) {
         const last = this.strings[this.strings.length - 1];
         const first = this.strings[0];
-        let prev, curr, nearest = this.strings[Math.trunc((this.strings.length - 1) / 2)];
+        let prev, curr, nearest;
         // Check our first and last gauge immediately, primarily in case our gauge is out-of-range.
         if (gauge <= first.gauge) {
             return first;
