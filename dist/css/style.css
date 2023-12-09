@@ -21,17 +21,17 @@
   right: 1.5rem;
   width: 2.5rem;
   height: 2.5rem;
-  padding-top: 0.15rem;
+  padding-top: 0.1rem;
   background: #508591;
-  border: 1px solid #1D1C29;
+  border: 1px solid #E2F1F0;
   border-radius: 50%;
-  color: #1D1C29;
+  color: #E2F1F0;
   font-weight: 900;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 .exit:hover {
-  filter: brightness(90%);
+  filter: brightness(110%);
 }
 
 .overlay {
@@ -96,7 +96,7 @@ select {
   background: -webkit-linear-gradient(left, #EFFCF9, #E2F1F0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-width: 0.3px;
   -webkit-text-stroke-color: #2F3C4D;
 }
 
@@ -106,7 +106,7 @@ button {
   border: 1px solid #1D1C29;
   font-family: "Karla", sans-serif;
   color: #2F3C4D;
-  box-shadow: 0em 0em 0.5em #2F3C4D;
+  font-size: 1.6rem;
 }
 button:hover {
   background-color: #508591;
@@ -115,36 +115,69 @@ button:hover {
   filter: brightness(1.1);
 }
 
-.button-pitches-container {
-  margin-bottom: 2.5rem;
+.add-custom-strings-container .add-custom-strings {
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #EFFCF9;
+  border-radius: 3px;
 }
-.button-pitches-container .button-pitches-decrease,
-.button-pitches-container .button-pitches-increase {
-  width: 100px;
-  height: 30px;
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid #EFFCF9;
+  border-radius: 3px;
 }
 
 .gauge-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   padding: 0.5rem;
 }
-.gauge-buttons .button-gauge-increase,
-.gauge-buttons .button-gauge-decrease {
+.gauge-buttons button {
   width: 25px;
+  height: 25px;
+  border: 1px solid #EFFCF9;
+  border-radius: 3px;
+}
+.gauge-buttons button:nth-child(2) {
+  padding-bottom: 0.25rem;
 }
 
 .note-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   padding: 0.5rem;
 }
 .note-buttons button {
   width: 25px;
+  height: 25px;
+  border: 1px solid #EFFCF9;
+  border-radius: 3px;
+}
+.note-buttons button:nth-child(2) {
+  padding-bottom: 0.25rem;
+}
+
+.button-pitches-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.button-pitches-container button {
+  width: 100px;
+  height: 40px;
+  border: 1px solid #EFFCF9;
+  border-radius: 3px;
+  font-weight: 500;
 }
 
 .main-container {
@@ -152,7 +185,7 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 .options {
@@ -175,19 +208,24 @@ button:hover {
 .string-set-container label,
 .add-custom-strings-container label {
   color: #EFFCF9;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+  font-weight: 700;
 }
 .num-strings-container input,
 .string-set-container input,
 .add-custom-strings-container input {
+  font-family: "Karla", sans-serif;
   font-size: 1.6rem;
   border-radius: 0.2rem;
+  padding: 0.35rem;
 }
 .num-strings-container select,
 .string-set-container select,
 .add-custom-strings-container select {
+  font-family: "Karla", sans-serif;
   font-size: 1.6rem;
   border-radius: 0.2rem;
+  padding: 0.35rem;
 }
 
 .add-custom-strings {
@@ -211,7 +249,7 @@ button:hover {
   text-align: center;
   text-justify: center;
   color: #EFFCF9;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
 }
 .str-table-container #str-table .row th {
   text-align: center;
@@ -225,6 +263,11 @@ button:hover {
   color: #EFFCF9;
   border: 1px solid #ABA7CC;
   box-shadow: 0.5px 1px 3px 0.5px rgba(241, 237, 255, 0.2);
+}
+.str-table-container #str-table .row input {
+  font-size: 1.6rem;
+  border-radius: 0.2rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.35rem;
 }
 .str-table-container #str-table .note-name {
   padding-top: 1rem;
@@ -258,9 +301,13 @@ button:hover {
 .card .content *:not(input) {
   color: #F1EDFF;
 }
-.card .content label,
+.card .content label {
+  margin-bottom: 1rem;
+}
 .card .content input {
   margin-bottom: 1rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.35rem !important;
+  border-radius: 0.2rem;
 }
 .card .content .opening-message {
   margin-bottom: 2.5rem;

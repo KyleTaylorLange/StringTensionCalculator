@@ -26,10 +26,15 @@
 			color: $white-primary;
 		}
 		
-		label,
-		input {
+		label {
 			margin-bottom: 1rem;
 		}
+
+        input {
+            margin-bottom: 1rem;
+            padding: 0.1rem 0.1rem 0.1rem 0.35rem !important;
+            border-radius: 0.2rem;
+        }
 		
 		.opening-message {
 			margin-bottom: 2.5rem;

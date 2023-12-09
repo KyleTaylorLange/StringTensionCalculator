@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .options {
@@ -28,17 +28,22 @@
 
     label {
         color: $grey-primary;
-        font-size: 1.6rem;
+        font-size: 1.7rem;
+        font-weight: 700;
     }
 
     input {
+        font-family: $font-main;
         font-size: 1.6rem;
         border-radius: .2rem;
+        padding: 0.35rem;
     }
 
     select {
+        font-family: $font-main;
         font-size: 1.6rem;
         border-radius: .2rem;
+        padding: 0.35rem;
     }
 }
 
@@ -65,9 +70,8 @@
                 text-align: center;
                 text-justify: center;
                 color: $grey-primary;
-                font-size: 1.6rem;
+                font-size: 1.7rem;
             }
-
         }
 
         .row {
@@ -84,6 +88,12 @@
                 color: $grey-primary;
                 border: 1px solid #ABA7CC;
                 box-shadow: 0.5px 1px 3px 0.5px rgba($white-primary, 0.2);
+            }
+
+            input {
+                font-size: 1.6rem;
+                border-radius: .2rem;
+                padding: 0.1rem 0.1rem 0.1rem 0.35rem;
             }
         }
 
