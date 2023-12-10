@@ -6,7 +6,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    
     @include mtb-2-5();
 
     background-color: $blue-primary;
@@ -22,5 +24,9 @@
         -webkit-text-fill-color: transparent;
         -webkit-text-stroke-width: 0.3px;
         -webkit-text-stroke-color: $blue-primary;
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
     }
 }

@@ -58,15 +58,16 @@ html {
 
 body {
   background-color: #1D1C29;
+  margin: 0 15%;
 }
-@media only screen and (min-width: 1024px) {
+@media (max-width: 1024px) {
   body {
-    margin: 0 15%;
+    margin: 0 7.5%;
   }
 }
-@media only screen and (max-width: 1023px) {
+@media (max-width: 768px) {
   body {
-    margin: 0 2.5%;
+    margin: 0 3.75%;
   }
 }
 
@@ -83,6 +84,8 @@ select {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
   background-color: #2F3C4D;
@@ -98,6 +101,11 @@ select {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 0.3px;
   -webkit-text-stroke-color: #2F3C4D;
+}
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
 }
 
 button {
@@ -139,13 +147,19 @@ button:hover {
   padding: 0.5rem;
 }
 .gauge-buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 25px;
   height: 25px;
   border: 1px solid #EFFCF9;
   border-radius: 3px;
 }
-.gauge-buttons button:nth-child(2) {
-  padding-bottom: 0.25rem;
+@media (max-width: 450px) {
+  .gauge-buttons button {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .note-buttons {
@@ -156,13 +170,19 @@ button:hover {
   padding: 0.5rem;
 }
 .note-buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 25px;
   height: 25px;
   border: 1px solid #EFFCF9;
   border-radius: 3px;
 }
-.note-buttons button:nth-child(2) {
-  padding-bottom: 0.25rem;
+@media (max-width: 450px) {
+  .note-buttons button {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .button-pitches-container {
@@ -179,6 +199,18 @@ button:hover {
   border-radius: 3px;
   font-weight: 500;
 }
+@media (max-width: 768px) {
+  .button-pitches-container button {
+    width: 80px;
+    height: 32px;
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .button-pitches-container button {
+    font-size: 1.2rem;
+  }
+}
 
 .main-container {
   display: flex;
@@ -187,12 +219,30 @@ button:hover {
   align-items: center;
   font-size: 1.6rem;
 }
+@media (max-width: 768px) {
+  .main-container {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .main-container {
+    font-size: 1.2rem;
+  }
+}
 
 .options {
   display: flex;
-  gap: 3rem;
   justify-content: center;
   align-items: center;
+  flex-flow: wrap;
+  gap: 3rem;
+  padding-bottom: 2rem;
+  margin: 1rem 0.7rem;
+}
+@media (max-width: 768px) {
+  .options {
+    gap: 2rem;
+  }
 }
 
 .num-strings-container,
@@ -202,7 +252,13 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
-  margin-bottom: 2.5rem;
+}
+@media (max-width: 768px) {
+  .num-strings-container,
+  .string-set-container,
+  .add-custom-strings-container {
+    margin-bottom: 0;
+  }
 }
 .num-strings-container label,
 .string-set-container label,
@@ -210,6 +266,20 @@ button:hover {
   color: #EFFCF9;
   font-size: 1.7rem;
   font-weight: 700;
+}
+@media (max-width: 768px) {
+  .num-strings-container label,
+  .string-set-container label,
+  .add-custom-strings-container label {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 450px) {
+  .num-strings-container label,
+  .string-set-container label,
+  .add-custom-strings-container label {
+    font-size: 1.3rem;
+  }
 }
 .num-strings-container input,
 .string-set-container input,
@@ -219,6 +289,20 @@ button:hover {
   border-radius: 0.2rem;
   padding: 0.35rem;
 }
+@media (max-width: 768px) {
+  .num-strings-container input,
+  .string-set-container input,
+  .add-custom-strings-container input {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .num-strings-container input,
+  .string-set-container input,
+  .add-custom-strings-container input {
+    font-size: 1.2rem;
+  }
+}
 .num-strings-container select,
 .string-set-container select,
 .add-custom-strings-container select {
@@ -227,10 +311,34 @@ button:hover {
   border-radius: 0.2rem;
   padding: 0.35rem;
 }
+@media (max-width: 768px) {
+  .num-strings-container select,
+  .string-set-container select,
+  .add-custom-strings-container select {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .num-strings-container select,
+  .string-set-container select,
+  .add-custom-strings-container select {
+    font-size: 1.2rem;
+  }
+}
 
 .add-custom-strings {
   padding: 0.25rem 0.75rem;
   font-size: 1.6rem;
+}
+@media (max-width: 768px) {
+  .add-custom-strings {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .add-custom-strings {
+    font-size: 1.2rem;
+  }
 }
 
 .str-table-container {
@@ -244,6 +352,14 @@ button:hover {
   width: 100%;
   border-spacing: 0.7rem;
   margin-bottom: 2.5rem;
+}
+@media (max-width: 768px) {
+  .str-table-container #str-table .row-top:first-child {
+    display: none;
+  }
+  .str-table-container #str-table .string-num {
+    display: none;
+  }
 }
 .str-table-container #str-table .row-top th {
   text-align: center;
@@ -263,11 +379,23 @@ button:hover {
   color: #EFFCF9;
   border: 1px solid #ABA7CC;
   box-shadow: 0.5px 1px 3px 0.5px rgba(241, 237, 255, 0.2);
+  padding: 0.5rem;
 }
 .str-table-container #str-table .row input {
   font-size: 1.6rem;
   border-radius: 0.2rem;
   padding: 0.1rem 0.1rem 0.1rem 0.35rem;
+  max-width: 8rem;
+}
+@media (max-width: 768px) {
+  .str-table-container #str-table .row input {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 768px) {
+  .str-table-container #str-table .row input {
+    font-size: 1.2rem;
+  }
 }
 .str-table-container #str-table .note-name {
   padding-top: 1rem;
@@ -279,6 +407,7 @@ button:hover {
 }
 
 .card {
+  box-sizing: border-box;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -293,7 +422,14 @@ button:hover {
   background-color: #2F3C4D;
   border: 1px solid #E2F1F0;
 }
+@media (max-width: 768px) {
+  .card {
+    max-width: 35rem;
+    padding: 2.5rem;
+  }
+}
 .card .content {
+  display: flex;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -312,6 +448,11 @@ button:hover {
 .card .content .opening-message {
   margin-bottom: 2.5rem;
   font-weight: 600;
+}
+@media (max-width: 768px) {
+  .card .content .opening-message {
+    margin-top: 1rem;
+  }
 }
 .card .content .row-top {
   display: flex;
@@ -347,11 +488,45 @@ button:hover {
 .card .content .row .custom-string-gauge {
   flex-basis: 50%;
 }
+@media (max-width: 768px) {
+  .card .content .row .custom-string-weight,
+  .card .content .row .custom-string-gauge {
+    max-width: 15rem;
+  }
+}
 .card .submit {
   width: 15rem;
   height: 2.5rem;
   margin: 1rem 2.5rem 0 2.5rem;
   font-weight: 600;
+}
+@media (max-width: 768px) {
+  .card .submit {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .card .submit {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 768px) {
+  .card .exit {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 768px) {
+  .card .exit {
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.2rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

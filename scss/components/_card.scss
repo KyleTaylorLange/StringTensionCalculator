@@ -1,6 +1,7 @@
 @use '../abstracts/variables' as *;
 
 .card {
+    box-sizing: border-box;
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -17,7 +18,14 @@
 	background-color: $blue-primary;
 	border: 1px solid $slate-primary;
 
+
+    @media (max-width: 768px) {
+        max-width: 35rem;
+        padding: 2.5rem;
+    }
+
 	.content {
+        display: flex;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -39,6 +47,10 @@
 		.opening-message {
 			margin-bottom: 2.5rem;
 			font-weight: 600;
+            
+            @media (max-width: 768px) {
+                margin-top: 1rem;
+            }
 		}
 
 		.row-top {
@@ -80,6 +92,10 @@
 			.custom-string-weight,
 			.custom-string-gauge {
 				flex-basis: 50%;
+
+                @media (max-width: 768px) {
+                    max-width: 15rem;
+                }
 			}
 		}
 	}
@@ -89,5 +105,31 @@
 		height: 2.5rem;
 		margin: 1rem 2.5rem 0 2.5rem;
 		font-weight: 600;
+
+        @media (max-width: 768px) {
+            font-size: 1.4rem;
+        }     
+        
+        @media (max-width: 450px) {
+            font-size: 1.2rem;
+        }        
 	}
+
+    .exit {
+        @media (max-width: 768px) {
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 2rem;
+            height: 2rem;
+            font-size: 1.4rem;
+        }    
+
+        @media (max-width: 768px) {
+            top: 1rem;
+            right: 1rem;
+            width: 2rem;
+            height: 2rem;
+            font-size: 1.2rem;
+        }    
+    }
 }

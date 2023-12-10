@@ -7,13 +7,28 @@
     justify-content: center;
     align-items: center;
     font-size: 1.6rem;
+
+    @media (max-width: 768px) {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 450px) {
+        font-size: 1.2rem;
+    }
 }
 
 .options {
     display: flex;
-    gap: 3rem;
     justify-content: center;
     align-items: center;
+    flex-flow: wrap;
+    gap: 3rem;
+    padding-bottom: 2rem;
+    margin: 1rem 0.7rem;
+
+    @media (max-width: 768px) {
+        gap: 2rem;
+    }
 }
 
 .num-strings-container,
@@ -24,12 +39,22 @@
     align-items: center;
     gap: 2.5rem;
 
-    @include mb-2-5();
+    @media (max-width: 768px) {
+        margin-bottom: 0;
+    }
 
     label {
         color: $grey-primary;
         font-size: 1.7rem;
         font-weight: 700;
+
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 450px) {
+            font-size: 1.3rem;
+        }
     }
 
     input {
@@ -37,6 +62,14 @@
         font-size: 1.6rem;
         border-radius: .2rem;
         padding: 0.35rem;
+
+        @media (max-width: 768px) {
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 450px) {
+            font-size: 1.2rem;
+        }
     }
 
     select {
@@ -44,12 +77,28 @@
         font-size: 1.6rem;
         border-radius: .2rem;
         padding: 0.35rem;
+
+        @media (max-width: 768px) {
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 450px) {
+            font-size: 1.2rem;
+        }
     }
 }
 
 .add-custom-strings {
     padding: 0.25rem 0.75rem;
     font-size: 1.6rem;
+
+    @media (max-width: 768px) {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 450px) {
+        font-size: 1.2rem;
+    }
 }
 
 .str-table-container {
@@ -62,6 +111,18 @@
     #str-table {
         width: 100%;
         border-spacing: 0.7rem;
+
+        @media (max-width: 768px) {
+            .row-top {
+                &:first-child {
+                    display: none;
+                }
+            }
+
+            .string-num {
+                display: none;
+            }
+        }
 
         @include mb-2-5();
 
@@ -88,12 +149,22 @@
                 color: $grey-primary;
                 border: 1px solid #ABA7CC;
                 box-shadow: 0.5px 1px 3px 0.5px rgba($white-primary, 0.2);
+                padding: 0.5rem;
             }
 
             input {
                 font-size: 1.6rem;
                 border-radius: .2rem;
                 padding: 0.1rem 0.1rem 0.1rem 0.35rem;
+                max-width: 8rem;
+
+                @media (max-width: 768px) {
+                    font-size: 1.4rem;
+                }
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem;
+                }
             }
         }
 
