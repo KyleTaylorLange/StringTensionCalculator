@@ -58,7 +58,12 @@ html {
 
 body {
   background-color: #1D1C29;
-  margin: 0 15%;
+  margin: 0 20%;
+}
+@media (max-width: 1280px) {
+  body {
+    margin: 0 15%;
+  }
 }
 @media (max-width: 1024px) {
   body {
@@ -155,6 +160,9 @@ button:hover {
   border: 1px solid #EFFCF9;
   border-radius: 3px;
 }
+.gauge-buttons button:nth-child(2) {
+  padding-bottom: 0.3rem;
+}
 @media (max-width: 450px) {
   .gauge-buttons button {
     width: 15px;
@@ -177,6 +185,9 @@ button:hover {
   height: 25px;
   border: 1px solid #EFFCF9;
   border-radius: 3px;
+}
+.note-buttons button:nth-child(2) {
+  padding-bottom: 0.3rem;
 }
 @media (max-width: 450px) {
   .note-buttons button {
@@ -389,11 +400,30 @@ button:hover {
 }
 @media (max-width: 768px) {
   .str-table-container #str-table .row input {
+    max-width: 6rem;
     font-size: 1.4rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .str-table-container #str-table .row input {
+    max-width: 4rem;
+    font-size: 1.2rem;
+  }
+}
+.str-table-container #str-table .row select {
+  font-size: 1.6rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.35rem;
+  border-radius: 0.2rem;
+}
+@media (max-width: 768px) {
+  .str-table-container #str-table .row select {
+    max-width: 12rem;
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 450px) {
+  .str-table-container #str-table .row select {
+    max-width: 8rem;
     font-size: 1.2rem;
   }
 }

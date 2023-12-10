@@ -13,7 +13,11 @@ html {
 
 body {
     background-color: $black-primary;
-    margin: 0 15%;
+    margin: 0 20%;
+
+    @media (max-width: 1280px) {
+        margin: 0 15%;
+    }
 
     @media (max-width: 1024px) {
         margin: 0 7.5%;
