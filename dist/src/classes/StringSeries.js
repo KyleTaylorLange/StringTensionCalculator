@@ -40,19 +40,37 @@ class StringSeries {
         this.strings.forEach((str) => str.type = this.type);
     }
     /**
-     * Returns the first string matching the input gauge.
+     * Returns the string matching or nearest to the input gauge.
      *
      * @param {number} gauge The gauge to search for.
-     * @returns {StringInfo} A string matching that gauge, or else the middle string in the series.
+     * @returns {StringInfo} A string matching that gauge or the nearest gauge.
      */
     getStringByGauge(gauge) {
-        const last = this.strings.length - 1;
-        for (const i in this.strings) {
+        const last = this.strings[this.strings.length - 1];
+        const first = this.strings[0];
+        let prev, curr, nearest;
+        // Check our first and last gauge immediately, primarily in case our gauge is out-of-range.
+        if (gauge <= first.gauge) {
+            return first;
+        }
+        if (gauge >= last.gauge) {
+            return last;
+        }
+        /*
+         * Returning the match or else simply getting the nearest value.
+         * Only checking second index through second-to-last index as we have already checked first/last.
+         */
+        for (let i = 1; i < this.strings.length - 1; i++) {
             if (this.strings[i].gauge === gauge) {
                 return this.strings[i];
             }
+            prev = this.strings[i - 1];
+            curr = this.strings[i];
+            if (Math.abs(gauge - curr.gauge) < Math.abs(gauge - prev.gauge)) {
+                nearest = curr;
+            }
         }
-        return this.strings[Math.trunc(last / 2)];
+        return nearest;
     }
     /**
      * Gets the string before the input string in the series.
