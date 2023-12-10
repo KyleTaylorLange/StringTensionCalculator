@@ -1,4 +1,5 @@
 import { StringManager } from "../classes/StringManager.js"
+import { StringSeries } from "../classes/StringSeries.js"
 import { StringState } from "../classes/StringState.js"
 import { TableRenders } from "../renders/TableRenders.js"
 
@@ -126,6 +127,23 @@ class TableEvents {
             let currentSeries = StringManager.getInstance().getSeriesByBrandAndType(state.strInfo.brand, state.strInfo.type)
 
             state.strInfo = currentSeries.getNextString(state.strInfo)
+            this.renders.table('str-table')
+        }).bind(this)
+    }
+
+    /**
+     * Handles changes to the selected string type.
+     * 
+     * @param typeSelectBox The select box for choosing the string brand/type.
+     * @param state The string state to modify.
+     */
+    public onChangeStringType(typeSelectBox: any, state: StringState) {
+        typeSelectBox.onchange = (() => {
+            let index = typeSelectBox.selectedIndex
+            let option: string[] = typeSelectBox.options[index].value.split(";")
+            let series: StringSeries = StringManager.getInstance().getSeriesByBrandAndType(option[0], option[1])
+
+            state.strInfo = series.getStringByGauge(state.strInfo.gauge)
             this.renders.table('str-table')
         }).bind(this)
     }
