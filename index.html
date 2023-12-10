@@ -13,31 +13,33 @@
 </head>
 
 <body>
-    <header class="header">
-        <h1>String Tension Calculator</h1>
-    </header>
-    <div class="main-container">
-        <div class="options">
-            <div class="num-strings-container">
-                <label for="num-strings">Number of Strings:</label>
-                <div class="num-strings-inner"></div>
+    <div class="outer-container">
+        <header class="header">
+            <h1>String Tension Calculator</h1>
+        </header>
+        <div class="main-container">
+            <div class="options">
+                <div class="num-strings-container">
+                    <label for="num-strings">Number of Strings:</label>
+                    <div class="num-strings-inner"></div>
+                </div>
+                <div class="string-set-container">
+                    <label for="string-set">Select Strings:</label>
+                    <div class="string-set-inner"></div>
+                </div>
+                <div class="add-custom-strings-container">
+                    <button class="add-custom-strings">Use Custom Strings</button>
+                </div>
             </div>
-            <div class="string-set-container">
-                <label for="string-set">Select Strings:</label>
-                <div class="string-set-inner"></div>
+            <div class="str-table-container">
+                <table class="str-table" id="str-table">
+                    <!-- Table to be rendered -->
+                </table>
             </div>
-            <div class="add-custom-strings-container">
-                <button class="add-custom-strings">Use Custom Strings</button>
+            <div class="button-pitches-container">
+                <button class="button-pitches-decrease" type="button">Pitch -1</button>
+                <button class="button-pitches-increase" type="button">Pitch +1</button>
             </div>
-        </div>
-        <div class="str-table-container">
-            <table class="str-table" id="str-table">
-                <!-- Table to be rendered -->
-            </table>
-        </div>
-        <div class="button-pitches-container">
-            <button class="button-pitches-decrease" type="button">Pitch -1</button>
-            <button class="button-pitches-increase" type="button">Pitch +1</button>
         </div>
     </div>
 </body>

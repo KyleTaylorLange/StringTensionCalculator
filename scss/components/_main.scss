@@ -1,6 +1,19 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 
+.outer-container {
+    max-width: 1024px;
+    margin: 0 auto;
+
+    @media (max-width: 1280px) {
+        margin: 0 10%;
+    }
+
+    @media (max-width: 768px) {
+        margin: 0 3.75%;
+    }
+}
+
 .main-container {
     display: flex;
     flex-direction: column;

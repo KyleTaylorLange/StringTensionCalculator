@@ -13,19 +13,6 @@ html {
 
 body {
     background-color: $black-primary;
-    margin: 0 20%;
-
-    @media (max-width: 1280px) {
-        margin: 0 15%;
-    }
-
-    @media (max-width: 1024px) {
-        margin: 0 7.5%;
-    }
-
-    @media (max-width: 768px) {
-        margin: 0 3.75%;
-    }
 }
 
 input {

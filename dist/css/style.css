@@ -58,22 +58,6 @@ html {
 
 body {
   background-color: #1D1C29;
-  margin: 0 20%;
-}
-@media (max-width: 1280px) {
-  body {
-    margin: 0 15%;
-  }
-}
-@media (max-width: 1024px) {
-  body {
-    margin: 0 7.5%;
-  }
-}
-@media (max-width: 768px) {
-  body {
-    margin: 0 3.75%;
-  }
 }
 
 input {
@@ -220,6 +204,21 @@ button:hover {
 @media (max-width: 450px) {
   .button-pitches-container button {
     font-size: 1.2rem;
+  }
+}
+
+.outer-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+@media (max-width: 1280px) {
+  .outer-container {
+    margin: 0 10%;
+  }
+}
+@media (max-width: 768px) {
+  .outer-container {
+    margin: 0 3.75%;
   }
 }
 
