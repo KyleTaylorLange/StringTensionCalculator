@@ -8,17 +8,17 @@
 
 html {
     font-size: 10px; // 10px === 1rem, use rem primarily
-    font-family: 'Exo', sans-serif;
+    font-family: $font-main;
 }
 
 body {
-    background-color: $green-primary;
+    background-color: $black-primary;
+}
 
-    @media only screen and (min-width: 1024px) {
-        margin: 0 15%;
-    }
+input {
+    background: $white-primary;
+}
 
-    @media only screen and (max-width: 1023px) {
-        margin: 0 2.5%;
-    }
+select {
+    background: $white-primary;
 }

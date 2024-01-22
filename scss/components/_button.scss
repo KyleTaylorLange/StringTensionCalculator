@@ -3,38 +3,62 @@
 
 button {
     cursor: pointer;
-    background-color: $yellow-primary;
-    border: 1px solid $green-primary;
-    font-family: 'Exo', sans-serif;
-    color: $green-secondary;
-    box-shadow: 0em 0em 0.5em $green-secondary;
+    background-color: $slate-primary;
+    border: 1px solid $black-primary;
+    font-family: $font-main;
+    color: $blue-primary;
+    font-size: 1.6rem;
 
     &:hover {
-        background-color: $yellow-hover;
+        background-color: $blue-secondary;
+        border: 1px solid $grey-border;
+        color: $grey-primary;
         filter: brightness(1.1)
     }
 }
 
-.button-pitches-container {
-    @include mb-2-5();
-
-    .button-pitches-decrease,
-    .button-pitches-increase {
-        width: 100px;
-        height: 30px;
+.add-custom-strings-container {
+    .add-custom-strings {
+        font-weight: 500;
+        padding: 0.5rem 1.5rem;
+        border: 1px solid $grey-primary;
+        border-radius: 3px;
     }
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid $grey-primary;
+    border-radius: 3px;
 }
 
 .gauge-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
     padding: 0.5rem;
 
-    .button-gauge-increase,
-    .button-gauge-decrease {
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 25px;
+        height: 25px;
+        border: 1px solid $grey-primary;
+        border-radius: 3px;
+
+        &:nth-child(2) {
+            padding-bottom: 0.3rem;
+        }
+
+        @media (max-width: 450px) {
+            width: 15px;
+            height: 15px;
+        }
     }
 }
 
@@ -42,10 +66,52 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
     padding: 0.5rem;
 
     button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 25px;
+        height: 25px;
+        border: 1px solid $grey-primary;
+        border-radius: 3px;
+
+        &:nth-child(2) {
+            padding-bottom: 0.3rem;
+        }
+        
+        @media (max-width: 450px) {
+            width: 15px;
+            height: 15px;
+        }
+    }
+}
+
+.button-pitches-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    @include mb-2-5();
+
+    button {
+        width: 100px;
+        height: 40px;
+        border: 1px solid $grey-primary;
+        border-radius: 3px;
+        font-weight: 500;
+
+        @media (max-width: 768px) {
+            width: 80px;
+            height: 32px;
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 450px) {
+            font-size: 1.2rem;
+        }
     }
 }

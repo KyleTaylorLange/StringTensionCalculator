@@ -2,15 +2,31 @@
 @use '../abstracts/mixins' as *;
 
 .header {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    
+    @include mtb-2-5();
 
-	@include mtb-2-5();
+    background-color: $blue-primary;
+    border: 1px solid $grey-border;
+    box-shadow: 0.5px 1px 3px 0.5px rgba($white-primary, 0.2);
 
-	font-family: 'Rubik Mono One', sans-serif;
-	background-color: $green-secondary;
-	color: $grey-primary;
-	border: 1px solid $yellow-primary;
+    h1 {
+        font-family: $font-header;
+        font-size: 3rem;
+        color: $grey-primary;
+        background: -webkit-linear-gradient(left, $grey-primary, $slate-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke-width: 0.3px;
+        -webkit-text-stroke-color: $blue-primary;
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
 }
