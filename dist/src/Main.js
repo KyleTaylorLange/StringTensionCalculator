@@ -34,13 +34,9 @@ class Main {
      */
     run() {
         // Renders input of type number first
-        if (!document.getElementsByClassName('num-strings')[0]) {
-            this.renders.numberInput();
-        }
+        this.renders.numberInput();
         // Renders string select options
-        if (!document.getElementsByClassName('string-set')[0]) {
-            this.renders.stringSelect();
-        }
+        this.renders.stringSelect();
         // Event handlers
         this.handles.onChangeInputNumberOfStrings();
         this.handles.onChangeSelectStringSet();
