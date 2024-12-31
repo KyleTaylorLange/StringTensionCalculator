@@ -373,18 +373,15 @@ button:hover {
 }
 .str-table-container #str-table .row-top th {
   text-align: center;
-  text-justify: center;
   color: #EFFCF9;
   font-size: 1.7rem;
 }
 .str-table-container #str-table .row th {
   text-align: center;
-  text-justify: center;
   color: #EFFCF9;
 }
 .str-table-container #str-table .row td {
   text-align: center;
-  text-justify: center;
   background-color: #2F3C4D;
   color: #EFFCF9;
   border: 1px solid #ABA7CC;

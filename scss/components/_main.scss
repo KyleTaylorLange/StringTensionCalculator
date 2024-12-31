@@ -142,7 +142,6 @@
         .row-top {
             th {
                 text-align: center;
-                text-justify: center;
                 color: $grey-primary;
                 font-size: 1.7rem;
             }
@@ -151,13 +150,11 @@
         .row {
             th {
                 text-align: center;
-                text-justify: center;
                 color: $grey-primary;
             }
 
             td {
                 text-align: center;
-                text-justify: center;
                 background-color: $blue-primary;
                 color: $grey-primary;
                 border: 1px solid #ABA7CC;
