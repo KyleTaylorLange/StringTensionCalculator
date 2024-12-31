@@ -1,6 +1,6 @@
 # String Tension Calculator
 
-If you want to simply use it, go [here](https://kyletaylorlange.github.io/StringTensionCalculator/).
+If you want to simply use it, go [here](https://kyletaylorlange.github.io/StringTensionCalculator/)!
 
 Otherwise, if you would like work on it locally on your machine, please follow the instructions below.
 
