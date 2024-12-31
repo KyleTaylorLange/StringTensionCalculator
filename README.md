@@ -1,6 +1,6 @@
 # String Tension Calculator
 
-If you want to simply use it, go [here](https://kyletaylorlange.github.io/StringTensionCalculator/)!
+If you want to simply use it, go [here](https://kyletaylorlange.github.io/StringTensionCalculator/).
 
 Otherwise, if you would like work on it locally on your machine, please follow the instructions below.
 
@@ -12,7 +12,7 @@ Ensure you have the `sass` and `typescript` packages installed in `npm`, which r
 
 This project is using the `import` syntax for ES6 modules.
 
-To view the project locally, using the VSCode extension [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) works pretty well! Once it's installed, go to the `index.html` file and then click **Go Live** in the status bar, and this will open it in the browser.
+To view the project locally, using the VSCode extension [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) works pretty well. Once it's installed, go to the `index.html` file and then click **Go Live** in the status bar, and this will open it in the browser.
 
 ## Sass
 
