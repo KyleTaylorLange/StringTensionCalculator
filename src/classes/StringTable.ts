@@ -80,6 +80,13 @@ class StringTable {
 
     public set scaleLengthInput(value: ScaleLengthInputEnum) {
         this._scaleLengthInput = value
+        // Ensure scale lengths are consistent with the new input method.
+        if (value == ScaleLengthInputEnum.Single) {
+            this.setScaleLengths(this.getString(0).scaleLength)
+        }
+        if (value == ScaleLengthInputEnum.Multi) {
+            this.setScaleLengths(this.getString(0).scaleLength, this.getString(this.getNumStrings() - 1).scaleLength)
+        }
     }
 
     public get renders(): TableRenders {
@@ -127,8 +134,22 @@ class StringTable {
             return
         }
 
-        while (numStrings > this.currentStrings.states.length && this.stringCache.states.length > 0) {
-            this.currentStrings.states.push(this.stringCache.states.pop()!)
+        const prevNumStrings: number = this.getNumStrings()
+        if (numStrings > prevNumStrings) {
+            const prevFirstScale: number = this.getString(0).scaleLength
+            const prevSecondScale: number = this.getString(prevNumStrings - 1).scaleLength
+
+            while (numStrings > this.currentStrings.states.length && this.stringCache.states.length > 0) {
+                this.currentStrings.states.push(this.stringCache.states.pop()!)
+            }
+
+            if (this.scaleLengthInput == ScaleLengthInputEnum.Single) {
+                this.setScaleLengths(prevFirstScale)
+            }
+
+            if (this.scaleLengthInput == ScaleLengthInputEnum.Multi) {
+                this.setScaleLengths(prevFirstScale, prevSecondScale, prevNumStrings - 1)
+            }
         }
 
         while (numStrings < this.currentStrings.states.length && this.currentStrings.states.length > 0) {
@@ -155,8 +176,9 @@ class StringTable {
      * 
      * @param firstScale The scale length of the high string (and all strings if only value).
      * @param secondScale The scale length of the low string.
+     * @param numSteps If present, overrides the number of steps to get from firstScale to secondScale.
      */
-    public setScaleLengths(firstScale: number, secondScale: number = 0) {
+    public setScaleLengths(firstScale: number, secondScale: number = 0, numSteps: number = 0) {
         if (firstScale <= 0) {
             return
         }
@@ -169,10 +191,13 @@ class StringTable {
         }
         // Handle multiscale calculations.
         else {
-            let difference = secondScale - firstScale
             let numStrings = this.getNumStrings()
+            if (numSteps == 0) {
+                numSteps = numStrings - 1
+            }
+            let stepDistance = (secondScale - firstScale) / numSteps
             for (let i = 0; i < numStrings; i++) {
-                this.getString(i).scaleLength = firstScale + (difference * (i / (numStrings - 1)))
+                this.getString(i).scaleLength = firstScale + (stepDistance * i)
             }
         }
     }

@@ -31,11 +31,8 @@ class TableEvents {
      */
     public onChangeScaleLengthInputType(scaleLengthInputSelect: any, table: StringTable) {
         scaleLengthInputSelect.onchange = ((event: any) => {
-            console.log("New: ", event.target.value)
-            console.log("Old: ", table.scaleLengthInput)
             if (table.scaleLengthInput !== event.target.value) {
                 table.scaleLengthInput = event.target.value
-                console.log("Different value!")
                 this.renders.table('str-table')
             }
         }).bind(this)
